@@ -2,15 +2,16 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Color;
 
-public class GridPanel extends JComponent {
+public class GridPanel extends JPanel {
 
     private int width;
     private int height;
     private JPanel gridPanel;
     
     public GridPanel(String player, int width, int height) {
-        this.setBackground(Color.BLUE);
+        this.setBackground(new Color(51, 153, 255));
         this.width = width;
         this.height = height;
         gridPanel = new JPanel();
@@ -20,22 +21,26 @@ public class GridPanel extends JComponent {
         this.setSize(width, height);
     }
 
+    @Override
     public void paint(Graphics g) {
 
-        int rows = 11;
-        int columns = 11;
+        super.paint(g);
+
+        int rows = 10;
+        int columns = 10;
 
         //drawing the rows
         int addRows = height / rows;
-        for (int i = 0; i < rows; i++) {
+        for (int i = 0; i <= rows; i++) {
             g.drawLine(0, i * addRows, width, i * addRows);
         }
 
         //drawing the columns
         int addColumns = width / columns;
-        for (int i = 0; i < columns; i++) {
+        for (int i = 0; i <= columns; i++) {
             g.drawLine(i * addColumns, 0, i * addColumns, height);
         }
+
     }
 
 }
