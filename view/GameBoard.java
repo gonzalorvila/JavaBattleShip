@@ -11,7 +11,7 @@ import java.util.Iterator;
 
 public class GameBoard 
 {
-    public static int frameSize = 500;
+    public static int frameSize = 1500;
 
     private GridPanel computerGrid;
     private GridPanel userGrid;
@@ -28,21 +28,21 @@ public class GameBoard
     {
         // Top level container for the game
         mainFrame = new JFrame("Battleship");
-        mainFrame.setPreferredSize(new Dimension(frameSize, frameSize*3/2));
+        mainFrame.setPreferredSize(new Dimension(frameSize, frameSize*2/7));
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Top level panel representing 
         JPanel battleshipTable = new JPanel();
-        battleshipTable.setLayout(new BoxLayout(battleshipTable, BoxLayout.Y_AXIS));
+        battleshipTable.setLayout(new BoxLayout(battleshipTable, BoxLayout.X_AXIS));
 
         // Panel to show the computer's grid
-        this.computerGrid = new GridPanel("OPPONENT", 500, 370);
+        this.computerGrid = new GridPanel("OPPONENT", 350, 350);
 
         // Panel to show user's grid
-        this.userGrid = new GridPanel("PLAYER", 500, 370);
+        this.userGrid = new GridPanel("PLAYER", 350, 350);
 
         //Panel to show ships
-        this.ships = new ShipPanel(200, 10);
+        this.ships = new ShipPanel(100, 200);
         ships.addShip(5);
         ships.addShip(4);
         ships.addShip(3);
