@@ -11,11 +11,18 @@ import java.util.Iterator;
 
 public class GameBoard 
 {
-    public static int frameSize = 1000;
+    public static int frameSize = 500;
 
     private GridPanel computerGrid;
     private GridPanel userGrid;
     private JFrame mainFrame;
+    private ShipPanel ships;
+    /*private ShipPanel Carrier;
+    private ShipPanel battleship;
+    private ShipPanel cruiser;
+    private ShipPanel submarine;
+    private ShipPanel destroyer;*/
+
 
     public GameBoard()
     {
@@ -34,17 +41,27 @@ public class GameBoard
         // Panel to show user's grid
         this.userGrid = new GridPanel(500, 500);
 
+        //Panel to show ships
+        this.ships = new ShipPanel(450);
+        ships.addShip(5);
+        ships.addShip(4);
+        ships.addShip(3);
+        ships.addShip(3);
+        ships.addShip(2);
+        
+
         // Place both grids on the  battleship table
         battleshipTable.add(this.computerGrid);
         battleshipTable.add(this.userGrid);
+        battleshipTable.add(this.ships);
 
 
         // Add buttons here (if necessary)
-
+        
 
         // Add and Pack
         mainFrame.add(battleshipTable);
         mainFrame.pack();
         mainFrame.setVisible(true);
-}
+    }
 }
