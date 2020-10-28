@@ -1,4 +1,3 @@
-package view;
 import javax.swing.*;
 import java.awt.Rectangle;
 import java.awt.*;
