@@ -2,33 +2,28 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
-public class GridPanel extends JPanel {
+public class GridPanel extends JComponent {
 
-    private int length;
+    private int width;
     private int height;
-    private JPanel grid;
+    private JPanel gridPanel;
     
-    public GridPanel(String player, int length, int height) {
+    public GridPanel(String player, int width, int height) {
         this.setBackground(Color.BLUE);
-        this.length = length;
+        this.width = width;
         this.height = height;
-        grid = new JPanel();
-        grid.setOpaque(false);
+        gridPanel = new JPanel();
+        gridPanel.setOpaque(false);
         this.setLayout(new BorderLayout());
-        this.add(grid, BorderLayout.CENTER);
-        this.setSize(length, height);
-        this.setVisible(true);
-        
+        this.add(gridPanel, BorderLayout.CENTER);
+        this.setSize(width, height);
     }
 
-    public void Gridpaint(Graphics g) {
+    public void paint(Graphics g) {
 
         int rows = 11;
         int columns = 11;
-        int width = getSize().width;
-        int height = getSize().height;
 
         //drawing the rows
         int addRows = height / rows;
