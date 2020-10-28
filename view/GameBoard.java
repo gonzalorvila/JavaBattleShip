@@ -36,13 +36,13 @@ public class GameBoard
         battleshipTable.setLayout(new BoxLayout(battleshipTable, BoxLayout.Y_AXIS));
 
         // Panel to show the computer's grid
-        this.computerGrid = new GridPanel(500, 500);
+        this.computerGrid = new GridPanel("OPPONENT", 500, 370);
 
         // Panel to show user's grid
-        this.userGrid = new GridPanel(500, 500);
+        this.userGrid = new GridPanel("PLAYER", 500, 370);
 
         //Panel to show ships
-        this.ships = new ShipPanel(450);
+        this.ships = new ShipPanel(200, 10);
         ships.addShip(5);
         ships.addShip(4);
         ships.addShip(3);
