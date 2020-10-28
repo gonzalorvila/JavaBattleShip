@@ -13,7 +13,7 @@ public class ShipPanel extends JPanel {
 		shipPanel = new JPanel();
 		shipPanel.setOpaque(false);
 		this.setLayout(new BorderLayout());
-		this.add(shipPanel, BorderLayout.CENTER);
+		this.add(shipPanel, BorderLayout.SOUTH);
 	}
 
 	public void addShip(int size) {
