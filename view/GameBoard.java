@@ -35,6 +35,12 @@ public class GameBoard
         JPanel battleshipTable = new JPanel();
         battleshipTable.setLayout(new BoxLayout(battleshipTable, BoxLayout.X_AXIS));
 
+        // Extra panel for padding
+        JPanel padding = new JPanel();
+        padding.setPreferredSize(new Dimension(75, frameSize*2/7));
+        padding.setBackground(new Color(51, 153, 255));
+
+
         // Panel to show the computer's grid
         this.computerGrid = new GridPanel("OPPONENT", 350, 350);
 
@@ -51,6 +57,7 @@ public class GameBoard
         
 
         // Place both grids on the  battleship table
+        battleshipTable.add(padding);
         battleshipTable.add(this.computerGrid);
         battleshipTable.add(this.userGrid);
         battleshipTable.add(this.ships);
