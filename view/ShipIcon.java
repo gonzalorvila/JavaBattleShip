@@ -13,8 +13,8 @@ public class ShipIcon implements Icon{
 
 	public ShipIcon(int size) {
 		//shipPanel.setTitle("Ship example");
-		this.width = (500/11)*size;
-		this.length = (500/11);
+		this.width = (350/11)*size;
+		this.length = (350/11);
 		this.color = Color.gray;
 	}
 
