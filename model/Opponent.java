@@ -9,6 +9,6 @@ public class Opponent extends Player
 
     public void opponentMove()
     {
-        System.out.println("Opponent:: opponentMove will move for Opponent")
+        System.out.println("Opponent:: opponentMove will move for Opponent");
     }
 }
