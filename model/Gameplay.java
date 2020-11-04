@@ -14,7 +14,7 @@ public class Gameplay {
 		System.out.println("Gameplay:: setScore")
 	}
 
-	public void getScore() {
+	public int getScore() {
 		System.out.println("Gameplay:: getScore");
 	}
 
