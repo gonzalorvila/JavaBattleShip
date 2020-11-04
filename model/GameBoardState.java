@@ -4,7 +4,7 @@ public class GameBoardState
 {
     public GameBoardState()
     {
-        System.out.println("This is constructor");
+        System.out.println("GameBoardState constructor");
     }
 
     public void createEmptyGameBoard()

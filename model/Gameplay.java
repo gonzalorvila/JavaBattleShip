@@ -16,10 +16,12 @@ public class Gameplay {
 
 	public int getScore() {
 		System.out.println("Gameplay:: getScore");
+		return 0; 
 	}
 
 	public boolean checkMove(GameBoardState gameBoardState) {
-		System.out.println("Checks if the move made is a valid move");
+		System.out.println("Gameplay:: Checks if the move made is a valid move");
+		return true;
 	}
 }
 
