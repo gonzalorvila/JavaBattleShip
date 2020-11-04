@@ -6,7 +6,7 @@ public class Ships {
 	private Ship ship;
 	private GameBoard gameBoard;
 	private String shipName;
-	private ArrayList shipLocations;
+	private ArrayList<Ship> shipLocations;
 
 	public Ships(Ship ship, GameBoard gameBoard) {
 		System.out.println("Constructor: Ships");
