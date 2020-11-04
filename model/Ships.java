@@ -3,13 +3,12 @@ package model;
 import java.util.ArrayList;
 
 public class Ships {
-	private Location location;
 	private Ship ship;
 	private GameBoard gameBoard;
 	private String shipName;
 	private ArrayList shipLocations;
 
-	public Ships(Location location, Ship ship, GameBoard gameBoard) {
+	public Ships(Ship ship, GameBoard gameBoard) {
 		System.out.println("Constructor: Ships");
 	}
 
