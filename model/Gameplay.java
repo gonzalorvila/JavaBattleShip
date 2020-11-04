@@ -18,7 +18,7 @@ public class Gameplay {
 		System.out.println("Score:: getScore");
 	}
 
-	public checkMove(GameBoard gameBoard) {
+	public boolean checkMove(GameBoard gameBoard) {
 		System.out.println("Checks if the move made is a valid move");
 	}
 }
