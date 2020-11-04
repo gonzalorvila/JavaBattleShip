@@ -6,16 +6,16 @@ public class Gameplay {
 	private int userScore;
 	private int compScore;
 
-	public Score(GameBoard gameBoard) {
-		System.out.println("Constructor for score");
+	public Gameplay(GameBoard gameBoard) {
+		System.out.println("Constructor for gameplay");
 	}
 
 	public void setScore(GameBoard gameBoard) {
-		System.out.println("Score:: setScore")
+		System.out.println("Gameplay:: setScore")
 	}
 
 	public void getScore() {
-		System.out.println("Score:: getScore");
+		System.out.println("Gameplay:: getScore");
 	}
 
 	public boolean checkMove(GameBoard gameBoard) {
