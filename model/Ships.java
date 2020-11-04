@@ -14,6 +14,6 @@ public class Ships {
 	}
 
 	public void setHit(Player player) {
-		System.out.println("sets hit on the ship");
+		System.out.println("Ships:: setHit");
 	}
 }

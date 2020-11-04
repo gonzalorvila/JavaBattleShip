@@ -9,11 +9,11 @@ public class Player {
 	}
 
 	public void setShipLocation(Ship ship, GameBoard gameBoard) {
-		System.out.println("Player sets where his/her ships are");
+		System.out.println("Player:: setShipLocation");
 	}
 
 	public void makeMove(GameBoard gameBoard, Ship ship, Location location) {
-		System.out.println("this is where the logic for making a move will occur");
+		System.out.println("Player:: makeMove");
 	}
 
 

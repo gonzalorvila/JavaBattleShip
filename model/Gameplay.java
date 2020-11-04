@@ -1,6 +1,6 @@
 package model;
 
-public class Score {
+public class Gameplay {
 
 	private GameBoard gameBoard;
 	private int userScore;
@@ -11,11 +11,11 @@ public class Score {
 	}
 
 	public void setScore(GameBoard gameBoard) {
-		System.out.println("this method sets the score of the game based on number of ships left")
+		System.out.println("Score:: setScore")
 	}
 
 	public void getScore() {
-		System.out.println("Gets score of the game");
+		System.out.println("Score:: getScore");
 	}
 
 	public checkMove(GameBoard gameBoard) {
