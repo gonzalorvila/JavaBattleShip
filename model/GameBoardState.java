@@ -2,7 +2,7 @@ package model;
 
 public class GameBoardState
 {
-    public GameBoardState
+    public GameBoardState()
     {
         System.out.println("This is constructor");
     }
