@@ -3,7 +3,6 @@ package model;
 public class Player {
 	private Ship ship;
 	private GameBoard gameBoard;
-	private Location location
 	public Player() {
 		System.out.println("Player Constructor");
 	}
@@ -12,7 +11,7 @@ public class Player {
 		System.out.println("Player:: setShipLocation");
 	}
 
-	public void makeMove(GameBoard gameBoard, Ship ship, Location location) {
+	public void makeMove(GameBoard gameBoard, Ship ship) {
 		System.out.println("Player:: makeMove");
 	}
 
