@@ -3,6 +3,7 @@ import java.awt.event.*;
 import model.*;
 //import controller.*;
 import view.*;
+import java.util.ArrayList;
 
 public class Driver
 {
@@ -10,23 +11,20 @@ public class Driver
     {
         //GameBoard gameTable = new GameBoard();
 
-        GameBoardState gbState = new GameBoardState();
+        Ships ship = new Ships();
+        ArrayList<Ships> shipArray = new ArrayList<Ships>();
+        Player player = new Player();
+        Opponent opponent = new Opponent();
+        GameBoardState gbState = new GameBoardState(player, opponent, shipArray);
+        
+        
         gbState.createEmptyGameBoard();
         gbState.setDifficulty(1);
 
-        Gameplay gameplay = new Gameplay(gbState);
-        gameplay.setScore(gbState);
-        gameplay.getScore();
-        gameplay.checkMove(gbState);
+        UseCases useCases = new UseCases();
 
-        Ships ship = new Ships(gbState);
-        Player player = new Player();
-        
-        ship.setHit(player);
-        player.setShipLocation(ship, gbState);
-        player.makeMove(gbState);
-
-        Opponent opponent = new Opponent();
-        opponent.opponentMove();
+        useCases.startNewGame(shipArray, player, opponent, gbState);       
+        useCases.makeMove(shipArray, player, opponent, gbState);
+        useCases.onResult(shipArray, player, opponent, gbState);
     }
 }

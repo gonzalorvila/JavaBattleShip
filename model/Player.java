@@ -1,4 +1,5 @@
 package model;
+import java.util.ArrayList;
 
 public class Player {
 	private Ships ship;
@@ -8,12 +9,8 @@ public class Player {
 		System.out.println("Player Constructor");
 	}
 
-	public void setShipLocation(Ships ship, GameBoardState gameBoardState) {
+	public int setShipLocation(Ships ship) {
 		System.out.println("Player:: setShipLocation");
+		return 0;
 	}
-
-	public void makeMove(GameBoardState gameBoardState) {
-		System.out.println("Player:: makeMove");
-	}
-
 }
