@@ -44,10 +44,6 @@ public class UseCases
                 {
                     makeMove(ships, player, opponent, gbState);
                 }
-                else
-                {
-                    break;
-                }
             }
         }
 
@@ -71,10 +67,6 @@ public class UseCases
                 {
                     oppLocation = opponent.opponentMove();
                 }
-                else
-                {
-                    break;
-                }
             }
         }
 
@@ -95,7 +87,5 @@ public class UseCases
         {
             System.out.println("User Wins!");
         }
-
-        
     }
 }
