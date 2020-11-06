@@ -28,8 +28,8 @@ public class UseCases
 
     public static void makeMove(ArrayList<Ships> ships, Player player, Opponent opponent, GameBoardState gbState)
     {
-        boolean moveResult = true;
-        
+        boolean moveResult = false; //will be set to true during gameplay
+        System.out.println("UseCases:: makeMove");
     
         while(moveResult)
         {
@@ -53,7 +53,7 @@ public class UseCases
         }
         else
         {
-            moveResult = true;
+            moveResult = false; //will be set to true during gameplay
         }
         int oppLocation = opponent.opponentMove();
         
