@@ -9,7 +9,7 @@ public class Driver
 {
     public static void main(String []args)
     {
-        //GameBoard gameTable = new GameBoard();
+        GameBoard gameTable = new GameBoard();
 
         Ships ship = new Ships();
         ArrayList<Ships> shipArray = new ArrayList<Ships>();

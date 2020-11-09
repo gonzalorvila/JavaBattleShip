@@ -42,10 +42,10 @@ public class GameBoard
 
 
         // Panel to show the computer's grid
-        this.computerGrid = new GridPanel("OPPONENT", 350, 350);
+        this.computerGrid = new GridPanel(10, 350, 350);
 
         // Panel to show user's grid
-        this.userGrid = new GridPanel("PLAYER", 350, 350);
+        this.userGrid = new GridPanel(10, 350, 350);
 
         //Panel to show ships
         this.ships = new ShipPanel(100, 200);
