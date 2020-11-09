@@ -1,46 +1,54 @@
 package view;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.Color;
+import java.util.*;
+import javax.swing.*;
 
-public class GridPanel extends JPanel {
+public class GridPanel extends JFrame {
+    JPanel grid = new JPanel();
+    JPanel buttonPanel;
+    GridBagConstraints constraints;
+    public static JButton button[][] = new JButton[10][10];
 
-    private int width;
-    private int height;
-    private JPanel gridPanel;
-    
-    public GridPanel(String player, int width, int height) {
-        this.setBackground(new Color(51, 153, 255));
-        this.width = width;
-        this.height = height;
-        gridPanel = new JPanel();
-        gridPanel.setOpaque(false);
-        this.setLayout(new BorderLayout());
-        this.add(gridPanel, BorderLayout.CENTER);
-        this.setSize(width, height);
-    }
+    private int rows;
+    private int columns;
+    private int gridSize;
 
-    @Override
-    public void paint(Graphics g) {
-
-        super.paint(g);
-
-        int rows = 10;
-        int columns = 10;
-
-        //drawing the rows
-        int addRows = height / rows;
-        for (int i = 0; i <= rows; i++) {
-            g.drawLine(0, i * addRows, width, i * addRows);
+    public GridPanel (int gridSize, int height, int width) {
+        this.gridSize = gridSize;
+        setDefaultCloseOperation(EXIT_ON_CLOSE);   
+        setPreferredSize(new Dimension(width, height));
+        setVisible(true);
+        setTitle("Battleship");
+        setResizable(false);
+        
+        grid = new JPanel();
+        grid.setLayout(new GridBagLayout());
+        buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(10,10));
+        int squareNum = 1;
+        String numString;
+        for (columns =0; columns < gridSize; columns++){
+            for (rows = 0; rows < gridSize; rows++) {
+                numString = Integer.toString(squareNum);
+                button[rows][columns] = new JButton(numString);
+                button[rows][columns].setBackground(Color.BLUE);
+                button[rows][columns].setPreferredSize(new Dimension(100,100));
+                //button[rows][columns].addActionListener(new TilePressed(rows, columns));
+                buttonPanel.add(button[rows][columns]);
+                squareNum++;
+            }
         }
 
-        //drawing the columns
-        int addColumns = width / columns;
-        for (int i = 0; i <= columns; i++) {
-            g.drawLine(i * addColumns, 0, i * addColumns, height);
-        }
+        constraints = new GridBagConstraints();
+        constraints.anchor = GridBagConstraints.FIRST_LINE_START;
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.weightx = 1.0;
+        constraints.weighty = 0.65;
+
+        grid.add(buttonPanel, constraints);
 
     }
-
 }
