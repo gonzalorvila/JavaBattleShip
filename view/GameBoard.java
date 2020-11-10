@@ -45,7 +45,7 @@ public class GameBoard extends JPanel
         // Extra panel for padding
         JPanel padding = new JPanel();
         padding.setPreferredSize(new Dimension(75, frameSize*2/7));
-        padding.setBackground(new Color(51, 153, 255));
+        padding.setBackground(new Color(0, 0, 255));
 
 
         //Panel to show ships
