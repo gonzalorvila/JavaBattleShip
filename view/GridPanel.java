@@ -5,7 +5,6 @@ import java.util.*;
 import javax.swing.*;
 
 public class GridPanel extends JPanel {
-    JPanel grid = new JPanel();
     JPanel buttonPanel;
     GridBagConstraints constraints;
     public static JButton button[][] = new JButton[10][10];
@@ -15,15 +14,11 @@ public class GridPanel extends JPanel {
     private int gridSize;
 
     public GridPanel (int gridSize, int height, int width) {
-        this.gridSize = gridSize;
-        //setDefaultCloseOperation(EXIT_ON_CLOSE);   
-        //setPreferredSize(new Dimension(width, height));
-        //setVisible(true);
-        //setTitle("Battleship");
-        //setResizable(false);
-        
-        grid = new JPanel();
-        grid.setLayout(new GridBagLayout());
+        this.gridSize = gridSize;  
+        this.setPreferredSize(new Dimension(width, height));
+        this.setBackground(new Color(51, 153, 255));
+
+        this.setLayout(new GridBagLayout());
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(10,10));
         int squareNum = 1;
@@ -48,7 +43,7 @@ public class GridPanel extends JPanel {
         constraints.weightx = 1.0;
         constraints.weighty = 0.65;
 
-        grid.add(buttonPanel, constraints);
+        this.add(buttonPanel, constraints);
 
     }
 }
