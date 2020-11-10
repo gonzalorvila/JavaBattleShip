@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 //import model.*;
 
-public class GameBoard 
+public class GameBoard extends JPanel 
 {
     public static int frameSize = 1500;
 

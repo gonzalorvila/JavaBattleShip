@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 
-public class GridPanel extends JFrame {
+public class GridPanel extends JPanel {
     JPanel grid = new JPanel();
     JPanel buttonPanel;
     GridBagConstraints constraints;
@@ -16,11 +16,11 @@ public class GridPanel extends JFrame {
 
     public GridPanel (int gridSize, int height, int width) {
         this.gridSize = gridSize;
-        setDefaultCloseOperation(EXIT_ON_CLOSE);   
-        setPreferredSize(new Dimension(width, height));
-        setVisible(true);
-        setTitle("Battleship");
-        setResizable(false);
+        //setDefaultCloseOperation(EXIT_ON_CLOSE);   
+        //setPreferredSize(new Dimension(width, height));
+        //setVisible(true);
+        //setTitle("Battleship");
+        //setResizable(false);
         
         grid = new JPanel();
         grid.setLayout(new GridBagLayout());
