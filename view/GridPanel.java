@@ -20,6 +20,7 @@ public class GridPanel extends JPanel {
 
         this.setLayout(new GridBagLayout());
         buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(51, 153, 255));
         buttonPanel.setLayout(new GridLayout(10,10));
         int squareNum = 1;
         String numString;
@@ -27,7 +28,7 @@ public class GridPanel extends JPanel {
             for (rows = 0; rows < gridSize; rows++) {
                 numString = Integer.toString(squareNum);
                 button[rows][columns] = new JButton(numString);
-                button[rows][columns].setBackground(Color.BLUE);
+                button[rows][columns].setBackground(new Color(51, 153, 255));
                 button[rows][columns].setPreferredSize(new Dimension(100,100));
                 //button[rows][columns].addActionListener(new TilePressed(rows, columns));
                 buttonPanel.add(button[rows][columns]);

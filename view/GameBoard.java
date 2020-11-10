@@ -13,6 +13,7 @@ public class GameBoard extends JPanel
 {
     public static int frameSize = 1500;
 
+    //private GridPanel computerGrid;
     private GridPanel computerGrid;
     private GridPanel userGrid;
     private JFrame mainFrame;
@@ -35,17 +36,11 @@ public class GameBoard extends JPanel
         JPanel battleshipTable = new JPanel();
         battleshipTable.setLayout(new BoxLayout(battleshipTable, BoxLayout.X_AXIS));
 
-        // Extra panel for padding
-        JPanel padding = new JPanel();
-        padding.setPreferredSize(new Dimension(75, frameSize*2/7));
-        padding.setBackground(new Color(51, 153, 255));
-
-
         // Panel to show the computer's grid
-        this.computerGrid = new GridPanel(10, 350, 350);
+        this.computerGrid = new GridPanel(10,50,50);
 
         // Panel to show user's grid
-        this.userGrid = new GridPanel(10, 350, 350);
+        this.userGrid = new GridPanel(10, 50, 50);
 
         //Panel to show ships
         this.ships = new ShipPanel(100, 200);
@@ -57,8 +52,7 @@ public class GameBoard extends JPanel
         
 
         // Place both grids on the  battleship table
-        battleshipTable.add(padding);
-        battleshipTable.add(this.computerGrid);
+        battleshipTable.add(computerGrid);
         battleshipTable.add(this.userGrid);
         battleshipTable.add(this.ships);
 
