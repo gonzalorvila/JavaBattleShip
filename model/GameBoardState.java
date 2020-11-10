@@ -7,6 +7,8 @@ public class GameBoardState
     private Opponent opponent;
     private ArrayList<Ships> userShips;
     private ArrayList<Ships> opponentShips;
+    private int userScore;
+    private int opponentScore;
 
     public GameBoardState(Player player, Opponent opponent, ArrayList<Ships> ships)
     {
@@ -14,7 +16,6 @@ public class GameBoardState
         this.opponent = opponent;
         this.userShips = ships;
         this.opponentShips = ships;
-        System.out.println("GameBoardState constructor");
     }
 
     public void createEmptyGameBoard()
@@ -34,17 +35,16 @@ public class GameBoardState
 
     public void setScore(int userScore, int opponentScore) 
     {
-		System.out.println("GameBoardState:: setScore");
+        this.userScore = userScore;
+        this.opponentScore = opponentScore;
 	}
 
 	public int getUserScore() {
-		System.out.println("GameBoardState:: getUserScore");
-		return 0; 
+		return userScore; 
 	}
 
     public int getOpponentScore() {
-		System.out.println("GameBoardState:: getOpponentScore");
-		return 0; 
+		return opponentScore; 
 	}
 
 	public boolean checkMove(int location) {
