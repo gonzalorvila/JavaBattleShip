@@ -21,10 +21,10 @@ public class Driver
         gbState.createEmptyGameBoard();
         gbState.setDifficulty(1);
 
-        UseCases useCases = new UseCases();
+        //UseCases useCases = new UseCases();
 
-        useCases.startNewGame(shipArray, player, opponent, gbState);       
-        useCases.makeMove(shipArray, player, opponent, gbState);
-        useCases.onResult(shipArray, player, opponent, gbState);
+        //useCases.startNewGame(shipArray, player, opponent, gbState);       
+        //useCases.makeMove(shipArray, player, opponent, gbState);
+        //useCases.onResult(shipArray, player, opponent, gbState);
     }
 }
