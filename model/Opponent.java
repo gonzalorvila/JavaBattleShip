@@ -14,6 +14,8 @@ public class Opponent
 	private int[] shipLengths;
 	private ArrayList<Ships> opponentShips;
 	private Ships s;
+	private int startLocation;
+	private int endLocation;
 
 	public Opponent(ArrayList<Integer> shipLocations) 
 	{
@@ -71,10 +73,9 @@ public class Opponent
 		for (int i = 0; i < 5; i++) {
 			int length = shipLengths[i];
 			Random num = new Random();
-			int startLocation = num.nextInt(101);
+			startLocation = num.nextInt(101);
 			if (startLocation == 0) 
 				startLocation += 1;
-			int endLocation;
 			boolean direction = num.nextBoolean();
 			if (direction) {
 				if (startLocation % 10 < 6) {
@@ -99,11 +100,6 @@ public class Opponent
 
 	public void addToMoveResultMakeTrue(int i) {
 		moveResults.set(i, true);
-	}
-	public boolean checkOppMove(int oppMove) 
-	{
-		boolean result = gbs.isHit(locations, oppMove);
-		return result;
 	}
 
 	public void makeMoveResultFalse(int i) {
