@@ -36,10 +36,10 @@ public class GameBoard extends JPanel
         battleshipTable.setLayout(new BoxLayout(battleshipTable, BoxLayout.X_AXIS));
 
         // Panel to show the computer's grid
-        this.computerGrid = new GridPanel(10,50,50, gridActionListener);
+        this.computerGrid = new GridPanel(10,50,50, gridActionListener, false);
 
         // Panel to show user's grid
-        this.userGrid = new GridPanel(10, 50, 50, gridActionListener);
+        this.userGrid = new GridPanel(10, 50, 50, gridActionListener, true);
 
         // Extra panel for padding
         JPanel padding = new JPanel();
