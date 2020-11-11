@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.*;
 
 public class Ships {
 	private String shipName;
@@ -11,8 +12,12 @@ public class Ships {
 		System.out.println("Constructor: Ships");
 	}
 
-	public int setLocation(Ships ship) {
-		System.out.println("Player:: setShipLocation");
-		return 0;
-	}
+ 	public void storeLocations(ArrayList<Integer> locationsArray, int[] location)
+    	{
+        	for(int i = 0; i < location.length; i++) {
+			locationsArray.add(location[i]);
+		}
+
+    	}
+
 }
