@@ -12,11 +12,24 @@ public class Ships
 	private boolean direction;
 	private int[] shipCoordinates;
 
+	private int location;
+	private int startRow;
+	private int startColumn;
+	private int endRow;
+	private int endColumn;
+
 	public Ships(int length, int startLocation, int endLocation, boolean direction) {
 		this.startLocation = startLocation;
 		this.endLocation = endLocation;
 		this.direction = direction;
 		this.length = length;
+	}
+
+	public Ships(int startRow, int startColumn, int endRow, int endColumn) {
+		this.startRow = startRow;
+		this.startColumn = startColumn;
+		this.endRow = endRow;
+		this.endColumn = endColumn;
 	}
 
 	public boolean getDirection() {
@@ -70,6 +83,7 @@ public class Ships
 	public void setEndLocation(int e) {
 		this.endLocation = e;
 	}
+
 
  	public void storeLocations(ArrayList<Integer> locationsArray, int[] location)
     {

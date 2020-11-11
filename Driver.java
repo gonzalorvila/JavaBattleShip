@@ -12,12 +12,10 @@ public class Driver
 {
     public static void main(String []args)
     {
-        UseCases useCases = new UseCases();
+        
         //Opponent opponent = new Opponent();
         ArrayList<Ships> shipArray = new ArrayList<Ships>();
-        for (int i = 0; i <= 4; i++) {
-            shipArray.add(new Ships());
-        }
+        UseCases useCases = new UseCases(shipArray);
         GameBoardState gbState = new GameBoardState();
 
         
@@ -35,8 +33,8 @@ public class Driver
         }, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Object obj = e.getSource();
-                if (obj instanceof JButton) {
-                    JButton selection = (JButton) obj;
+                if (obj instanceof GridButton) {
+                    GridButton selection = (GridButton) obj;
                     useCases.onGridSelection(selection, gameTable);
                 }
             }

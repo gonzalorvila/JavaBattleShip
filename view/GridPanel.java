@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class GridPanel extends JPanel {
     JPanel buttonPanel;
     GridBagConstraints constraints;
-    public static JButton button[][] = new JButton[10][10];
+    public static GridButton button[][] = new GridButton[10][10];
     private boolean gridName;
     private int rows;
     private int columns;
@@ -29,7 +29,7 @@ public class GridPanel extends JPanel {
         for (columns =0; columns < gridSize; columns++){
             for (rows = 0; rows < gridSize; rows++) {
                 numString = Integer.toString(squareNum);
-                button[rows][columns] = new JButton(numString);
+                button[rows][columns] = new GridButton(numString);
                 button[rows][columns].setBackground(Color.BLUE);
                 button[rows][columns].setOpaque(true);
                 //button[rows][columns].setBorderPainted(false);
@@ -37,6 +37,9 @@ public class GridPanel extends JPanel {
                 //button[rows][columns].addActionListener(new TilePressed(rows, columns));
                 button[rows][columns].setEnabled(false);
                 button[rows][columns].addActionListener(gridActionListener);
+                button[rows][columns].setRow(rows);
+                button[rows][columns].setColumn(columns);
+                button[rows][columns].setFree(true);
                 buttonPanel.add(button[rows][columns]);
                 squareNum++;
             }
@@ -69,7 +72,9 @@ public class GridPanel extends JPanel {
     public void enableGrid(boolean enabled) {
         for (columns =0; columns < gridSize; columns++){
             for (rows = 0; rows < gridSize; rows++) {
-                button[rows][columns].setEnabled(enabled);
+                if (button[rows][columns].getFree()) {
+                    button[rows][columns].setEnabled(enabled);
+                }
             }
         }
     }
