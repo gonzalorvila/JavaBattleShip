@@ -62,7 +62,6 @@ public class Opponent
 		numOfMoves++;
 	}
 
-<<<<<<< HEAD
 	public boolean checkOppMove(int oppMove) {
 		boolean result = gbs.isHit(locations, oppMove);
 		return result;
@@ -100,12 +99,11 @@ public class Opponent
 
 	public void addToMoveResultMakeTrue(int i) {
 		moveResults.set(i, true);
-=======
+	}
 	public boolean checkOppMove(int oppMove) 
 	{
 		boolean result = gbs.isHit(locations, oppMove);
 		return result;
->>>>>>> 59b4d244fb0cb6f257cb67efee5516355711618f
 	}
 
 	public void makeMoveResultFalse(int i) {
