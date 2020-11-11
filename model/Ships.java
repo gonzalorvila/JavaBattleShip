@@ -92,4 +92,20 @@ public class Ships
 		}
     }
 
+	public int getLength() {
+		return this.length;
+	}
+
+	public int getStartLocation() {
+		return this.startLocation;
+	}
+
+	public int getEndLocation() {
+		return this.endLocation;
+	}
+
+	public boolean getDirection() {
+		return this.direction;
+	}
+
 }
