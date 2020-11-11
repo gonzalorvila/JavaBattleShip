@@ -13,13 +13,12 @@ public class Driver
     public static void main(String []args)
     {
         UseCases useCases = new UseCases();
-        Player player = new Player();
-        Opponent opponent = new Opponent();
+        //Opponent opponent = new Opponent();
         ArrayList<Ships> shipArray = new ArrayList<Ships>();
         for (int i = 0; i <= 4; i++) {
             shipArray.add(new Ships());
         }
-        GameBoardState gbState = new GameBoardState(player, opponent, shipArray);
+        GameBoardState gbState = new GameBoardState();
 
         
         GameBoard gameTable = new GameBoard();
@@ -44,16 +43,12 @@ public class Driver
         });
 
         
-
-        
-        
-        gbState.createEmptyGameBoard();
         gbState.setDifficulty(1);
 
         
 
-        useCases.startNewGame(shipArray, player, opponent, gbState);       
-        useCases.makeMove(shipArray, player, opponent, gbState);
-        useCases.onResult(shipArray, player, opponent, gbState);
+        //useCases.startNewGame(shipArray, opponent, gbState);       
+        //useCases.makeMove(shipArray, opponent, gbState);
+        //useCases.onResult(shipArray, opponent, gbState);
     }
 }

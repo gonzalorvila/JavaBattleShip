@@ -40,8 +40,6 @@ public class GridPanel extends JPanel {
             }
         }
 
-        button[1][1].setBorderPainted(false);
-        button[1][1].setForeground(Color.BLUE);
         constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.FIRST_LINE_START;
         constraints.fill = GridBagConstraints.BOTH;

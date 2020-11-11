@@ -6,7 +6,7 @@ import view.*;
 public class UseCases
 {
     
-    public static void startNewGame(ArrayList<Ships> ships, Player player, Opponent opponent, GameBoardState gbState)
+    public static void startNewGame(ArrayList<Ships> ships, Opponent opponent, GameBoardState gbState)
     {
         for (Ships s : ships)
         {
@@ -20,11 +20,11 @@ public class UseCases
 
         if ((gbState.getUserScore() != 0) && (gbState.getOpponentScore() != 0))
         {
-            makeMove(ships, player, opponent, gbState);
+            //makeMove(ships, opponent, gbState);
         }
         else
         {
-            onResult(ships, player, opponent, gbState);
+            onResult(ships, opponent, gbState);
         }
     }
 
@@ -67,7 +67,7 @@ public class UseCases
         return;
     }
 
-    public static void makeMove(ArrayList<Ships> ships, Player player, Opponent opponent, GameBoardState gbState)
+    /*public static void makeMove(ArrayList<Ships> ships, Opponent opponent, GameBoardState gbState)
     {
         boolean moveResult = false; //will be set to true during gameplay
         System.out.println("UseCases:: makeMove");
@@ -77,13 +77,12 @@ public class UseCases
             // Call teminal input class to get location of attack on opponet board
             // This will return int location
             int location = 0;
-            boolean valid = gbState.checkMove(location);
             if (valid)
             {
                 moveResult = gbState.isHit(location);
                 if (moveResult)
                 {
-                    makeMove(ships, player, opponent, gbState);
+                    makeMove(ships, opponent, gbState);
                 }
             }
         }
@@ -96,7 +95,7 @@ public class UseCases
         {
             moveResult = false; //will be set to true during gameplay
         }
-        int oppLocation = opponent.opponentMove();
+        opponent.opponentMove();
         
         while (moveResult)
         {
@@ -106,18 +105,18 @@ public class UseCases
                 moveResult = gbState.isHit(oppLocation);
                 if (moveResult)
                 {
-                    oppLocation = opponent.opponentMove();
+                    opponent.opponentMove();
                 }
             }
         }
 
         if ((gbState.getUserScore() == 0) || gbState.getOpponentScore() == 0)
         {
-            onResult(ships, player, opponent, gbState);
+            onResult(ships, opponent, gbState);
         }
-    }
+    }*/
 
-    public static void onResult(ArrayList<Ships> ships, Player player, Opponent opponent, GameBoardState gbState)
+    public static void onResult(ArrayList<Ships> ships, Opponent opponent, GameBoardState gbState)
     {
         if (gbState.getUserScore() == 0)
         {
