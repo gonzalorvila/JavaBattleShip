@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import model.*;
+import javax.swing.*;
+import view.*;
 
 public class UseCases
 {
@@ -8,10 +10,10 @@ public class UseCases
     {
         for (Ships s : ships)
         {
-            int location = player.setShipLocation(s);
-            gbState.storeLocations(player, location);
-            location = opponent.setShipLocation(s);
-            gbState.storeLocations(opponent, location);
+            // int location = player.setShipLocation(s);
+            // gbState.storeLocations(player, location);
+            // location = opponent.setShipLocation(s);
+            // gbState.storeLocations(opponent, location);
         }
 
         gbState.setScore(5, 5);
@@ -24,6 +26,45 @@ public class UseCases
         {
             onResult(ships, player, opponent, gbState);
         }
+    }
+
+    public static void onGridSelection(JButton selectedButton, GameBoard gameTable) {
+        ShipButton selectedShip = gameTable.getSelectedShip();
+        if (selectedShip != null) {
+            chooseShipLocation(selectedButton, gameTable, selectedShip);
+        }
+    }
+
+    public static void chooseShipLocation(JButton selectedButton, GameBoard gameTable, ShipButton selectedShip) {
+        JButton button[][] = gameTable.getUserGrid().button;
+        int gridSize = gameTable.getUserGrid().getGridSize();
+        int selectedRow = 0;
+        int selectedColumn = 0;
+        for (int columns = 0; columns < gridSize; columns++){
+            for (int rows = 0; rows < gridSize; rows++) {
+                if (button[rows][columns] != selectedButton) {
+                    button[rows][columns].setEnabled(false);
+                }
+                else {
+                    selectedRow = rows;
+                    selectedColumn = columns;
+                }
+            }
+        }
+        int shipSize = selectedShip.getShipSize();
+        if (selectedColumn - shipSize + 1 >= 0) {
+            button[selectedRow][selectedColumn-shipSize+1].setEnabled(true);
+        }
+        if (selectedColumn + shipSize - 1 < gridSize) {
+            button[selectedRow][selectedColumn+shipSize-1].setEnabled(true);
+        }
+        if (selectedRow - shipSize + 1 >= 0) {
+            button[selectedRow-shipSize+1][selectedColumn].setEnabled(true);
+        }
+        if (selectedRow + shipSize - 1 < gridSize) {
+            button[selectedRow+shipSize-1][selectedColumn].setEnabled(true);
+        }
+        return;
     }
 
     public static void makeMove(ArrayList<Ships> ships, Player player, Opponent opponent, GameBoardState gbState)

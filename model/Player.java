@@ -7,9 +7,4 @@ public class Player {
 	public Player() {
 		System.out.println("Player Constructor");
 	}
-
-	public int setShipLocation(Ships ship) {
-		System.out.println("Player:: setShipLocation");
-		return 0;
-	}
 }

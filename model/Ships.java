@@ -10,4 +10,9 @@ public class Ships {
 	public Ships() {
 		System.out.println("Constructor: Ships");
 	}
+
+	public int setLocation(Ships ship) {
+		System.out.println("Player:: setShipLocation");
+		return 0;
+	}
 }

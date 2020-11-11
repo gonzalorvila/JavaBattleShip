@@ -9,6 +9,7 @@ public class GameBoardState
     private ArrayList<Ships> opponentShips;
     private int userScore;
     private int opponentScore;
+    
 
     public GameBoardState(Player player, Opponent opponent, ArrayList<Ships> ships)
     {

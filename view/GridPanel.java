@@ -3,6 +3,7 @@ package view;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public class GridPanel extends JPanel {
     JPanel buttonPanel;
@@ -13,7 +14,7 @@ public class GridPanel extends JPanel {
     private int columns;
     private int gridSize;
 
-    public GridPanel (int gridSize, int height, int width) {
+    public GridPanel (int gridSize, int height, int width, ActionListener gridActionListener) {
         this.gridSize = gridSize;  
         this.setPreferredSize(new Dimension(width, height));
 
@@ -32,6 +33,8 @@ public class GridPanel extends JPanel {
                 //button[rows][columns].setBorderPainted(false);
                 button[rows][columns].setPreferredSize(new Dimension(100,100));
                 //button[rows][columns].addActionListener(new TilePressed(rows, columns));
+                button[rows][columns].setEnabled(false);
+                button[rows][columns].addActionListener(gridActionListener);
                 buttonPanel.add(button[rows][columns]);
                 squareNum++;
             }
@@ -49,5 +52,17 @@ public class GridPanel extends JPanel {
 
         this.add(buttonPanel, constraints);
 
+    }
+
+    public void enableGrid(boolean enabled) {
+        for (columns =0; columns < gridSize; columns++){
+            for (rows = 0; rows < gridSize; rows++) {
+                button[rows][columns].setEnabled(enabled);
+            }
+        }
+    }
+
+    public int getGridSize() {
+        return this.gridSize;
     }
 }
