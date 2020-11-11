@@ -8,18 +8,18 @@ public class GridPanel extends JPanel {
     JPanel buttonPanel;
     GridBagConstraints constraints;
     public static JButton button[][] = new JButton[10][10];
-
+    JLabel whichGrid;
     private int rows;
     private int columns;
     private int gridSize;
 
-    public GridPanel (int gridSize, int height, int width) {
+    public GridPanel (int gridSize, int height, int width, boolean player) {
         this.gridSize = gridSize;  
         this.setPreferredSize(new Dimension(width, height));
 
         this.setLayout(new GridBagLayout());
         buttonPanel = new JPanel();
-        //buttonPanel.setBackground(new Color(51, 153, 255));
+        this.setBackground(Color.BLUE);
         buttonPanel.setLayout(new GridLayout(10,10));
         int squareNum = 1;
         String numString;
@@ -46,8 +46,19 @@ public class GridPanel extends JPanel {
         constraints.gridy = 0;
         constraints.weightx = 1.0;
         constraints.weighty = 0.65;
-
-        this.add(buttonPanel, constraints);
-
-    }
+	this.add(buttonPanel, constraints);
+	GridBagConstraints lc = new GridBagConstraints();
+	lc.anchor = GridBagConstraints.PAGE_END;
+	lc.ipady = 30;
+	lc.fill = GridBagConstraints.HORIZONTAL;
+	lc.gridy = GridBagConstraints.RELATIVE;
+	if (player == true) {
+		whichGrid = new JLabel("User Grid");
+		
+	} else {
+		whichGrid = new JLabel("Attack Grid");
+	}
+	this.add(whichGrid, lc);
+        
+	}
 }
