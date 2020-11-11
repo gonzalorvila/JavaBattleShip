@@ -32,10 +32,6 @@ public class Ships
 		this.endColumn = endColumn;
 	}
 
-	public boolean getDirection() {
-		return this.direction;
-	}
-
  	public int[] getShipLocations() {
 		this.shipCoordinates[0] = startLocation;
 		this.shipCoordinates[length - 1] = endLocation;
