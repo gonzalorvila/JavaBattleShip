@@ -12,10 +12,12 @@ public class Opponent
 	private ArrayList<Integer> locations;
 	private GameBoardState gbs;
 
-	public Opponent(ArrayList<Integer> shipLocations) {
+	public Opponent(ArrayList<Integer> shipLocations) 
+	{
 		this.gbs = new GameBoardState();
 		this.locations = shipLocations;
 	}
+
 	public void opponentMove()
 	{
 		if (prevMoves.isEmpty()) 
@@ -55,9 +57,10 @@ public class Opponent
 		numOfMoves++;
 	}
 
-	public boolean checkOppMove(int oppMove) {
-	boolean result = gbs.isHit(locations, oppMove);
-	return result;
+	public boolean checkOppMove(int oppMove) 
+	{
+		boolean result = gbs.isHit(locations, oppMove);
+		return result;
 	}
 }
 
