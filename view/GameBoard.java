@@ -41,12 +41,6 @@ public class GameBoard extends JPanel
         // Panel to show user's grid
         this.userGrid = new GridPanel(10, 50, 50, gridActionListener, true);
 
-        // Extra panel for padding
-        JPanel padding = new JPanel();
-        padding.setPreferredSize(new Dimension(75, frameSize*2/7));
-        padding.setBackground(new Color(0, 0, 255));
-
-
         //Panel to show ships
         this.ships = new ShipPanel(100, 200);
         ships.addShip(5, shipActionListener);
@@ -58,7 +52,6 @@ public class GameBoard extends JPanel
 
         // Place both grids on the  battleship table
         battleshipTable.add(this.computerGrid);
-        battleshipTable.add(padding);
         battleshipTable.add(this.userGrid);
         battleshipTable.add(this.ships);
 
