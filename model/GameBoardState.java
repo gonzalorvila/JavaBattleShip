@@ -3,58 +3,66 @@ import java.util.ArrayList;
 
 public class GameBoardState
 {
-    private Player player;
     private Opponent opponent;
-    private ArrayList<Ships> userShips;
-    private ArrayList<Ships> opponentShips;
+    protected ArrayList<Integer> userShipLocations;
+    protected ArrayList<Integer> compShipLocations;
     private int userScore;
     private int opponentScore;
+    private int Difficulty;
 
-    public GameBoardState(Player player, Opponent opponent, ArrayList<Ships> ships)
+    public GameBoardState()
     {
-        this.player = player;
-        this.opponent = opponent;
-        this.userShips = ships;
-        this.opponentShips = ships;
+	    this.userShipLocations = new ArrayList<Integer>();
+	    this.compShipLocations = new ArrayList<Integer>();
     }
 
-    public void createEmptyGameBoard()
+    public void setDifficulty(int Difficulty)
     {
-        System.out.println("GameBoardState:: createEmptyGameBoard at the start of the game");
-    }
-
-    public void setDifficulty(int d)
-    {
-        System.out.println("GameBoardState:: setDifficulty to level d");
-    }
-
-    public void storeLocations(Player player, int location)
-    {
-        System.out.println("GameBoardState:: storeLocations to create ArrayList of ship locations");
+        this.Difficulty = Difficulty;
+	    //we would then use this value of Difficulty to change stuff in the view class and this still needs to be implemented. 
+	    //Right now we have two difficulties: 1 is to make all the ships size 3 so it is harder to find it, 2 is making the board bigger.
     }
 
     public void setScore(int userScore, int opponentScore) 
     {
         this.userScore = userScore;
         this.opponentScore = opponentScore;
-	}
-
-	public int getUserScore() {
-		return userScore; 
-	}
-
-    public int getOpponentScore() {
-		return opponentScore; 
-	}
-
-	public boolean checkMove(int location) {
-		System.out.println("GameBoardState:: Checks if the move made is a valid move");
-		return true;
     }
 
-    public boolean isHit(int location) {
-		System.out.println("GameBoardState:: isHit will check if boat is hit and substract length of it until sunk");
-        return true;
-	}
+    public int getUserScore() 
+    {
+		return userScore; 
+    }
+
+    public int getOpponentScore() 
+    {
+		return opponentScore; 
+    }
+
+    public boolean isHit(ArrayList<Integer> locationsArray, int location) 
+    {
+	    boolean result = false;
+	    for (int i : locationsArray) {
+		    if (i == location) {
+			    result = true;
+		    }
+	    }
+      return result;
+    }
+
+    public boolean isSunk(ArrayList<Integer> locationsArray, int location) 
+    {
+      boolean result = false;
+      int shipLength = 0;
+	    for (int i : locationsArray) {
+		    if (i == location) {
+          shipLength++;
+          if (shipLength == locationsArray.size()) {
+            result = true;
+          }
+		    }
+	    }
+      return result;
+    }
 
 }

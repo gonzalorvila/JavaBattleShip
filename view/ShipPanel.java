@@ -3,6 +3,8 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.*;
+import javax.swing.border.LineBorder;
 
 public class ShipPanel extends JPanel {
 
@@ -22,9 +24,11 @@ public class ShipPanel extends JPanel {
 		
 	}
 
-	public void addShip(int size) {
+	public void addShip(int size, ActionListener actionListener) {
 		ShipIcon s = new ShipIcon(size);
-		JLabel ship = new JLabel(s);
+		JButton ship = new ShipButton(s, size);
+		ship.setBorder(new LineBorder(Color.BLACK));
+		ship.addActionListener(actionListener);
 		shipPanel.add(ship);
 		shipPanel.revalidate();
 		shipPanel.repaint();
