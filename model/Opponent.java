@@ -9,7 +9,7 @@ public class Opponent
 	private ArrayList<Boolean> moveResults; // = new ArrayList();
 	private int numOfMoves = 0;
 	private boolean result;
-<<<<<<< HEAD
+
 
 	public Opponent()
 	{
@@ -39,7 +39,7 @@ public class Opponent
 	//public boolean checkOppMove(int oppMove) {
 		
 }
-=======
+
 	private ArrayList<Integer> locations;
 	private GameBoardState gbs;
 	private int[] shipLengths;
@@ -144,4 +144,4 @@ public class Opponent
 
 }
 
->>>>>>> master
+
