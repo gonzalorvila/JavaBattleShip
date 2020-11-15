@@ -85,4 +85,8 @@ public class GameBoard extends JPanel
     public ShipButton getSelectedShip() {
         return this.selectedShip;
     }
+
+    public ShipPanel getShipPanel() {
+        return this.ships;
+    }
 }

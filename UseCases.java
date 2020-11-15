@@ -64,18 +64,53 @@ public class UseCases
                 }
             }
         }
+        boolean allFree = true;
         if (selectedColumn - shipSize + 1 >= 0 && button[selectedRow][selectedColumn-shipSize+1].getFree()) {
-            button[selectedRow][selectedColumn-shipSize+1].setEnabled(true);
+            for (int i=selectedColumn-shipSize+1; i<= selectedColumn; i++) {
+                if (!button[selectedRow][i].getFree()) {
+                    allFree = false;
+                }
+            }
+            if (allFree) {
+                button[selectedRow][selectedColumn-shipSize+1].setEnabled(true);
+            }
+            allFree = true;
         }
         if (selectedColumn + shipSize - 1 < gridSize && button[selectedRow][selectedColumn+shipSize-1].getFree()) {
-            button[selectedRow][selectedColumn+shipSize-1].setEnabled(true);
+            for (int i=selectedColumn; i<= selectedColumn+shipSize-1; i++) {
+                if (!button[selectedRow][i].getFree()) {
+                    allFree = false;
+                }
+            }
+            if (allFree) {
+                button[selectedRow][selectedColumn+shipSize-1].setEnabled(true);
+            }
+            allFree = true;
         }
         if (selectedRow - shipSize + 1 >= 0 && button[selectedRow-shipSize+1][selectedColumn].getFree()) {
-            button[selectedRow-shipSize+1][selectedColumn].setEnabled(true);
+            for (int i=selectedRow-shipSize+1; i<= selectedRow; i++) {
+                if (!button[i][selectedColumn].getFree()) {
+                    allFree = false;
+                }
+            }
+            if (allFree) {
+                button[selectedRow-shipSize+1][selectedColumn].setEnabled(true);
+            }
+            allFree = true;
         }
         if (selectedRow + shipSize - 1 < gridSize && button[selectedRow+shipSize-1][selectedColumn].getFree()) {
-            button[selectedRow+shipSize-1][selectedColumn].setEnabled(true);
+            for (int i=selectedRow; i<= selectedRow+shipSize-1; i++) {
+                if (!button[i][selectedColumn].getFree()) {
+                    allFree = false;
+                }
+            }
+            if (allFree) {
+                button[selectedRow+shipSize-1][selectedColumn].setEnabled(true);
+            }
+            allFree = true;
+            
         }
+        gameTable.getShipPanel().toggleShipsEnabled(false);
         this.firstButton = selectedButton;
         this.secondSelection = true;
         return;
@@ -88,6 +123,9 @@ public class UseCases
         int firstButtonColumn = firstButton.getColumn();
         int secondButtonColumn= secondButton.getColumn();
         int shipSize = selectedShip.getShipSize();
+        if (playerShips.size() < 4) {
+            gameTable.getShipPanel().toggleShipsEnabled(true);
+        }
         if (secondButtonRow == firstButtonRow) {
             if (firstButtonColumn > secondButtonColumn) {
                 for (int i=secondButtonColumn; i<= firstButtonColumn; i++) {
@@ -126,6 +164,7 @@ public class UseCases
                 button[rows][columns].setEnabled(false);
             }
         }
+        selectedShip.setEnabled(true);
         selectedShip.setBorder(new LineBorder(Color.GREEN));
         selectedShip.setEnabled(false);
         Ships newShip = new Ships(firstButtonRow, firstButtonColumn, secondButtonRow, secondButtonColumn);
