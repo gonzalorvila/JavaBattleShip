@@ -1,11 +1,13 @@
 package view;
 
+import model.*;
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
+import javax.swing.border.LineBorder;
 
 // import model.*;
 
@@ -18,6 +20,7 @@ public class GameBoard extends JPanel
     private ShipPanel ships;
     private ShipButton selectedShip;
     private JLabel message;
+    private GridButton firstButton;
     /*private ShipPanel Carrier;
     private ShipPanel battleship;
     private ShipPanel cruiser;
@@ -25,6 +28,7 @@ public class GameBoard extends JPanel
     private ShipPanel destroyer;*/
 
     public void createGameBoard(ActionListener shipActionListener, ActionListener gridActionListener) {
+        this.firstButton = new GridButton("dummy");
         // Top level container for the game
         mainFrame = new JFrame("Battleship");
         mainFrame.setPreferredSize(new Dimension(frameSize, frameSize*2/7));
@@ -72,6 +76,124 @@ public class GameBoard extends JPanel
         mainFrame.add(battleshipTable);
         mainFrame.pack();
         mainFrame.setVisible(true);
+    }
+
+    public void showValidShipPlacements(GridButton selectedButton) {
+        setMessage("Select the selected ship´s end location");
+        GridButton button[][] = userGrid.button;
+        int selectedRow = selectedButton.getRow();
+        int selectedColumn = selectedButton.getColumn();
+        int shipSize = selectedShip.getShipSize();
+        int gridSize = userGrid.getGridSize();
+        for (int columns = 0; columns < gridSize; columns++){
+            for (int rows = 0; rows < gridSize; rows++) {
+                if (button[selectedRow][selectedColumn].getFree()) {
+                    button[rows][columns].setEnabled(false);
+                }
+            }
+        }
+        boolean allFree = true;
+        if (selectedColumn - shipSize + 1 >= 0 && button[selectedRow][selectedColumn-shipSize+1].getFree()) {
+            for (int i=selectedColumn-shipSize+1; i<= selectedColumn; i++) {
+                if (!button[selectedRow][i].getFree()) {
+                    allFree = false;
+                }
+            }
+            if (allFree) {
+                button[selectedRow][selectedColumn-shipSize+1].setEnabled(true);
+            }
+            allFree = true;
+        }
+        if (selectedColumn + shipSize - 1 < gridSize && button[selectedRow][selectedColumn+shipSize-1].getFree()) {
+            for (int i=selectedColumn; i<= selectedColumn+shipSize-1; i++) {
+                if (!button[selectedRow][i].getFree()) {
+                    allFree = false;
+                }
+            }
+            if (allFree) {
+                button[selectedRow][selectedColumn+shipSize-1].setEnabled(true);
+            }
+            allFree = true;
+        }
+        if (selectedRow - shipSize + 1 >= 0 && button[selectedRow-shipSize+1][selectedColumn].getFree()) {
+            for (int i=selectedRow-shipSize+1; i<= selectedRow; i++) {
+                if (!button[i][selectedColumn].getFree()) {
+                    allFree = false;
+                }
+            }
+            if (allFree) {
+                button[selectedRow-shipSize+1][selectedColumn].setEnabled(true);
+            }
+            allFree = true;
+        }
+        if (selectedRow + shipSize - 1 < gridSize && button[selectedRow+shipSize-1][selectedColumn].getFree()) {
+            for (int i=selectedRow; i<= selectedRow+shipSize-1; i++) {
+                if (!button[i][selectedColumn].getFree()) {
+                    allFree = false;
+                }
+            }
+            if (allFree) {
+                button[selectedRow+shipSize-1][selectedColumn].setEnabled(true);
+            }
+            allFree = true;
+        }
+        ships.toggleShipsEnabled(false);
+        this.firstButton = selectedButton;
+    }
+
+    public Ships placeShip(GridButton secondButton) {
+        GridButton button[][] = this.getUserGrid().button;
+        int firstButtonRow = firstButton.getRow();
+        int secondButtonRow = secondButton.getRow();
+        int firstButtonColumn = firstButton.getColumn();
+        int secondButtonColumn= secondButton.getColumn();
+        int shipSize = selectedShip.getShipSize();
+        
+        if (secondButtonRow == firstButtonRow) {
+            if (firstButtonColumn > secondButtonColumn) {
+                for (int i=secondButtonColumn; i<= firstButtonColumn; i++) {
+                    button[firstButtonRow][i].setBackground(Color.GRAY);
+                    button[firstButtonRow][i].setEnabled(false);
+                    button[firstButtonRow][i].setFree(false);
+                }
+            }
+            else {
+                for (int i=firstButtonColumn; i<= secondButtonColumn; i++) {
+                    button[firstButtonRow][i].setBackground(Color.GRAY);
+                    button[firstButtonRow][i].setEnabled(false);
+                    button[firstButtonRow][i].setFree(false);
+                }
+            }
+        }
+        else {
+            if (firstButtonRow > secondButtonRow) {
+                for (int i=secondButtonRow; i<= firstButtonRow; i++) {
+                    button[i][firstButtonColumn].setBackground(Color.GRAY);
+                    button[i][firstButtonColumn].setEnabled(false);
+                    button[i][firstButtonColumn].setFree(false);
+                }
+            }
+            else {
+                for (int i=firstButtonRow; i<= secondButtonRow; i++) {
+                    button[i][firstButtonColumn].setBackground(Color.GRAY);
+                    button[i][firstButtonColumn].setEnabled(false);
+                    button[i][firstButtonColumn].setFree(false);
+                }
+            }            
+        }
+        int gridSize = this.getUserGrid().getGridSize();
+        for (int columns = 0; columns < gridSize; columns++){
+            for (int rows = 0; rows < gridSize; rows++) {
+                button[rows][columns].setEnabled(false);
+            }
+        }
+        selectedShip.setEnabled(true);
+        selectedShip.setBorder(new LineBorder(Color.GREEN));
+        selectedShip.setEnabled(false);
+        Ships newShip = new Ships(firstButtonRow, firstButtonColumn, secondButtonRow, secondButtonColumn);
+
+        this.enableUserGrid(false);
+        return newShip;
     }
 
 

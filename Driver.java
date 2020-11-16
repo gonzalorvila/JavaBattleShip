@@ -14,7 +14,7 @@ public class Driver
     {
         
         //Opponent opponent = new Opponent();
-        UseCases useCases = new UseCases();
+        BattleShipController controller = new BattleShipController();
         GameBoardState gbState = new GameBoardState();
 
         
@@ -34,7 +34,7 @@ public class Driver
                 Object obj = e.getSource();
                 if (obj instanceof GridButton) {
                     GridButton selection = (GridButton) obj;
-                    useCases.onGridSelection(selection, gameTable);
+                    controller.onGridSelection(selection, gameTable);
                 }
             }
         });
@@ -44,8 +44,8 @@ public class Driver
 
         
 
-        //useCases.startNewGame(shipArray, opponent, gbState);       
-        //useCases.makeMove(shipArray, opponent, gbState);
-        //useCases.onResult(shipArray, opponent, gbState);
+        //controller.startNewGame(shipArray, opponent, gbState);       
+        //controller.makeMove(shipArray, opponent, gbState);
+        //controller.onResult(shipArray, opponent, gbState);
     }
 }
