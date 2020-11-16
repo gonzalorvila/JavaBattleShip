@@ -6,24 +6,11 @@ import java.util.*;
 public class Ships 
 {
 	private String shipName;
-	private int length;
-	private int startLocation;
-	private int endLocation;
-	private boolean direction;
-	private int[] shipCoordinates;
-
-	private int location;
+	private int[] shipLength;
 	private int startRow;
 	private int startColumn;
 	private int endRow;
 	private int endColumn;
-
-	public Ships(int length, int startLocation, int endLocation, boolean direction) {
-		this.startLocation = startLocation;
-		this.endLocation = endLocation;
-		this.direction = direction;
-		this.length = length;
-	}
 
 	public Ships(int startRow, int startColumn, int endRow, int endColumn) {
 		this.startRow = startRow;
@@ -32,76 +19,36 @@ public class Ships
 		this.endColumn = endColumn;
 	}
 
- 	public int[] getShipLocations() {
-		this.shipCoordinates[0] = startLocation;
-		this.shipCoordinates[length - 1] = endLocation;
-		if (this.direction) {
-			int i = 1;
-			for (int l = startLocation + 1; l < endLocation;) {
-				if (startLocation < endLocation) {
-					this.shipCoordinates[i] = l;
-					l++;
-				} else {
-					this.shipCoordinates[i] = l;
-					l--;
-				}
-				i++;
-			}
-		} else {
-			int i = 1;
-			for(int l = startLocation; l < endLocation;) {
-				if (startLocation < endLocation) {
-					this.shipCoordinates[i] = l;
-					l += 10;
-				} else {
-					this.shipCoordinates[i] = l;
-					l -= 10;
-				}
-				i++;
-			}
-		}
-		return shipCoordinates;
+	public void setStartColumn(int i) {
+		this.startColumn = i;
 	}
 
-
-	public void setLength(int i) {
-		this.length = i;
+	public void setStartRow(int i) {
+		this.startRow = i;
 	}
 
-	public void setDirection(boolean d) {
-		this.direction = d;
+	public void setEndRow(int r) {
+		this.endRow = r;
 	}
 
-	public void setStartLocation(int l) {
-		this.startLocation = l;
+	public void setEndColumn(int e) {
+		this.endColumn = e;
 	}
 
-	public void setEndLocation(int e) {
-		this.endLocation = e;
+	public int getStartColumn() {
+		return this.startColumn;
 	}
 
-
- 	public void storeLocations(ArrayList<Integer> locationsArray, int[] location)
-    {
-        for(int i = 0; i < location.length; i++) {
-			locationsArray.add(location[i]);
-		}
-    }
-
-	public int getLength() {
-		return this.length;
+	public int getStartRow() {
+		return this.startRow;
 	}
 
-	public int getStartLocation() {
-		return this.startLocation;
+	public int getEndRow() {
+		return this.endRow;
 	}
 
-	public int getEndLocation() {
-		return this.endLocation;
-	}
-
-	public boolean getDirection() {
-		return this.direction;
+	public int getEndColumn() {
+		return this.endColumn;
 	}
 
 }

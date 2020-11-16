@@ -1,98 +1,68 @@
 package model;
+import view.*;
 import java.util.*;
 import java.util.ArrayList;
 
 public class Opponent
 {
-	private int oppGuess;
+	private int rowGuess;
+	private int columnGuess;
 	private ArrayList prevMoves; // = new ArrayList();
 	private ArrayList<Boolean> moveResults; // = new ArrayList();
 	private int numOfMoves = 0;
 	private boolean result;
-	private ArrayList<Integer> locations;
+	private boolean direction; // if this is true then the ship will be placed vertically otherwise it will be horizontal
+	private ArrayList<Ships> userShipLocations
 	private GameBoardState gbs;
 	private int[] shipLengths;
 	private ArrayList<Ships> opponentShips;
 	private Ships s;
-	private int startLocation;
-	private int endLocation;
+	private int startRow;
+	private int endRow;
+	private int startColumn;
+	private int endColumn;
 
-	public Opponent(ArrayList<Integer> shipLocations) 
+	public Opponent(ArrayList<Integer> userShipLocations) 
 	{
 		this.gbs = new GameBoardState();
-		this.locations = shipLocations;
+		this.userShipLocations = userShipLocations;
 		this.moveResults = new ArrayList<Boolean>();
 		this.shipLengths = new int[]{5, 4, 3, 3, 2};
+		this.opponentShips = new ArrayList<Ships>();
 	}
 
 	public void opponentMove()
 	{
-		if (prevMoves.isEmpty()) 
-		{
-			Random num = new Random();
-			oppGuess = num.nextInt(101);
-			if (oppGuess == 0)
-				oppGuess += 1;
-		} else {
+		Random num = new Random();
+		this.rowGuess = num.nextInt(10);
+		this.columnGuess = num.nextInt(10);
+		this.result = gbs.isHit(GameBoard.userGrid.button[rowGuess][columnGuess])
 
-			if (moveResults.get(numOfMoves - 1)) 
-			{
-				oppGuess = (int)prevMoves.get(numOfMoves - 1) + 1;
-				if (oppGuess > 100) 
-				{
-					oppGuess = (int)prevMoves.get(numOfMoves - 1) - 1;
-				}
-			}
-			else if (moveResults.get(numOfMoves - 2)) 
-			{
-				oppGuess = (int)prevMoves.get(numOfMoves - 2) + 10;
-				if (oppGuess > 100) {
-					oppGuess = (int)prevMoves.get(numOfMoves - 2) - 10;
-				}
-			}
-			else 
-			{
-				Random num = new Random();
-				oppGuess = num.nextInt(101);
-				if (oppGuess == 0)
-					oppGuess += 1;
-			}
-		}
-                prevMoves.add(oppGuess);
-                result = checkOppMove(oppGuess);
-                moveResults.add(result);
-		numOfMoves++;
-	}
 
-	public boolean checkOppMove(int oppMove) {
-		boolean result = gbs.isHit(locations, oppMove);
-		return result;
-	}
 
 	public void setOpponentShips() {
 		for (int i = 0; i < 5; i++) {
 			int length = shipLengths[i];
-			Random num = new Random();
-			startLocation = num.nextInt(101);
-			if (startLocation == 0) 
-				startLocation += 1;
-			boolean direction = num.nextBoolean();
-			if (direction) {
-				if (startLocation % 10 < 6) {
-					endLocation = startLocation + (length -1);
-				}
-				else if (startLocation % 10 > 4) {
-					endLocation = startLocation - (length -1);
+			if (i ==0) {
+				Random num = new Random();
+				this.startColumn = num.nextInt(10);
+				this.startRow = num.nextInt(10);
+				this.direction = num.nextBoolean();
+				if (direction) {
+					this.endColumn = startColumn;
+					if((startColumn + length - 1) < 10) {
+						this.endRow = startRow + length -1;
+					} else {
+						this.endRow = startRow - length - 1;
+					}
 				}
 			} else {
-				if (startLocation/10 < 6) {
-					endLocation = startLocation + ((length - 1) * 10);
-				} else if (startLocation/10 > 4) {
-					endLocation = startLocation - ((length-1)*10);
-				}
+
 			}
-			opponentShips.add(new Ships(length, startLocation, endLocation, direction));
+			opponentShips.add(new Ships(startRow, startColumn,endRow,endColumn));
+			
 		}
+
 	}
 
 
