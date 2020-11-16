@@ -14,8 +14,7 @@ public class Driver
     {
         
         //Opponent opponent = new Opponent();
-        ArrayList<Ships> shipArray = new ArrayList<Ships>();
-        UseCases useCases = new UseCases(shipArray);
+        UseCases useCases = new UseCases();
         GameBoardState gbState = new GameBoardState();
 
         

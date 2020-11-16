@@ -10,11 +10,13 @@ public class UseCases
     private GridButton firstButton;
     private boolean secondSelection;
     private ArrayList<Ships> playerShips;
+    private ArrayList<Ships> opponentShips;
 
-    public UseCases(ArrayList<Ships> playerShips) {
+    public UseCases() {
         this.firstButton = new GridButton("dummy");
         this.secondSelection = false;
-        this.playerShips = playerShips;
+        this.playerShips = new ArrayList<Ships>();
+        this.opponentShips = new ArrayList<Ships>();
     }
     
     public void startNewGame(ArrayList<Ships> ships, Opponent opponent, GameBoardState gbState)
@@ -49,9 +51,13 @@ public class UseCases
                 chooseShipEnd(selectedButton, gameTable, selectedShip);
             }
         }
+        else {
+            evaluateMove(selectedButton, gameTable);
+        }
     }
 
     public void chooseShipStart(GridButton selectedButton, GameBoard gameTable, ShipButton selectedShip) {
+        gameTable.setMessage("Select the selected ship´s end location");
         GridButton button[][] = gameTable.getUserGrid().button;
         int gridSize = gameTable.getUserGrid().getGridSize();
         int selectedRow = selectedButton.getRow();
@@ -170,7 +176,33 @@ public class UseCases
         Ships newShip = new Ships(firstButtonRow, firstButtonColumn, secondButtonRow, secondButtonColumn);
         this.playerShips.add(newShip);
         this.secondSelection = false;
+
+        gameTable.enableUserGrid(false);
+        if (playerShips.size() == 5) {
+            gameTable.enableComputerGrid(true);
+            gameTable.setSelectedShip(null);
+            gameTable.setMessage("Your move! Choose a spot on the attack grid");
+        }
+        else {
+            gameTable.setMessage("Select next ship for placement");
+        }
     }
+
+    public void evaluateMove(GridButton selectedButton, GameBoard gameTable)
+    {
+        selectedButton.setEnabled(true);
+        if (selectedButton.getFree()) {
+            selectedButton.setBackground(Color.BLUE);
+            gameTable.setMessage("Miss!");
+        }
+        else {
+            selectedButton.setBackground(Color.RED);
+            gameTable.setMessage("Hit!");
+        }
+        selectedButton.setEnabled(false);
+    }
+
+
 
     /*public static void makeMove(ArrayList<Ships> ships, Opponent opponent, GameBoardState gbState)
     {
