@@ -1,17 +1,16 @@
 package view;
 
 import model.*;
+import controller.BattleShipUserInterface;
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.Iterator;
 import javax.swing.border.LineBorder;
 
-// import model.*;
 
-public class GameBoard extends JPanel 
+public class GameBoard extends JPanel implements BattleShipUserInterface
 {
     public static int frameSize = 1500;
     private GridPanel computerGrid;
@@ -142,7 +141,7 @@ public class GameBoard extends JPanel
     }
 
     public Ships placeShip(GridButton secondButton) {
-        GridButton button[][] = this.getUserGrid().button;
+        GridButton button[][] = userGrid.button;
         int firstButtonRow = firstButton.getRow();
         int secondButtonRow = secondButton.getRow();
         int firstButtonColumn = firstButton.getColumn();
@@ -181,7 +180,7 @@ public class GameBoard extends JPanel
                 }
             }            
         }
-        int gridSize = this.getUserGrid().getGridSize();
+        int gridSize = userGrid.getGridSize();
         for (int columns = 0; columns < gridSize; columns++){
             for (int rows = 0; rows < gridSize; rows++) {
                 button[rows][columns].setEnabled(false);
@@ -203,14 +202,6 @@ public class GameBoard extends JPanel
 
     public void enableComputerGrid(boolean enabled) {
         computerGrid.enableGrid(enabled);
-    }
-
-    public GridPanel getUserGrid() {
-        return this.userGrid;
-    }
-
-    public GridPanel getComputerGrid() {
-        return this.computerGrid;
     }
 
     public void setSelectedShip(ShipButton ship) {

@@ -1,7 +1,7 @@
 import java.awt.event.*;
 
 import model.*;
-//import controller.*;
+import controller.*;
 import view.*;
 import java.util.ArrayList;
 import javax.swing.border.LineBorder;
