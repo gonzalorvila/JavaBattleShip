@@ -37,9 +37,22 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
         //Top level panel representing 
         if(difficulty) {
         // Panel to show the computer's grid
+<<<<<<< HEAD
+        this.computerGrid = new GridPanel(10,50,50, false);
+
+        // Panel to show user's grid
+        this.userGrid = new GridPanel(10, 50, 50, true);
+
+        // Extra panel for padding
+        JPanel padding = new JPanel();
+        padding.setPreferredSize(new Dimension(75, frameSize*2/7));
+        padding.setBackground(new Color(0, 0, 255));
+
+=======
         this.computerGrid = new GridPanel(10,50,50, gridActionListener, false);
         // Panel to show user's grid
         this.userGrid = new GridPanel(10, 50, 50, gridActionListener, true);
+<<<<<<< HEAD
         } else {
         // Panel to show the computer's grid
         this.computerGrid = new GridPanel(15,50,50, gridActionListener, false);
@@ -51,6 +64,9 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
         battleshipTable.setLayout(new BoxLayout(battleshipTable, BoxLayout.X_AXIS));
 
 
+=======
+>>>>>>> master
+>>>>>>> Caleb
 
         //Panel to show ships
         JPanel rightPanel = new JPanel();
