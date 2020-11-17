@@ -8,40 +8,23 @@ import java.awt.event.ActionListener;
 public class GridPanel extends JPanel {
     JPanel buttonPanel;
     GridBagConstraints constraints;
-<<<<<<< HEAD
     public GridButton button[][];
-=======
-<<<<<<< HEAD
-    public static JButton button[][] = new JButton[10][10];
-    JLabel whichGrid;
-=======
-    public static GridButton button[][] = new GridButton[10][10];
->>>>>>> Caleb
     private boolean gridName;
->>>>>>> master
     private int rows;
     private int columns;
     private int gridSize;
     private JLabel whichGrid;
 
-<<<<<<< HEAD
-    public GridPanel (int gridSize, int height, int width, boolean player) {
-=======
     public GridPanel (int gridSize, int height, int width, ActionListener gridActionListener, boolean gridName) {
->>>>>>> master
         this.gridSize = gridSize;  
         this.setPreferredSize(new Dimension(width, height));
         this.button = new GridButton[gridSize][gridSize];
         this.setLayout(new GridBagLayout());
 	    this.setBackground(Color.GRAY);
         buttonPanel = new JPanel();
-<<<<<<< HEAD
         //buttonPanel.setBackground(new Color(51, 153, 255));
         buttonPanel.setLayout(new GridLayout(gridSize,gridSize));
-=======
         this.setBackground(Color.BLUE);
-        buttonPanel.setLayout(new GridLayout(10,10));
->>>>>>> Caleb
         int squareNum = 1;
         String numString;
         for (columns =0; columns < gridSize; columns++){
@@ -70,23 +53,6 @@ public class GridPanel extends JPanel {
         constraints.gridy = 0;
         constraints.weightx = 1.0;
         constraints.weighty = 0.65;
-<<<<<<< HEAD
-	this.add(buttonPanel, constraints);
-	GridBagConstraints lc = new GridBagConstraints();
-	lc.anchor = GridBagConstraints.PAGE_END;
-	lc.ipady = 30;
-	lc.fill = GridBagConstraints.HORIZONTAL;
-	lc.gridy = GridBagConstraints.RELATIVE;
-	if (player == true) {
-		whichGrid = new JLabel("User Grid");
-		
-	} else {
-		whichGrid = new JLabel("Attack Grid");
-	}
-	this.add(whichGrid, lc);
-        
-	}
-=======
 
         this.add(buttonPanel, constraints);
  	    GridBagConstraints lc = new GridBagConstraints();
@@ -117,5 +83,4 @@ public class GridPanel extends JPanel {
     public int getGridSize() {
         return this.gridSize;
     }
->>>>>>> master
 }
