@@ -37,7 +37,7 @@ public class Opponent
 		Random num = new Random();
 		this.rowGuess = num.nextInt(10);
 		this.columnGuess = num.nextInt(10);
-		this.result = gbs.isHit(GameBoard.userGrid.button[rowGuess][columnGuess]);
+		//this.result = gbs.isHit(GameBoard.userGrid.button[rowGuess][columnGuess]);
 	}	
 
 
@@ -65,8 +65,8 @@ public class Opponent
 					}
 				}
 			} else {
-				overlaps = true;
-				while (!overlaps) {
+				boolean result = true;
+				while (!result) {
 					Random num = new Random();
 					startColumn = num.nextInt(10);
 					startRow = num.nextInt(10);
@@ -86,7 +86,7 @@ public class Opponent
 							endColumn = startColumn - length + 1;
 						}
 					}
-					overlaps = checksForOverlaps(startRow, startColumn, endRow, endColumn);
+					result = checkForOverlaps(startRow, startColumn, endRow, endColumn);
 				}							
 			}
 			opponentShips.add(new Ships(startRow, startColumn,endRow,endColumn));

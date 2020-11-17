@@ -39,7 +39,7 @@ public class GameBoardState
 		return opponentScore; 
     }
 
-    public boolean isHit(GridButton button) 
+    /*public boolean isHit(GridButton button) 
     {
 	    boolean result = false;
 	    for (int i : locationsArray) {
@@ -49,7 +49,7 @@ public class GameBoardState
 	    }
       return result;
     }
-
+*/
     public boolean isSunk(ArrayList<Integer> locationsArray, int location) 
     {
       boolean result = false;

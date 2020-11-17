@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class GridPanel extends JPanel {
     JPanel buttonPanel;
     GridBagConstraints constraints;
-    public GridButton button[][] = new GridButton[10][10];
+    public GridButton button[][];
     private boolean gridName;
     private int rows;
     private int columns;
@@ -18,12 +18,12 @@ public class GridPanel extends JPanel {
     public GridPanel (int gridSize, int height, int width, ActionListener gridActionListener, boolean gridName) {
         this.gridSize = gridSize;  
         this.setPreferredSize(new Dimension(width, height));
-
+        this.button = new GridButton[gridSize][gridSize];
         this.setLayout(new GridBagLayout());
 	    this.setBackground(Color.GRAY);
         buttonPanel = new JPanel();
         //buttonPanel.setBackground(new Color(51, 153, 255));
-        buttonPanel.setLayout(new GridLayout(10,10));
+        buttonPanel.setLayout(new GridLayout(gridSize,gridSize));
         int squareNum = 1;
         String numString;
         for (columns =0; columns < gridSize; columns++){

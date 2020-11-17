@@ -12,7 +12,7 @@ import javax.swing.border.LineBorder;
 
 public class GameBoard extends JPanel implements BattleShipUserInterface
 {
-    public static int frameSize = 1500;
+    public static int frameSize = 2500;
     private GridPanel computerGrid;
     private GridPanel userGrid;
     private JFrame mainFrame;
@@ -20,13 +20,14 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
     private ShipButton selectedShip;
     private JLabel message;
     private GridButton firstButton;
+    private boolean difficulty;
     /*private ShipPanel Carrier;
     private ShipPanel battleship;
     private ShipPanel cruiser;
     private ShipPanel submarine;
     private ShipPanel destroyer;*/
 
-    public void createGameBoard(ActionListener shipActionListener, ActionListener gridActionListener) {
+    public void createGameBoard(ActionListener shipActionListener, ActionListener gridActionListener, boolean difficulty) {
         this.firstButton = new GridButton("dummy");
         // Top level container for the game
         mainFrame = new JFrame("Battleship");
@@ -34,14 +35,22 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Top level panel representing 
+        if(difficulty) {
+        // Panel to show the computer's grid
+        this.computerGrid = new GridPanel(10,50,50, gridActionListener, false);
+        // Panel to show user's grid
+        this.userGrid = new GridPanel(10, 50, 50, gridActionListener, true);
+        } else {
+        // Panel to show the computer's grid
+        this.computerGrid = new GridPanel(15,50,50, gridActionListener, false);
+        // Panel to show user's grid
+        this.userGrid = new GridPanel(15, 50, 50, gridActionListener, true);            
+        }
+
         JPanel battleshipTable = new JPanel();
         battleshipTable.setLayout(new BoxLayout(battleshipTable, BoxLayout.X_AXIS));
 
-        // Panel to show the computer's grid
-        this.computerGrid = new GridPanel(10,50,50, gridActionListener, false);
 
-        // Panel to show user's grid
-        this.userGrid = new GridPanel(10, 50, 50, gridActionListener, true);
 
         //Panel to show ships
         JPanel rightPanel = new JPanel();
