@@ -43,18 +43,11 @@ public class Driver
         
         gbState.setDifficulty(1);
 
-<<<<<<< HEAD
         //UseCases useCases = new UseCases();
 
         //useCases.startNewGame(shipArray, player, opponent, gbState);       
         //useCases.makeMove(shipArray, player, opponent, gbState);
         //useCases.onResult(shipArray, player, opponent, gbState);
-=======
-        
 
-        //useCases.startNewGame(shipArray, opponent, gbState);       
-        //useCases.makeMove(shipArray, opponent, gbState);
-        //useCases.onResult(shipArray, opponent, gbState);
->>>>>>> master
     }
 }
