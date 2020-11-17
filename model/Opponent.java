@@ -33,25 +33,24 @@ public class Opponent
 	}
 
 	public void opponentMove()
-    {
-        Random num = new Random();
-        this.rowGuess = num.nextInt(10);
-        this.columnGuess = num.nextInt(10);
-        boolean[][] checkGuess = this.gbs.getCompGrid();
-        boolean validGuess = true;
-        while (validGuess) {
-            if (checkGuess[rowGuess][columnGuess]) {
-                this.rowGuess = num.nextInt(10);
-                this.columnGuess = num.nextInt(10);
-            } 
-            else {
-                checkGuess[rowGuess][columnGuess] = true;
-                this.gbs.setCompGrid(checkGuess);
-                validGuess = false;
-            }
-        }
-    }
-
+	{
+		Random num = new Random();
+		this.rowGuess = num.nextInt(10);
+		this.columnGuess = num.nextInt(10);
+		boolean[][] checkGuess = this.gbs.getCompGrid();
+		boolean validGuess = true;
+		while (validGuess) {
+			if (checkGuess[rowGuess][columnGuess]) {
+				this.rowGuess = num.nextInt(10);
+				this.columnGuess = num.nextInt(10);
+			} 
+			else {
+				checkGuess[rowGuess][columnGuess] = true;
+				this.gbs.setCompGrid(checkGuess);
+				validGuess = false;
+			}
+		}
+	}
 
 	public void setOpponentShips() {
 		for (int i = 0; i < 5; i++) {

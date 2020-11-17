@@ -1,7 +1,7 @@
 package model;
 
 import org.junit.*;
-import static org.unit.Assert.*;
+import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 public class GameBoardStateTest {
@@ -59,7 +59,7 @@ public class GameBoardStateTest {
         locationsArray.add(24);
         locationsArray.add(25);
         boolean result = gbState.isSunk(locationsArray, 24);
-        assertEquals(false, result);
+        assertEquals(true, result);
     }
 
     @Test
