@@ -12,7 +12,7 @@ public class Opponent
 	private int numOfMoves = 0;
 	private boolean result;
 	private boolean direction; // if this is true then the ship will be placed vertically otherwise it will be horizontal
-	private ArrayList<Ships> userShipLocations
+	private ArrayList<Ships> userShipLocations;
 	private GameBoardState gbs;
 	private int[] shipLengths;
 	private ArrayList<Ships> opponentShips;
@@ -36,9 +36,20 @@ public class Opponent
 		Random num = new Random();
 		this.rowGuess = num.nextInt(10);
 		this.columnGuess = num.nextInt(10);
-		this.result = gbs.isHit(GameBoard.userGrid.button[rowGuess][columnGuess])
-
-
+		boolean[][] checkGuess = this.gbs.getCompGrid();
+		boolean validGuess = true;
+		while (validGuess) {
+			if (checkGuess[rowGuess][columnGuess]) {
+				this.rowGuess = num.nextInt(10);
+				this.columnGuess = num.nextInt(10);
+			} 
+			else {
+				checkGuess[rowGuess][columnGuess] = true;
+				this.gbs.setCompGrid(checkGuess);
+				validGuess = false;
+			}
+		}
+	}
 
 	public void setOpponentShips() {
 		for (int i = 0; i < 5; i++) {
@@ -64,9 +75,6 @@ public class Opponent
 		}
 
 	}
-
-
-
 
 	public void addToMoveResultMakeTrue(int i) {
 		moveResults.set(i, true);
