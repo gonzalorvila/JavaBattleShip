@@ -65,11 +65,10 @@ public class GameBoardState
 		return opponentScore; 
     }
 
-<<<<<<< HEAD
+
     /*public boolean isHit(GridButton button) 
-=======
+
     public boolean isHit(ArrayList<Integer> locationsArray, int location) 
->>>>>>> 371d4593cac6b235130c347828093d06aab30aed
     {
 	    boolean result = false;
 	    for (int i : locationsArray) {
