@@ -80,7 +80,7 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
     }
 
     public void showValidShipPlacements(GridButton selectedButton) {
-        setMessage("Select the selected ship´s end location");
+        setMessage("Select the selected ship's end location");
         GridButton button[][] = userGrid.button;
         int selectedRow = selectedButton.getRow();
         int selectedColumn = selectedButton.getColumn();
