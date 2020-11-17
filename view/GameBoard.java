@@ -12,7 +12,7 @@ import javax.swing.border.LineBorder;
 
 public class GameBoard extends JPanel implements BattleShipUserInterface
 {
-    public static int frameSize = 2500;
+    public static int frameSize = 2000;
     private GridPanel computerGrid;
     private GridPanel userGrid;
     private JFrame mainFrame;
