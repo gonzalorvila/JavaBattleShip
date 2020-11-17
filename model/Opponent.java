@@ -5,7 +5,14 @@ import java.util.ArrayList;
 
 public class Opponent
 {
-	private ArrayList<Integer> locations;
+	private int rowGuess;
+	private int columnGuess;
+	private ArrayList prevMoves; // = new ArrayList();
+	private ArrayList<Boolean> moveResults; // = new ArrayList();
+	private int numOfMoves = 0;
+	private boolean result;
+	private boolean direction; // if this is true then the ship will be placed vertically otherwise it will be horizontal
+	private ArrayList<Ships> userShipLocations;
 	private GameBoardState gbs;
 	private int[] shipLengths;
 	private ArrayList<Ships> opponentShips;
@@ -30,7 +37,6 @@ public class Opponent
 		Random num = new Random();
 		this.rowGuess = num.nextInt(10);
 		this.columnGuess = num.nextInt(10);
-		//this.result = gbs.isHit(GameBoard.userGrid.button[rowGuess][columnGuess]);
 		boolean[][] checkGuess = this.gbs.getCompGrid();
 		boolean validGuess = true;
 		while (validGuess) {
@@ -70,8 +76,8 @@ public class Opponent
 					}
 				}
 			} else {
-				boolean result = true;
-				while (!result) {
+				overlaps = true;
+				while (!overlaps) {
 					Random num = new Random();
 					startColumn = num.nextInt(10);
 					startRow = num.nextInt(10);
@@ -91,7 +97,7 @@ public class Opponent
 							endColumn = startColumn - length + 1;
 						}
 					}
-					result = checkForOverlaps(startRow, startColumn, endRow, endColumn);
+					overlaps = checkForOverlaps(startRow, startColumn, endRow, endColumn);
 				}							
 			}
 			opponentShips.add(new Ships(startRow, startColumn,endRow,endColumn));
@@ -137,5 +143,3 @@ public class Opponent
 	}
 
 }
-
-
