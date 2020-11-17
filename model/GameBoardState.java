@@ -6,14 +6,40 @@ public class GameBoardState
     private Opponent opponent;
     protected ArrayList<Integer> userShipLocations;
     protected ArrayList<Integer> compShipLocations;
+    private boolean userGrid[][];
+    private boolean compGrid[][];
     private int userScore;
     private int opponentScore;
     private int Difficulty;
 
-    public GameBoardState()
+    public GameBoardState(int gridSize)
     {
 	    this.userShipLocations = new ArrayList<Integer>();
-	    this.compShipLocations = new ArrayList<Integer>();
+      this.compShipLocations = new ArrayList<Integer>();
+      this.userGrid = new boolean[10][10];
+      this.compGrid = new boolean[10][10];
+      for (int columns =0; columns < gridSize; columns++){
+        for (int rows = 0; rows < gridSize; rows++) {
+          userGrid[rows][columns] = false;
+          compGrid[rows][columns] = false;
+        }
+      }
+    }
+
+    public void setUserGrid(boolean[][] userGrid) {
+      this.userGrid = userGrid;
+    }
+
+    public boolean[][] getUserGrid() {
+      return userGrid;
+    }
+
+    public void setCompGrid(boolean[][] compGrid) {
+      this.compGrid = compGrid;
+    }
+
+    public boolean[][] getCompGrid() {
+      return compGrid;
     }
 
     public void setDifficulty(int Difficulty)
@@ -39,7 +65,7 @@ public class GameBoardState
 		return opponentScore; 
     }
 
-    public boolean isHit(GridButton button) 
+    public boolean isHit(ArrayList<Integer> locationsArray, int location) 
     {
 	    boolean result = false;
 	    for (int i : locationsArray) {
