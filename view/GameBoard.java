@@ -19,13 +19,14 @@ public class GameBoard extends JPanel
     private JFrame mainFrame;
     private ShipPanel ships;
     private ShipButton selectedShip;
+    private boolean difficulty;
     /*private ShipPanel Carrier;
     private ShipPanel battleship;
     private ShipPanel cruiser;
     private ShipPanel submarine;
     private ShipPanel destroyer;*/
 
-    public void createGameBoard(ActionListener shipActionListener, ActionListener gridActionListener) {
+    public void createGameBoard(ActionListener shipActionListener, ActionListener gridActionListener, boolean difficulty) {
                 // Top level container for the game
         mainFrame = new JFrame("Battleship");
         mainFrame.setPreferredSize(new Dimension(frameSize, frameSize*2/7));
@@ -34,25 +35,20 @@ public class GameBoard extends JPanel
         //Top level panel representing 
         JPanel battleshipTable = new JPanel();
         battleshipTable.setLayout(new BoxLayout(battleshipTable, BoxLayout.X_AXIS));
+        if (difficulty) {
+            this.computerGrid = new GridPanel(10,50,50, gridActionListener, false);
+            this.userGrid = new GridPanel(10, 50, 50, gridActionListener, true);
+        } else {
+            this.computerGrid = new GridPanel(15,50,50, gridActionListener, false);
+            this.userGrid = new GridPanel(15, 50, 50, gridActionListener, true);
+        }
 
-        // Panel to show the computer's grid
-<<<<<<< HEAD
-        this.computerGrid = new GridPanel(10,50,50, false);
-
-        // Panel to show user's grid
-        this.userGrid = new GridPanel(10, 50, 50, true);
 
         // Extra panel for padding
         JPanel padding = new JPanel();
         padding.setPreferredSize(new Dimension(75, frameSize*2/7));
         padding.setBackground(new Color(0, 0, 255));
 
-=======
-        this.computerGrid = new GridPanel(10,50,50, gridActionListener, false);
-
-        // Panel to show user's grid
-        this.userGrid = new GridPanel(10, 50, 50, gridActionListener, true);
->>>>>>> master
 
         //Panel to show ships
         this.ships = new ShipPanel(100, 200);
