@@ -15,7 +15,7 @@ public class Driver
         
         //Opponent opponent = new Opponent();
         BattleShipController controller = new BattleShipController();
-        GameBoardState gbState = new GameBoardState();
+        GameBoardState gbState = new GameBoardState(10);
 
         
         GameBoard gameTable = new GameBoard();
