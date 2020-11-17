@@ -38,7 +38,7 @@ public class Opponent
 		this.rowGuess = num.nextInt(10);
 		this.columnGuess = num.nextInt(10);
 		this.result = gbs.isHit(GameBoard.userGrid.button[rowGuess][columnGuess]);
-
+	}	
 
 
 	public void setOpponentShips() {
@@ -129,11 +129,6 @@ public class Opponent
 
 	public void makeMoveResultFalse(int i) {
 		moveResults.set(i, false);
-	}
-
-	public int getLocations(int i) {
-		int l = locations.get(i);
-		return l;
 	}
 
 }

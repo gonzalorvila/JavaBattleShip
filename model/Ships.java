@@ -57,11 +57,11 @@ public class Ships
 			columns.add(startColumn);
 		} else {
 			if (startColumn < endColumn) {
-				for (i = startColumn; i <= endColumn; i++) {
+				for (int i = startColumn; i <= endColumn; i++) {
 					columns.add(i);	
 				}
 			} else {
-				for (i = startColumn; i >= endColumn; i--) {
+				for (int i = startColumn; i >= endColumn; i--) {
 					columns.add(i);
 				}
 			}
@@ -75,11 +75,11 @@ public class Ships
 			rows.add(startRow);
 		} else {
 			if (startRow < endRow) {
-				for(i = startRow; i <= endRow; i++) {
+				for(int i = startRow; i <= endRow; i++) {
 					rows.add(i);
 				}
 			} else {
-				for (i = startColumn; i >= endRow; i--) {
+				for (int i = startColumn; i >= endRow; i--) {
 					rows.add(i);
 				}
 			}
