@@ -51,4 +51,39 @@ public class Ships
 		return this.endColumn;
 	}
 
+	public ArrayList<Integer> storingColumnsFilled() {
+		ArrayList<Integer> columns = new ArrayList<Integer>();
+		if (startColumn == endColumn) {
+			columns.add(startColumn);
+		} else {
+			if (startColumn < endColumn) {
+				for (i = startColumn; i <= endColumn; i++) {
+					columns.add(i);	
+				}
+			} else {
+				for (i = startColumn; i >= endColumn; i--) {
+					columns.add(i);
+				}
+			}
+		}
+		return columns;
+	}
+	
+	public ArrayList<Integer> storingRowsFilled() {
+		ArrayList<Integer> rows = new ArrayList<Integer>();
+		if (startRow == endRow) {
+			rows.add(startRow);
+		} else {
+			if (startRow < endRow) {
+				for(i = startRow; i <= endRow; i++) {
+					rows.add(i);
+				}
+			} else {
+				for (i = startColumn; i >= endRow; i--) {
+					rows.add(i);
+				}
+			}
+		}
+		return rows;
+	}
 }

@@ -12,7 +12,7 @@ public class Opponent
 	private int numOfMoves = 0;
 	private boolean result;
 	private boolean direction; // if this is true then the ship will be placed vertically otherwise it will be horizontal
-	private ArrayList<Ships> userShipLocations
+	private ArrayList<Ships> userShipLocations;
 	private GameBoardState gbs;
 	private int[] shipLengths;
 	private ArrayList<Ships> opponentShips;
@@ -21,8 +21,9 @@ public class Opponent
 	private int endRow;
 	private int startColumn;
 	private int endColumn;
+	private boolean overlaps;
 
-	public Opponent(ArrayList<Integer> userShipLocations) 
+	public Opponent(ArrayList<Ships> userShipLocations) 
 	{
 		this.gbs = new GameBoardState();
 		this.userShipLocations = userShipLocations;
@@ -36,7 +37,7 @@ public class Opponent
 		Random num = new Random();
 		this.rowGuess = num.nextInt(10);
 		this.columnGuess = num.nextInt(10);
-		this.result = gbs.isHit(GameBoard.userGrid.button[rowGuess][columnGuess])
+		this.result = gbs.isHit(GameBoard.userGrid.button[rowGuess][columnGuess]);
 
 
 
@@ -45,27 +46,81 @@ public class Opponent
 			int length = shipLengths[i];
 			if (i ==0) {
 				Random num = new Random();
-				this.startColumn = num.nextInt(10);
-				this.startRow = num.nextInt(10);
-				this.direction = num.nextBoolean();
+				startColumn = num.nextInt(10);
+				startRow = num.nextInt(10);
+				direction = num.nextBoolean();
 				if (direction) {
-					this.endColumn = startColumn;
-					if((startColumn + length - 1) < 10) {
-						this.endRow = startRow + length -1;
+					endColumn = startColumn;
+					if((startRow + length - 1) < 10) {
+						endRow = startRow + length -1;
 					} else {
-						this.endRow = startRow - length - 1;
+						endRow = startRow - length + 1;
+					}
+				} else {
+					endRow = startRow;
+					if ((startColumn + length -1 < 10)) {
+						endColumn = startColumn + (length -1);
+					} else {
+						endColumn = startColumn - length + 1;
 					}
 				}
 			} else {
-
+				overlaps = true;
+				while (!overlaps) {
+					Random num = new Random();
+					startColumn = num.nextInt(10);
+					startRow = num.nextInt(10);
+					direction = num.nextBoolean();
+					if (direction) {
+						endColumn = startColumn;
+						if((startRow + length - 1) < 10) {
+							endRow = startRow + length -1;
+						} else {
+							endRow = startRow - length + 1;
+						}
+					} else {
+						endRow = startRow;
+						if ((startColumn + length -1 < 10)) {
+							endColumn = startColumn + (length -1);
+						} else {
+							endColumn = startColumn - length + 1;
+						}
+					}
+					overlaps = checksForOverlaps(startRow, startColumn, endRow, endColumn);
+				}							
 			}
 			opponentShips.add(new Ships(startRow, startColumn,endRow,endColumn));
-			
 		}
-
 	}
 
-
+	public boolean checkForOverlaps(int startRow, int startColumn, int endRow, int endColumn) {
+		Ships newShip = new Ship(startRow, startColumn, endRow, endColumn);
+		ArrayList<Integer> newRows = new ArrayList<Integer>();
+		ArrayList<Integer> newColumns = new ArrayList<Integer>();
+		newRows = newShip.storingRowsFilled();
+		newColumns = newShip.storingColumnsFilled();
+		for (Ships s : opponentShips) {
+			ArrayList<Integer> columns = new ArrayList<Integer>();
+			ArrayList<Integer> rows = new ArrayList<Integer>();
+			columns = s.storingColumnsFilled();
+			rows = s.storingRowsFilled();
+			for (int i : columns) {
+				for (int j : rows) {
+					for(int c : newColumns) {
+						for (int r : newRows) {
+							if (r == j && c == i) {
+								overlaps = true;
+								break;
+							} else {
+								overlaps = false;
+							}
+						}
+					}
+				}
+			}
+		}
+		return overlaps;		
+	}
 
 
 	public void addToMoveResultMakeTrue(int i) {
