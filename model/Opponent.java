@@ -11,10 +11,10 @@ public class Opponent
 	private ArrayList<Boolean> moveResults; // = new ArrayList();
 	private int numOfMoves = 0;
 	private boolean result;
-<<<<<<< HEAD
+
 	private boolean direction; // if this is true then the ship will be placed vertically otherwise it will be horizontal
 	private ArrayList<Ships> userShipLocations;
-=======
+
 
 
 	public Opponent()
@@ -47,7 +47,6 @@ public class Opponent
 }
 
 	private ArrayList<Integer> locations;
->>>>>>> Caleb
 	private GameBoardState gbs;
 	private int[] shipLengths;
 	private ArrayList<Ships> opponentShips;
@@ -72,11 +71,7 @@ public class Opponent
 		Random num = new Random();
 		this.rowGuess = num.nextInt(10);
 		this.columnGuess = num.nextInt(10);
-<<<<<<< HEAD
 		//this.result = gbs.isHit(GameBoard.userGrid.button[rowGuess][columnGuess]);
-	}	
-
-=======
 		boolean[][] checkGuess = this.gbs.getCompGrid();
 		boolean validGuess = true;
 		while (validGuess) {
@@ -91,7 +86,6 @@ public class Opponent
 			}
 		}
 	}
->>>>>>> 371d4593cac6b235130c347828093d06aab30aed
 
 	public void setOpponentShips() {
 		for (int i = 0; i < 5; i++) {
@@ -138,11 +132,7 @@ public class Opponent
 							endColumn = startColumn - length + 1;
 						}
 					}
-<<<<<<< HEAD
 					result = checkForOverlaps(startRow, startColumn, endRow, endColumn);
-=======
-					overlaps = checkForOverlaps(startRow, startColumn, endRow, endColumn);
->>>>>>> 371d4593cac6b235130c347828093d06aab30aed
 				}							
 			}
 			opponentShips.add(new Ships(startRow, startColumn,endRow,endColumn));
