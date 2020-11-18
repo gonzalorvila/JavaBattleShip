@@ -32,7 +32,8 @@ public class BattleShipController
     public void startNewGame(/*ArrayList<Ships> ships*/)
     {
         oppBoolArray = opponent.setOpponentShips();
-        userInterface.placeOppShipsOnGrid(oppBoolArray);
+
+        userInterface.placeOppShipsOnGrid(oppBoolArray, opponent.getOppShips());
         /*for (Ships s : ships)
         {
             // int location = player.setShipLocation(s);
@@ -113,7 +114,10 @@ public class BattleShipController
             moveEval = false;
         }
         else {
-            isStanding = gbState.isHit(selectedButton.getStartRow(), selectedButton.getStartColumn());
+            opponentShips = opponent.getOppShips();
+            System.out.println("SelectedButton row: " + selectedButton.getRow());
+            System.out.println("SelectedButton col: " + selectedButton.getColumn());
+            isStanding = gbState.onHit(selectedButton.getRow(), selectedButton.getColumn(), opponentShips);
             selectedButton.setBackground(Color.RED);
             if (isStanding) {
                 gameTable.setMessage("Hit!");

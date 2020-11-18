@@ -2,6 +2,7 @@ package controller;
 import model.*;
 import view.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public interface BattleShipUserInterface
 {
@@ -14,5 +15,5 @@ public interface BattleShipUserInterface
     public ShipPanel getShipPanel();
     public void setMessage(String message);
     public void updateUserGrid(int[] oppGuess, boolean moveResult);
-    public void placeOppShipsOnGrid(boolean[][] oppBoolArray);
+    public void placeOppShipsOnGrid(boolean[][] oppBoolArray, ArrayList<Ships> ships);
 }

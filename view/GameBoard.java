@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.border.LineBorder;
+import java.util.ArrayList;
 
 
 public class GameBoard extends JPanel implements BattleShipUserInterface
@@ -243,7 +244,7 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
         }
     }
 
-    public void placeOppShipsOnGrid(boolean[][] oppBoolArray)
+    public void placeOppShipsOnGrid(boolean[][] oppBoolArray, ArrayList<Ships> ships)
     {
         GridButton oppButton[][] = computerGrid.button;
         int gridSize = computerGrid.getGridSize();
@@ -254,6 +255,17 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
                 }
             }
         }
-
+        for (Ships s: ships) {
+            System.out.println("ship start row, column: " + s.getStartRow() + ", " + s.getStartColumn());
+            ArrayList<Integer> columns = s.storingColumnsFilled();
+			ArrayList<Integer> rows = s.storingRowsFilled();
+            for (int i = 0; i < columns.size(); i++) {
+                System.out.println("Setting start row and column of  " + rows.get(i) + " and " + columns.get(i) + " to: " + s.getStartRow() + " and " + s.getStartColumn());
+                oppButton[rows.get(i)][columns.get(i)].setStartRow(s.getStartRow());
+                oppButton[rows.get(i)][columns.get(i)].setStartColumn(s.getStartColumn());
+                System.out.println("Set row: " + oppButton[rows.get(i)][columns.get(i)].getStartRow() + "Set column:" + oppButton[rows.get(i)][columns.get(i)].getStartColumn());
+            }
+        }
+        computerGrid.setGrid(oppButton);
     }
 }

@@ -14,7 +14,6 @@ public class Opponent
 	private boolean result;
 	private boolean direction; // if this is true then the ship will be placed vertically otherwise it will be horizontal
 	private GameBoardState gbs;
-	//private int[] shipLengths;
 	private ArrayList<Ships> opponentShips;
 	private Ships s;
 	private int startRow;
@@ -67,7 +66,7 @@ public class Opponent
 			boolean[][] checkGuess = this.gbs.getCompGrid();
 			boolean validGuess = true;
 			while (validGuess) {
-				if (numOfMoves > 4) {
+				if (numOfMoves > 5) {
 					if (moveResults[numOfMoves -1] == true && prevRowGuess[numOfMoves -1] != 9 && !checkGuess[prevRowGuess[numOfMoves -1] + 1][prevColumnGuess[numOfMoves -1]]) {
 						guess[1] = prevColumnGuess[numOfMoves -1];
 						guess[0] = prevRowGuess[numOfMoves -1] + 1;
@@ -80,7 +79,7 @@ public class Opponent
 						guess[1] = prevColumnGuess[numOfMoves - 3] + 1;
 						guess[0] = prevRowGuess[numOfMoves - 3];
 					}
-					else if (moveResults[numOfMoves - 4] == true && prevColumnGuess[numOfMoves - 4] != 0 && !checkGuess[prevRowGuess[numOfMoves - 3]][prevColumnGuess[numOfMoves - 3] - 1] ) {
+					else if (moveResults[numOfMoves - 4] == true && prevColumnGuess[numOfMoves - 4] != 0 && !checkGuess[prevRowGuess[numOfMoves - 4]][prevColumnGuess[numOfMoves - 4] - 1] ) {
 						guess[1] = prevColumnGuess[numOfMoves - 4] - 1;
 						guess[0] = prevRowGuess[numOfMoves - 4];
 					} else {
@@ -157,7 +156,6 @@ public class Opponent
 		shipLengths[4] = 2;
 		for (int i = 0; i < 5; i++) {
 			int length = shipLengths[i];
-			System.out.println("Ships Length: " + length);
 			if (i == 0) {
 				Random num = new Random();
 				startColumn = num.nextInt(10);
@@ -206,11 +204,7 @@ public class Opponent
 			Ships s = new Ships(startRow, startColumn,endRow,endColumn, length);
 			s.setShipLength(shipLengths[i]);
 			opponentShips.add(s);
-		}
-		for (Ships s : opponentShips) {
-			System.out.println("Start row:" + s.getStartRow() + ", Start Column: " + s.getStartColumn());
-		}
-		
+		}	
 		boolean oppShipsBoolArray[][] = new boolean[gridSize][gridSize];
 		for (int i = 0; i < gridSize; i++) {
 			for (int j = 0; j < gridSize; j++) {
@@ -233,12 +227,6 @@ public class Opponent
 		ArrayList<Integer> newColumns = new ArrayList<Integer>();
 		newRows = newShip.storingRowsFilled();
 		newColumns = newShip.storingColumnsFilled();
-		/*for (int t = 0; t < newColumns.size(); t++) {
-			System.out.println("new  column " + t + ": " + newColumns.get(t));
-			System.out.println("new row " + t + ": " + newRows.get(t));
-		}*/
-		System.out.println(newRows.size());
-		System.out.println(newColumns.size() == newShip.getShipLength());
 
 		for (Ships s : opponentShips) {
 			ArrayList<Integer> columns = new ArrayList<Integer>();
@@ -257,6 +245,10 @@ public class Opponent
 			}
 		}
 		return overlaps;		
+	}
+
+	public ArrayList<Ships> getOppShips() {
+		return opponentShips;
 	}
 
 }

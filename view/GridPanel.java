@@ -92,4 +92,8 @@ public class GridPanel extends JPanel {
     public int getGridSize() {
         return this.gridSize;
     }
+
+    public void setGrid(GridButton button[][]) {
+        this.button = button;
+    }
 }

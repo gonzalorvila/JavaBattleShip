@@ -84,15 +84,22 @@ public class GameBoardState
 		return opponentScore; 
     }
     
-    public boolean isHit(int row, int column)
+    public boolean onHit(int row, int column, ArrayList<Ships> ships)
     {
-      for (Ships s: userShips) {
-        if (row == s.getStartRow() && column == s.getStartColumn()) {
-          s.setScore(s.getScore()-1);
-        }
-        if (s.getScore() == 0) {
-          isSunk(row, column);
-          return false;
+      for (Ships s: ships) {
+        ArrayList<Integer> columns = s.storingColumnsFilled();
+        ArrayList<Integer> rows = s.storingRowsFilled();
+        for (int i = 0; i < rows.size(); i++) {
+          System.out.println("Guess: " + row + ", " + column);
+          System.out.println("Ship location: " + rows.get(i) + ", " + columns.get(i));
+          if (row == columns.get(i) && column == rows.get(i)) {
+            s.setScore(s.getScore()-1);
+            System.out.println(s.getScore());
+            if (s.getScore() == 0) {
+              isSunk(row, column);
+              return false;
+            }
+          }
         }
       }
       return true;
