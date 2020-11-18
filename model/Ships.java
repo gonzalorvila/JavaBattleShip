@@ -57,7 +57,9 @@ public class Ships
 	public ArrayList<Integer> storingColumnsFilled() {
 		ArrayList<Integer> columns = new ArrayList<Integer>();
 		if (startColumn == endColumn) {
-			columns.add(startColumn);
+			for (int i = 0; i < this.length; i++){
+				columns.add(startColumn);
+			}
 		} else {
 			if (startColumn < endColumn) {
 				for (int i = startColumn; i <= endColumn; i++) {
@@ -75,7 +77,9 @@ public class Ships
 	public ArrayList<Integer> storingRowsFilled() {
 		ArrayList<Integer> rows = new ArrayList<Integer>();
 		if (startRow == endRow) {
-			rows.add(startRow);
+			for (int i = 0; i < this.length; i++) {
+				rows.add(startRow);
+			}
 		} else {
 			if (startRow < endRow) {
 				for(int i = startRow; i <= endRow; i++) {

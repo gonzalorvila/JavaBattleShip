@@ -64,9 +64,6 @@ public class BattleShipController
                 if (playerShips.size() < 4) {
                     gameTable.getShipPanel().toggleShipsEnabled(true);
                 }
-
-                
-
                 Ships newShip = gameTable.placeShip(selectedButton);
                 this.playerShips.add(newShip);
                 if (playerShips.size() == 5) {
@@ -93,7 +90,7 @@ public class BattleShipController
             moveResult = true;
             
             while(moveResult) {
-                oppGuess = opponent.opponentMove();
+                oppGuess = opponent.opponentMove(playerShips);
                 if(userShipLocations[oppGuess[0]][oppGuess[1]] == true) {
                     moveResult = true;
                 } else {

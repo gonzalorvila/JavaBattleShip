@@ -5,7 +5,7 @@ public class GameBoardState
 {
     private Opponent opponent;
     private boolean userShipGrid[][];
-    private boolean compGrid[][];
+    private boolean compGuessGrid[][];
     private int userScore;
     private int opponentScore;
     private int Difficulty;
@@ -21,11 +21,11 @@ public class GameBoardState
       this.rowLocation = new ArrayList<Integer>();
       this.columnLocation = new ArrayList<Integer>();
       this.userShipGrid = new boolean[gridSize][gridSize];
-      this.compGrid = new boolean[gridSize][gridSize];
+      this.compGuessGrid = new boolean[gridSize][gridSize];
       for (int columns =0; columns < gridSize; columns++){
         for (int rows = 0; rows < gridSize; rows++) {
           userShipGrid[rows][columns] = false;
-          compGrid[rows][columns] = false;
+          compGuessGrid[rows][columns] = false;
         }
       }
     }
@@ -39,25 +39,22 @@ public class GameBoardState
         columnLocation.add(columns.get(0));
         for (int j = 0; j < s.getShipLength(); j++)
         {
-          if (columns.size() > 1) { //ship is horizontal
-            userShipGrid[rows.get(0)][columns.get(j)] = true;
-            System.out.println(rows.get(0) + " " + columns.get(j));
-          }
-          else {
-            userShipGrid[rows.get(j)][columns.get(0)] = true;
-            System.out.println(rows.get(j) + " " + columns.get(0));
-          }
+          userShipGrid[rows.get(j)][columns.get(j)] = true;
         }
 		  }
       return userShipGrid;  
     }
 
+    public boolean[][] getUserGrid() {
+      return userShipGrid;
+    }
+
     public void setCompGrid(boolean[][] compGrid) {
-      this.compGrid = compGrid;
+      this.compGuessGrid = compGrid;
     }
 
     public boolean[][] getCompGrid() {
-      return compGrid;
+      return compGuessGrid;
     }
 
     public boolean[][] getUserShipGrid() {
