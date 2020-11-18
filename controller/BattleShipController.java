@@ -14,6 +14,7 @@ public class BattleShipController
     private ArrayList<Ships> opponentShips;
     private Opponent opponent;
     private boolean[][] oppBoolArray;
+    private GameBoardState gbState;
 
     public BattleShipController() {
         this.firstButton = new GridButton("dummy");
@@ -21,9 +22,10 @@ public class BattleShipController
         this.playerShips = new ArrayList<Ships>();
         this.opponentShips = new ArrayList<Ships>();
         this.opponent = new Opponent(10);
+        this.gbState = new GameBoardState(10);
     }
     
-    public void startNewGame(ArrayList<Ships> ships, GameBoardState gbState)
+    public void startNewGame(ArrayList<Ships> ships)
     {
         oppBoolArray = opponent.setOpponentShips();
         for (Ships s : ships)
@@ -68,6 +70,7 @@ public class BattleShipController
                     gameTable.setMessage("Your move! Choose a spot on the attack grid");
                 }
                 else {
+
                     gameTable.setMessage("Select next ship for placement");
                 }
                 this.secondSelection = false;
@@ -75,20 +78,39 @@ public class BattleShipController
             }
         }
         else {
-            evaluateMove(selectedButton, gameTable);
+            boolean moveResult = true;
+            while(moveResult) {
+                moveResult = evaluateMove(selectedButton, gameTable);
+            }
+            int[] oppGuess = new int[2];
+            moveResult = true;
+            boolean[][] userShipLocations = new boolean[10][10];
+            userShipLocations = gbState.setUserGrid(playerShips);
+            while(moveResult) {
+                oppGuess = opponent.opponentMove();
+                if(userShipLocations[oppGuess[0]][oppGuess[1]] == true) {
+                    moveResult = true;
+                } else {
+                    moveResult = false;
+                }
+                gameTable.updateUserGrid(oppGuess, moveResult);
+            }
+
         }
     }
 
-    public void evaluateMove(GridButton selectedButton, GameBoard gameTable)
+    public boolean evaluateMove(GridButton selectedButton, GameBoard gameTable)
     {
         selectedButton.setEnabled(true);
         if (selectedButton.getFree()) {
             selectedButton.setBackground(Color.BLUE);
             gameTable.setMessage("Miss!");
+            return false;
         }
         else {
             selectedButton.setBackground(Color.RED);
             gameTable.setMessage("Hit!");
+            return true;
         }
         selectedButton.setEnabled(false);
     }

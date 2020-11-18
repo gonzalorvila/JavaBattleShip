@@ -111,14 +111,14 @@ public class Opponent
 		boolean oppShipsBoolArray[][] = new boolean[gridSize][gridSize];
 		for (int i = 0; i < gridSize; i++) {
 			for (int j = 0; j < gridSize; j++) {
-				oppShipsBoolArray[i][j] = true;
+				oppShipsBoolArray[i][j] = false;
 			}
 		} 
 		for (Ships s : opponentShips) {
 			ArrayList<Integer> columns = s.storingColumnsFilled();
 			ArrayList<Integer> rows = s.storingRowsFilled();
 			for (int i = 0; i < s.getShipLength(); i++) {
-				oppShipsBoolArray[columns.get(i)][rows.get(i)] = false;
+				oppShipsBoolArray[columns.get(i)][rows.get(i)] = true;
 			}
 		}
 		return oppShipsBoolArray;

@@ -221,4 +221,18 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
     public void setMessage(String message) {
         this.message.setText(message);
     }
+
+    public void updateUserGrid(int[] oppGuess, boolean moveResult) {
+        GridButton userButton[][] = userGrid.button; 
+        if (moveResult) {
+            userButton[oppGuess[0]][oppGuess[1]].setEnabled(true);
+            userButton[oppGuess[0]][oppGuess[1]].setBackground(Color.RED);
+            userButton[oppGuess[0]][oppGuess[1]].setEnabled(false);
+        } else {
+            userButton[oppGuess[0]][oppGuess[1]].setEnabled(true);
+            userButton[oppGuess[0]][oppGuess[1]].setBackground(Color.BLUE);
+            userButton[oppGuess[0]][oppGuess[1]].setEnabled(false);
+        }
+
+    }
 }

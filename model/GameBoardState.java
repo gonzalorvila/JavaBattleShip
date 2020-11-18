@@ -4,9 +4,7 @@ import java.util.ArrayList;
 public class GameBoardState
 {
     private Opponent opponent;
-    protected ArrayList<Integer> userShipLocations;
-    protected ArrayList<Integer> compShipLocations;
-    private boolean userGrid[][];
+    private boolean userShipGrid[][];
     private boolean compGrid[][];
     private int userScore;
     private int opponentScore;
@@ -14,24 +12,25 @@ public class GameBoardState
 
     public GameBoardState(int gridSize)
     {
-	    this.userShipLocations = new ArrayList<Integer>();
-      this.compShipLocations = new ArrayList<Integer>();
-      this.userGrid = new boolean[gridSize][gridSize];
+      this.userShipGrid = new boolean[gridSize][gridSize];
       this.compGrid = new boolean[gridSize][gridSize];
       for (int columns =0; columns < gridSize; columns++){
         for (int rows = 0; rows < gridSize; rows++) {
-          userGrid[rows][columns] = false;
+          userShipGrid[rows][columns] = false;
           compGrid[rows][columns] = false;
         }
       }
     }
 
-    public void setUserGrid(boolean[][] userGrid) {
-      this.userGrid = userGrid;
-    }
-
-    public boolean[][] getUserGrid() {
-      return userGrid;
+    public boolean[][] setUserGrid(ArrayList<Ships> userShipLocations) {
+      for (Ships s : userShipLocations) {
+			  ArrayList<Integer> columns = s.storingColumnsFilled();
+			  ArrayList<Integer> rows = s.storingRowsFilled();
+			  for (int i = 0; i < s.getShipLength(); i++) {
+				  userShipGrid[columns.get(i)][rows.get(i)] = true;
+			  }
+		  }
+      return userShipGrid;  
     }
 
     public void setCompGrid(boolean[][] compGrid) {
@@ -64,21 +63,7 @@ public class GameBoardState
     {
 		return opponentScore; 
     }
-
-
-    public boolean isHit(GridButton button) 
-
-    public boolean isHit(ArrayList<Integer> locationsArray, int location) 
-    {
-	    boolean result = false;
-	    for (int i : locationsArray) {
-		    if (i == location) {
-			    result = true;
-		    }
-	    }
-      return result;
-    }
-
+    
     public boolean isSunk(ArrayList<Integer> locationsArray, int location) 
     {
       boolean result = false;
