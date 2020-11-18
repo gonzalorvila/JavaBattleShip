@@ -233,24 +233,26 @@ public class Opponent
 		ArrayList<Integer> newColumns = new ArrayList<Integer>();
 		newRows = newShip.storingRowsFilled();
 		newColumns = newShip.storingColumnsFilled();
+		/*for (int t = 0; t < newColumns.size(); t++) {
+			System.out.println("new  column " + t + ": " + newColumns.get(t));
+			System.out.println("new row " + t + ": " + newRows.get(t));
+		}*/
+		System.out.println(newRows.size());
+		System.out.println(newColumns.size() == newShip.getShipLength());
+
 		for (Ships s : opponentShips) {
 			ArrayList<Integer> columns = new ArrayList<Integer>();
 			ArrayList<Integer> rows = new ArrayList<Integer>();
 			columns = s.storingColumnsFilled();
 			rows = s.storingRowsFilled();
-			System.out.println(s.getShipLength());
-			for (int i = 0; i < newShip.getShipLength(); i++) {
-				if(columns.get(i) == newColumns.get(i) && rows.get(i) == newRows.get(i)){
-					overlaps = true;
-					break;
-				} else {
-					overlaps = false;
-				}
-			}
-			for( int j = 0; j < newShip.getShipLength(); j++) {
-				if(columns.get(s.getShipLength() - 1) == newColumns.get(j) && rows.get(s.getShipLength() - 1) == newRows.get(j)){
-					overlaps = true;
-					break;
+			for (int i = 0; i < newRows.size(); i++) {
+				for (int j = 0; j < rows.size(); j++) {
+					if(columns.get(j) == newColumns.get(i) && rows.get(j) == newRows.get(i)){
+						overlaps = true;
+						return overlaps;
+					} else {
+						overlaps = false;
+					}
 				}
 			}
 		}
