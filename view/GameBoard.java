@@ -153,6 +153,8 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
         if (secondButtonRow == firstButtonRow) {
             if (firstButtonColumn > secondButtonColumn) {
                 for (int i=secondButtonColumn; i<= firstButtonColumn; i++) {
+                    button[firstButtonRow][i].setStartRow(firstButtonRow);
+                    button[firstButtonRow][i].setStartColumn(firstButtonColumn);
                     button[firstButtonRow][i].setBackground(Color.GRAY);
                     button[firstButtonRow][i].setFree(false);
                     button[firstButtonRow][i].setEnabled(false);
@@ -160,6 +162,8 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
             }
             else {
                 for (int i=firstButtonColumn; i<= secondButtonColumn; i++) {
+                    button[firstButtonRow][i].setStartRow(firstButtonRow);
+                    button[firstButtonRow][i].setStartColumn(firstButtonColumn);
                     button[firstButtonRow][i].setBackground(Color.GRAY);
                     button[firstButtonRow][i].setFree(false);
                     button[firstButtonRow][i].setEnabled(false);
@@ -169,6 +173,8 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
         else {
             if (firstButtonRow > secondButtonRow) {
                 for (int i=secondButtonRow; i<= firstButtonRow; i++) {
+                    button[i][firstButtonColumn].setStartRow(firstButtonRow);
+                    button[i][firstButtonColumn].setStartColumn(firstButtonColumn);
                     button[i][firstButtonColumn].setBackground(Color.GRAY);
                     button[i][firstButtonColumn].setFree(false);
                     button[i][firstButtonColumn].setEnabled(false);
@@ -177,6 +183,8 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
             else {
                 for (int i=firstButtonRow; i<= secondButtonRow; i++) {
                     button[i][firstButtonColumn].setBackground(Color.GRAY);
+                    button[i][firstButtonColumn].setStartRow(firstButtonRow);
+                    button[i][firstButtonColumn].setStartColumn(firstButtonColumn);
                     button[i][firstButtonColumn].setFree(false);
                     button[i][firstButtonColumn].setEnabled(false);
                 }

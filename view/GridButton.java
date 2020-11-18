@@ -6,6 +6,8 @@ public class GridButton extends JButton {
     private int row;
     private int column;
     private boolean free;
+    private int startRow;
+    private int startColumn;
 
     public GridButton(String string) {
         super(string);
@@ -33,5 +35,21 @@ public class GridButton extends JButton {
 
     public boolean getFree() {
         return this.free;
+    }
+
+    public void setStartRow(int startRow) {
+        this.startRow = startRow;
+    }
+
+    public int getStartRow() {
+        return startRow;
+    }
+
+    public void setStartColumn(int startColumn) {
+        this.startColumn = startColumn;
+    }
+
+    public int getStartColumn() {
+        return startColumn;
     }
 }

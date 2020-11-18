@@ -9,9 +9,17 @@ public class GameBoardState
     private int userScore;
     private int opponentScore;
     private int Difficulty;
+    private int gridSize;
+    private ArrayList<Integer> rowLocation;
+    private ArrayList<Integer> columnLocation;
+    private ArrayList<Ships> userShips;
 
     public GameBoardState(int gridSize)
     {
+      this.gridSize = gridSize;
+      this.userShips = new ArrayList<Ships>();
+      this.rowLocation = new ArrayList<Integer>();
+      this.columnLocation = new ArrayList<Integer>();
       this.userShipGrid = new boolean[gridSize][gridSize];
       this.compGrid = new boolean[gridSize][gridSize];
       for (int columns =0; columns < gridSize; columns++){
@@ -23,9 +31,12 @@ public class GameBoardState
     }
 
     public boolean[][] setUserGrid(ArrayList<Ships> userShipLocations) {
+      userShips = userShipLocations;
       for (Ships s : userShipLocations) {
 			  ArrayList<Integer> columns = s.storingColumnsFilled();
-			  ArrayList<Integer> rows = s.storingRowsFilled();
+        ArrayList<Integer> rows = s.storingRowsFilled();
+        rowLocation.add(rows.get(0));
+        columnLocation.add(columns.get(0));
         for (int j = 0; j < s.getShipLength(); j++)
         {
           if (columns.size() > 1) { //ship is horizontal
@@ -47,6 +58,10 @@ public class GameBoardState
 
     public boolean[][] getCompGrid() {
       return compGrid;
+    }
+
+    public boolean[][] getUserShipGrid() {
+      return userShipGrid;
     }
 
     public void setDifficulty(int Difficulty)
@@ -72,10 +87,30 @@ public class GameBoardState
 		return opponentScore; 
     }
     
-    public boolean isSunk(ArrayList<Integer> locationsArray, int location) 
+    public boolean isHit(int row, int column)
     {
+      for (Ships s: userShips) {
+        if (row == s.getStartRow() && column == s.getStartColumn()) {
+          s.setScore(s.getScore()-1);
+        }
+        if (s.getScore() == 0) {
+          isSunk(row, column);
+          return false;
+        }
+      }
+      return true;
+    }
+
+    public boolean isSunk(int row, int column) 
+    {/*
       boolean result = false;
       int shipLength = 0;
+      for (int columns =0; columns < gridSize; columns++){
+        for (int rows = 0; rows < gridSize; rows++) {
+          userShipGrid[rows][columns] = false;
+          compGrid[rows][columns] = false;
+        }
+      }
 	    for (int i : locationsArray) {
 		    if (i == location) {
           shipLength++;
@@ -84,7 +119,8 @@ public class GameBoardState
           }
 		    }
 	    }
-      return result;
+      return result;*/
+      return false;
     }
 
 }

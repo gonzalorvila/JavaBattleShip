@@ -108,6 +108,7 @@ public class BattleShipController
     public boolean evaluateMove(GridButton selectedButton, GameBoard gameTable)
     {
         boolean moveEval = false;
+        boolean isStanding = true;
         selectedButton.setEnabled(true);
         if (selectedButton.getFree()) {
             selectedButton.setBackground(Color.BLUE);
@@ -115,8 +116,14 @@ public class BattleShipController
             moveEval = false;
         }
         else {
+            isStanding = gbState.isHit(selectedButton.getStartRow(), selectedButton.getStartColumn());
             selectedButton.setBackground(Color.RED);
-            gameTable.setMessage("Hit!");
+            if (isStanding) {
+                gameTable.setMessage("Hit!");
+            }
+            else {
+                gameTable.setMessage("Sunk!");
+            }
             moveEval = true;
         }
         selectedButton.setEnabled(false);
