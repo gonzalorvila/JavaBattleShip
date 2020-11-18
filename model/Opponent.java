@@ -13,7 +13,7 @@ public class Opponent
 	private boolean result;
 	private boolean direction; // if this is true then the ship will be placed vertically otherwise it will be horizontal
 	private GameBoardState gbs;
-	private int[] shipLengths;
+	//private int[] shipLengths;
 	private ArrayList<Ships> opponentShips;
 	private Ships s;
 	private int startRow;
@@ -27,7 +27,6 @@ public class Opponent
 	{
 		this.gbs = new GameBoardState(10);
 		this.moveResults = new ArrayList<Boolean>();
-		this.shipLengths = new int[]{5, 4, 3, 3, 2};
 		this.opponentShips = new ArrayList<Ships>();
 		this.gridSize = gridSize;
 	}
@@ -54,11 +53,23 @@ public class Opponent
 		guess[0] = this.rowGuess;
 		guess[1] = this.columnGuess;
 		return guess;
+		//We need  to be able to check from here whether or not it was a hit or not when the move so that we can store the results in a boolean array as well as store the rows and columns guess in arrays
+		//at the same index so that we can check whether the last move made was a hit and if it should guess around there. and then set up if and if else statements to guess around the box that was hit.
+		//Also we only need to make sure the next guess is in near we are not going to account for if two are hit in a row or anything its not going to continue guessing that direction unless if it was the
+		//first direction in the if statements
 	}
 
 	public boolean[][] setOpponentShips() {
+		int[] shipLengths;
+		shipLengths = new int[5];
+		shipLengths[0] = 5;
+		shipLengths[1] = 4;
+		shipLengths[2] = 3;
+		shipLengths[3] = 3;
+		shipLengths[4] = 2;
 		for (int i = 0; i < 5; i++) {
 			int length = shipLengths[i];
+			System.out.println("Ships Length: " + length);
 			if (i == 0) {
 				Random num = new Random();
 				startColumn = num.nextInt(10);
@@ -80,8 +91,8 @@ public class Opponent
 					}
 				}
 			} else {
-				overlaps = true;
-				while (overlaps) {
+				boolean moveBoolean = true;
+				while (moveBoolean) {
 					Random num = new Random();
 					startColumn = num.nextInt(10);
 					startRow = num.nextInt(10);
@@ -101,7 +112,7 @@ public class Opponent
 							endColumn = startColumn - length + 1;
 						}
 					}
-					overlaps = checkForOverlaps(startRow, startColumn, endRow, endColumn, length);
+					moveBoolean = checkForOverlaps(startRow, startColumn, endRow, endColumn, length);
 				}							
 			}
 			Ships s = new Ships(startRow, startColumn,endRow,endColumn, length);
@@ -122,12 +133,7 @@ public class Opponent
 			ArrayList<Integer> columns = s.storingColumnsFilled();
 			ArrayList<Integer> rows = s.storingRowsFilled();
 			for (int i = 0; i < s.getShipLength(); i++) {
-				if (columns.size() > 1) { //ship is horizontal
-					oppShipsBoolArray[columns.get(i)][rows.get(0)] = true;
-				}
-				else {
-					oppShipsBoolArray[columns.get(0)][rows.get(i)] = true;
-				}
+				oppShipsBoolArray[columns.get(i)][rows.get(i)] = true;
 			}
 		}
 		return oppShipsBoolArray;
@@ -144,20 +150,20 @@ public class Opponent
 			ArrayList<Integer> rows = new ArrayList<Integer>();
 			columns = s.storingColumnsFilled();
 			rows = s.storingRowsFilled();
-			for (int i : columns) {
-				for (int j : rows) {
-					for(int c : newColumns) {
-						for (int r : newRows) {
-							if (r == j && c == i) {
-								overlaps = true;
-								break;
-							} else {
-								overlaps = false;
-							}
-						}
-					}
+			System.out.println(s.getShipLength());
+			for (int i = 0; i < newShip.getShipLength(); i++) {
+				if(columns.get(i) == newColumns.get(i) && rows.get(i) == newRows.get(i)){
+					overlaps = true;
+					break;
+				} else {
+					overlaps = false;
 				}
 			}
+			for( int j = 0; i < newShip.getShipLength(); i++) {
+				if(columns.get(s.getShipLength() - 1) == newColumns.get(j) && rows.get(s.getShipLength() - 1) == newRows.get(j)){
+					overlaps = true;
+					break;
+				}
 		}
 		return overlaps;		
 	}
