@@ -11,6 +11,7 @@ public class Ships
 	private int startColumn;
 	private int endRow;
 	private int endColumn;
+	private int score;
 
 	public Ships(int startRow, int startColumn, int endRow, int endColumn, int length) {
 		this.startRow = startRow;
@@ -18,6 +19,7 @@ public class Ships
 		this.endRow = endRow;
 		this.endColumn = endColumn;
 		this.length = length;
+		this.score = length;
 	}
 
 	public void setStartColumn(int i) {
@@ -97,5 +99,13 @@ public class Ships
 	}
 	public int getShipLength() {
 		return this.length;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public int getScore() {
+		return score;
 	}
 }
