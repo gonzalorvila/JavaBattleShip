@@ -56,10 +56,6 @@ public class GameBoardState
       return compGuessGrid;
     }
 
-    public boolean[][] getUserShipGrid() {
-      return userShipGrid;
-    }
-
     public void setDifficulty(int Difficulty)
     {
         this.Difficulty = Difficulty;
