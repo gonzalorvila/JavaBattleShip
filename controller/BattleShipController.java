@@ -31,7 +31,8 @@ public class BattleShipController
     
     public void startNewGame(/*ArrayList<Ships> ships*/)
     {
-        oppBoolArray = opponent.setOpponentShips();
+        opponent.setOpponentShips();
+        oppBoolArray = opponent.getOpponentShips();
         userInterface.placeOppShipsOnGrid(oppBoolArray);
         /*for (Ships s : ships)
         {

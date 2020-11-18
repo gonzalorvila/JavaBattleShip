@@ -24,6 +24,7 @@ public class Opponent
 	private boolean overlaps;
 	private int gridSize;
 	private ArrayList<Ships> userShipLocations;
+	private boolean oppShipsBoolArray[][];
 
 	public Opponent(int gridSize) 
 	{
@@ -148,7 +149,7 @@ public class Opponent
 		return guess;
 	}
 
-	public boolean[][] setOpponentShips() {
+	public void setOpponentShips() {
 		int[] shipLengths;
 		shipLengths = new int[5];
 		shipLengths[0] = 5;
@@ -225,6 +226,10 @@ public class Opponent
 				oppShipsBoolArray[columns.get(i)][rows.get(i)] = true;
 			}
 		}
+		this.oppShipsBoolArray = oppShipsBoolArray;
+	}
+
+	public boolean[][] getOpponentShips() {
 		return oppShipsBoolArray;
 	}
 

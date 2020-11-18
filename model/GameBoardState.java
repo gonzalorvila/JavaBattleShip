@@ -41,7 +41,8 @@ public class GameBoardState
         {
           userShipGrid[rows.get(j)][columns.get(j)] = true;
         }
-		  }
+      }
+      this.userShipGrid = userShipGrid;
     }
 
     public boolean[][] getUserGrid() {
@@ -61,6 +62,10 @@ public class GameBoardState
         this.Difficulty = Difficulty;
 	    //we would then use this value of Difficulty to change stuff in the view class and this still needs to be implemented. 
 	    //Right now we have two difficulties: 1 is to make all the ships size 3 so it is harder to find it, 2 is making the board bigger.
+    }
+
+    public int getDifficulty() {
+      return Difficulty;
     }
 
     public void setScore(int userScore, int opponentScore) 
