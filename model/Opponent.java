@@ -7,8 +7,9 @@ public class Opponent
 {
 	private int rowGuess;
 	private int columnGuess;
-	private ArrayList prevMoves; // = new ArrayList();
-	private ArrayList<Boolean> moveResults; // = new ArrayList();
+	private int[] prevRowGuess;
+	private int[] prevColumnGuess;
+	private boolean[] moveResults;
 	private int numOfMoves = 0;
 	private boolean result;
 	private boolean direction; // if this is true then the ship will be placed vertically otherwise it will be horizontal
@@ -22,41 +23,128 @@ public class Opponent
 	private int endColumn;
 	private boolean overlaps;
 	private int gridSize;
+	private ArrayList<Ships> userShipLocations;
 
 	public Opponent(int gridSize) 
 	{
 		this.gbs = new GameBoardState(10);
-		this.moveResults = new ArrayList<Boolean>();
+		this.moveResults = new boolean[100];
+		this.prevColumnGuess = new int[100];
+		this.prevRowGuess = new int[100];
+		for(int z = 0; z < 100; z++) {
+			moveResults[z] = false;
+			prevColumnGuess[z] = 0;
+			prevRowGuess[z] = 0;
+		}
 		this.opponentShips = new ArrayList<Ships>();
 		this.gridSize = gridSize;
+		this.userShipLocations = new ArrayList<Ships>();
 	}
 
-	public int[] opponentMove()
+	public int[] opponentMove(ArrayList<Ships> playerShips)
 	{
-		Random num = new Random();
-		this.rowGuess = num.nextInt(10);
-		this.columnGuess = num.nextInt(10);
-		boolean[][] checkGuess = this.gbs.getCompGrid();
-		boolean validGuess = true;
-		while (validGuess) {
-			if (checkGuess[rowGuess][columnGuess]) {
-				this.rowGuess = num.nextInt(10);
-				this.columnGuess = num.nextInt(10);
-			} 
-			else {
-				checkGuess[rowGuess][columnGuess] = true;
+		int[] guess = new int[2];
+		if (numOfMoves == 0) {
+			Random num = new Random();
+			this.rowGuess = num.nextInt(10);
+			this.columnGuess = num.nextInt(10);
+			boolean[][] checkGuess = this.gbs.getCompGrid();
+			boolean validGuess = true;
+			while (validGuess) {
+				if (checkGuess[rowGuess][columnGuess]) {
+					this.rowGuess = num.nextInt(10);
+					this.columnGuess = num.nextInt(10);
+				} 
+				else {
+					checkGuess[rowGuess][columnGuess] = true;
+					this.gbs.setCompGrid(checkGuess);
+					validGuess = false;
+				}
+			}
+			guess[0] = this.rowGuess;
+			guess[1] = this.columnGuess;
+		} else {
+			boolean[][] checkGuess = this.gbs.getCompGrid();
+			boolean validGuess = true;
+			while (validGuess) {
+				if (numOfMoves > 4) {
+					if (moveResults[numOfMoves -1] == true && prevRowGuess[numOfMoves -1] != 9 && !checkGuess[prevRowGuess[numOfMoves -1] + 1][prevColumnGuess[numOfMoves -1]]) {
+						guess[1] = prevColumnGuess[numOfMoves -1];
+						guess[0] = prevRowGuess[numOfMoves -1] + 1;
+					}
+					else if (moveResults[numOfMoves - 2] == true && prevRowGuess[numOfMoves - 2] != 0 && !checkGuess[prevRowGuess[numOfMoves - 2] - 1][prevColumnGuess[numOfMoves - 2]] ) {
+						guess[1] = prevColumnGuess[numOfMoves - 2];
+						guess[0] = prevRowGuess[numOfMoves - 2] - 1;
+					}
+					else if (moveResults[numOfMoves - 3] == true && prevColumnGuess[numOfMoves - 3] != 9 && !checkGuess[prevRowGuess[numOfMoves - 3]][prevColumnGuess[numOfMoves - 3] + 1] ) {
+						guess[1] = prevColumnGuess[numOfMoves - 3] + 1;
+						guess[0] = prevRowGuess[numOfMoves - 3];
+					}
+					else if (moveResults[numOfMoves - 4] == true && prevColumnGuess[numOfMoves - 4] != 0 && !checkGuess[prevRowGuess[numOfMoves - 3]][prevColumnGuess[numOfMoves - 3] - 1] ) {
+						guess[1] = prevColumnGuess[numOfMoves - 4] - 1;
+						guess[0] = prevRowGuess[numOfMoves - 4];
+					} else {
+						Random num = new Random();
+						this.rowGuess = num.nextInt(10);
+						this.columnGuess = num.nextInt(10);
+						checkGuess = this.gbs.getCompGrid();
+						validGuess = true;
+						while (validGuess) {
+							if (checkGuess[rowGuess][columnGuess]) {
+								this.rowGuess = num.nextInt(10);
+								this.columnGuess = num.nextInt(10);
+							} 
+							else {
+								checkGuess[rowGuess][columnGuess] = true;
+								this.gbs.setCompGrid(checkGuess);
+								validGuess = false;
+							}
+						}
+						guess[0] = this.rowGuess;
+						guess[1] = this.columnGuess;
+					}
+					checkGuess[rowGuess][columnGuess] = true;
+					this.gbs.setCompGrid(checkGuess);
+					validGuess = false;
+				} 
+				else {
+					Random num = new Random();	
+					this.rowGuess = num.nextInt(10);
+					this.columnGuess = num.nextInt(10);
+					checkGuess = this.gbs.getCompGrid();
+					validGuess = true;
+					while (validGuess) {
+						if (checkGuess[rowGuess][columnGuess]) {
+							this.rowGuess = num.nextInt(10);
+							this.columnGuess = num.nextInt(10);
+						} 
+						else {
+							checkGuess[rowGuess][columnGuess] = true;
+							this.gbs.setCompGrid(checkGuess);
+							validGuess = false;
+						}
+					}
+					guess[0] = this.rowGuess;
+					guess[1] = this.columnGuess;
+				}
+				checkGuess[guess[0]][guess[1]] = true;
 				this.gbs.setCompGrid(checkGuess);
 				validGuess = false;
-			}
+			}	
 		}
-		int[] guess = new int[2];
-		guess[0] = this.rowGuess;
-		guess[1] = this.columnGuess;
+
+		boolean[][] userGridForEval;
+		userGridForEval = new boolean[10][10];
+		userGridForEval = gbs.setUserGrid(playerShips);
+		if (userGridForEval[guess[0]][guess[1]] == true) {
+			moveResults[numOfMoves] = true;
+		} else {
+			moveResults[numOfMoves] = false;
+		}
+		prevRowGuess[numOfMoves] = guess[0];
+		prevColumnGuess[numOfMoves] = guess[1];
+		numOfMoves++;
 		return guess;
-		//We need  to be able to check from here whether or not it was a hit or not when the move so that we can store the results in a boolean array as well as store the rows and columns guess in arrays
-		//at the same index so that we can check whether the last move made was a hit and if it should guess around there. and then set up if and if else statements to guess around the box that was hit.
-		//Also we only need to make sure the next guess is in near we are not going to account for if two are hit in a row or anything its not going to continue guessing that direction unless if it was the
-		//first direction in the if statements
 	}
 
 	public boolean[][] setOpponentShips() {
@@ -159,22 +247,14 @@ public class Opponent
 					overlaps = false;
 				}
 			}
-			for( int j = 0; i < newShip.getShipLength(); i++) {
+			for( int j = 0; j < newShip.getShipLength(); j++) {
 				if(columns.get(s.getShipLength() - 1) == newColumns.get(j) && rows.get(s.getShipLength() - 1) == newRows.get(j)){
 					overlaps = true;
 					break;
 				}
+			}
 		}
 		return overlaps;		
-	}
-
-
-	public void addToMoveResultMakeTrue(int i) {
-		moveResults.set(i, true);
-	}
-
-	public void makeMoveResultFalse(int i) {
-		moveResults.set(i, false);
 	}
 
 }
