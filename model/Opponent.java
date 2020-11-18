@@ -12,7 +12,6 @@ public class Opponent
 	private int numOfMoves = 0;
 	private boolean result;
 	private boolean direction; // if this is true then the ship will be placed vertically otherwise it will be horizontal
-	private ArrayList<Ships> userShipLocations;
 	private GameBoardState gbs;
 	private int[] shipLengths;
 	private ArrayList<Ships> opponentShips;
@@ -24,10 +23,9 @@ public class Opponent
 	private boolean overlaps;
 	private int gridSize;
 
-	public Opponent(ArrayList<Ships> userShipLocations, int gridSize) 
+	public Opponent(int gridSize) 
 	{
 		this.gbs = new GameBoardState(10);
-		this.userShipLocations = userShipLocations;
 		this.moveResults = new ArrayList<Boolean>();
 		this.shipLengths = new int[]{5, 4, 3, 3, 2};
 		this.opponentShips = new ArrayList<Ships>();
@@ -52,7 +50,10 @@ public class Opponent
 				validGuess = false;
 			}
 		}
-		return [this.rowGuess, this.columnGuess]
+		int[] guess = new int[2];
+		guess[0] = this.rowGuess;
+		guess[1] = this.columnGuess;
+		return guess;
 	}
 
 	public boolean[][] setOpponentShips() {
@@ -107,7 +108,7 @@ public class Opponent
 			s.setShipLength(shipLengths[i]);
 			opponentShips.add(s);
 		}
-		boolean oppShipsBoolArray[gridSize][gridSize];
+		boolean oppShipsBoolArray[][] = new boolean[gridSize][gridSize];
 		for (int i = 0; i < gridSize; i++) {
 			for (int j = 0; j < gridSize; j++) {
 				oppShipsBoolArray[i][j] = true;
@@ -116,7 +117,7 @@ public class Opponent
 		for (Ships s : opponentShips) {
 			ArrayList<Integer> columns = s.storingColumnsFilled();
 			ArrayList<Integer> rows = s.storingRowsFilled();
-			for (int i = 0; i < s.length; i++) {
+			for (int i = 0; i < s.getShipLength(); i++) {
 				oppShipsBoolArray[columns.get(i)][rows.get(i)] = false;
 			}
 		}

@@ -12,16 +12,20 @@ public class BattleShipController
     private boolean secondSelection;
     private ArrayList<Ships> playerShips;
     private ArrayList<Ships> opponentShips;
+    private Opponent opponent;
+    private boolean[][] oppBoolArray;
 
     public BattleShipController() {
         this.firstButton = new GridButton("dummy");
         this.secondSelection = false;
         this.playerShips = new ArrayList<Ships>();
         this.opponentShips = new ArrayList<Ships>();
+        this.opponent = new Opponent(10);
     }
     
-    public void startNewGame(ArrayList<Ships> ships, Opponent opponent, GameBoardState gbState)
+    public void startNewGame(ArrayList<Ships> ships, GameBoardState gbState)
     {
+        oppBoolArray = opponent.setOpponentShips();
         for (Ships s : ships)
         {
             // int location = player.setShipLocation(s);

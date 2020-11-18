@@ -90,4 +90,7 @@ public class Ships
 	public void setShipLength(int i) {
 		this.length = i;
 	}
+	public int getShipLength() {
+		return this.length;
+	}
 }
