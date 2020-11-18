@@ -67,7 +67,8 @@ public class BattleShipController
                 Ships newShip = gameTable.placeShip(selectedButton);
                 this.playerShips.add(newShip);
                 if (playerShips.size() == 5) {
-                    userShipLocations = gbState.setUserGrid(playerShips);
+                    gbState.setUserGrid(playerShips);
+                    userShipLocations = gbState.getUserGrid();
                     gameTable.enableComputerGrid(true);
                     gameTable.setSelectedShip(null);
                     gameTable.setMessage("Your move! Choose a spot on the attack grid");

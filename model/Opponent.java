@@ -135,7 +135,8 @@ public class Opponent
 
 		boolean[][] userGridForEval;
 		userGridForEval = new boolean[10][10];
-		userGridForEval = gbs.setUserGrid(playerShips);
+		gbs.setUserGrid(playerShips);
+		userGridForEval = gbs.getUserGrid();
 		if (userGridForEval[guess[0]][guess[1]] == true) {
 			moveResults[numOfMoves] = true;
 		} else {

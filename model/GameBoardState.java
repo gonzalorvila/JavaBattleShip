@@ -30,7 +30,7 @@ public class GameBoardState
       }
     }
 
-    public boolean[][] setUserGrid(ArrayList<Ships> userShipLocations) {
+    public void setUserGrid(ArrayList<Ships> userShipLocations) {
       userShips = userShipLocations;
       for (Ships s : userShipLocations) {
 			  ArrayList<Integer> columns = s.storingColumnsFilled();
@@ -42,7 +42,6 @@ public class GameBoardState
           userShipGrid[rows.get(j)][columns.get(j)] = true;
         }
 		  }
-      return userShipGrid;  
     }
 
     public boolean[][] getUserGrid() {
