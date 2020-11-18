@@ -16,8 +16,8 @@ public class GameBoardState
     {
 	    this.userShipLocations = new ArrayList<Integer>();
       this.compShipLocations = new ArrayList<Integer>();
-      this.userGrid = new boolean[10][10];
-      this.compGrid = new boolean[10][10];
+      this.userGrid = new boolean[gridSize][gridSize];
+      this.compGrid = new boolean[gridSize][gridSize];
       for (int columns =0; columns < gridSize; columns++){
         for (int rows = 0; rows < gridSize; rows++) {
           userGrid[rows][columns] = false;
@@ -66,7 +66,7 @@ public class GameBoardState
     }
 
 
-    /*public boolean isHit(GridButton button) 
+    public boolean isHit(GridButton button) 
 
     public boolean isHit(ArrayList<Integer> locationsArray, int location) 
     {
@@ -78,7 +78,7 @@ public class GameBoardState
 	    }
       return result;
     }
-*/
+
     public boolean isSunk(ArrayList<Integer> locationsArray, int location) 
     {
       boolean result = false;

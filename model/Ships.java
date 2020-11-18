@@ -6,7 +6,7 @@ import java.util.*;
 public class Ships 
 {
 	private String shipName;
-	private int[] shipLength;
+	private int length;
 	private int startRow;
 	private int startColumn;
 	private int endRow;
@@ -85,5 +85,9 @@ public class Ships
 			}
 		}
 		return rows;
+	}
+
+	public void setShipLength(int i) {
+		this.length = i;
 	}
 }

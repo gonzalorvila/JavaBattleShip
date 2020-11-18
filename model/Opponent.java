@@ -22,17 +22,19 @@ public class Opponent
 	private int startColumn;
 	private int endColumn;
 	private boolean overlaps;
+	private int gridSize;
 
-	public Opponent(ArrayList<Ships> userShipLocations) 
+	public Opponent(ArrayList<Ships> userShipLocations, int gridSize) 
 	{
 		this.gbs = new GameBoardState(10);
 		this.userShipLocations = userShipLocations;
 		this.moveResults = new ArrayList<Boolean>();
 		this.shipLengths = new int[]{5, 4, 3, 3, 2};
 		this.opponentShips = new ArrayList<Ships>();
+		this.gridSize = gridSize;
 	}
 
-	public void opponentMove()
+	public int[] opponentMove()
 	{
 		Random num = new Random();
 		this.rowGuess = num.nextInt(10);
@@ -50,9 +52,10 @@ public class Opponent
 				validGuess = false;
 			}
 		}
+		return [this.rowGuess, this.columnGuess]
 	}
 
-	public void setOpponentShips() {
+	public boolean[][] setOpponentShips() {
 		for (int i = 0; i < 5; i++) {
 			int length = shipLengths[i];
 			if (i ==0) {
@@ -100,8 +103,24 @@ public class Opponent
 					overlaps = checkForOverlaps(startRow, startColumn, endRow, endColumn);
 				}							
 			}
-			opponentShips.add(new Ships(startRow, startColumn,endRow,endColumn));
+			Ships s = new Ships(startRow, startColumn,endRow,endColumn);
+			s.setShipLength(shipLengths[i]);
+			opponentShips.add(s);
 		}
+		boolean oppShipsBoolArray[gridSize][gridSize];
+		for (int i = 0; i < gridSize; i++) {
+			for (int j = 0; j < gridSize; j++) {
+				oppShipsBoolArray[i][j] = true;
+			}
+		} 
+		for (Ships s : opponentShips) {
+			ArrayList<Integer> columns = s.storingColumnsFilled();
+			ArrayList<Integer> rows = s.storingRowsFilled();
+			for (int i = 0; i < s.length; i++) {
+				oppShipsBoolArray[columns.get(i)][rows.get(i)] = false;
+			}
+		}
+		return oppShipsBoolArray;
 	}
 
 	public boolean checkForOverlaps(int startRow, int startColumn, int endRow, int endColumn) {
