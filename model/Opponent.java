@@ -59,7 +59,7 @@ public class Opponent
 	public boolean[][] setOpponentShips() {
 		for (int i = 0; i < 5; i++) {
 			int length = shipLengths[i];
-			if (i ==0) {
+			if (i == 0) {
 				Random num = new Random();
 				startColumn = num.nextInt(10);
 				startRow = num.nextInt(10);
@@ -81,7 +81,7 @@ public class Opponent
 				}
 			} else {
 				overlaps = true;
-				while (!overlaps) {
+				while (overlaps) {
 					Random num = new Random();
 					startColumn = num.nextInt(10);
 					startRow = num.nextInt(10);
@@ -101,13 +101,17 @@ public class Opponent
 							endColumn = startColumn - length + 1;
 						}
 					}
-					overlaps = checkForOverlaps(startRow, startColumn, endRow, endColumn);
+					overlaps = checkForOverlaps(startRow, startColumn, endRow, endColumn, length);
 				}							
 			}
-			Ships s = new Ships(startRow, startColumn,endRow,endColumn);
+			Ships s = new Ships(startRow, startColumn,endRow,endColumn, length);
 			s.setShipLength(shipLengths[i]);
 			opponentShips.add(s);
 		}
+		for (Ships s : opponentShips) {
+			System.out.println("Start row:" + s.getStartRow() + ", Start Column: " + s.getStartColumn());
+		}
+		
 		boolean oppShipsBoolArray[][] = new boolean[gridSize][gridSize];
 		for (int i = 0; i < gridSize; i++) {
 			for (int j = 0; j < gridSize; j++) {
@@ -118,14 +122,19 @@ public class Opponent
 			ArrayList<Integer> columns = s.storingColumnsFilled();
 			ArrayList<Integer> rows = s.storingRowsFilled();
 			for (int i = 0; i < s.getShipLength(); i++) {
-				oppShipsBoolArray[columns.get(i)][rows.get(i)] = true;
+				if (columns.size() > 1) { //ship is horizontal
+					oppShipsBoolArray[columns.get(i)][rows.get(0)] = true;
+				}
+				else {
+					oppShipsBoolArray[columns.get(0)][rows.get(i)] = true;
+				}
 			}
 		}
 		return oppShipsBoolArray;
 	}
 
-	public boolean checkForOverlaps(int startRow, int startColumn, int endRow, int endColumn) {
-		Ships newShip = new Ships(startRow, startColumn, endRow, endColumn);
+	public boolean checkForOverlaps(int startRow, int startColumn, int endRow, int endColumn, int length) {
+		Ships newShip = new Ships(startRow, startColumn, endRow, endColumn, length);
 		ArrayList<Integer> newRows = new ArrayList<Integer>();
 		ArrayList<Integer> newColumns = new ArrayList<Integer>();
 		newRows = newShip.storingRowsFilled();

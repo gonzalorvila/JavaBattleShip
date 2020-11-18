@@ -154,15 +154,15 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
             if (firstButtonColumn > secondButtonColumn) {
                 for (int i=secondButtonColumn; i<= firstButtonColumn; i++) {
                     button[firstButtonRow][i].setBackground(Color.GRAY);
-                    button[firstButtonRow][i].setEnabled(false);
                     button[firstButtonRow][i].setFree(false);
+                    button[firstButtonRow][i].setEnabled(false);
                 }
             }
             else {
                 for (int i=firstButtonColumn; i<= secondButtonColumn; i++) {
                     button[firstButtonRow][i].setBackground(Color.GRAY);
-                    button[firstButtonRow][i].setEnabled(false);
                     button[firstButtonRow][i].setFree(false);
+                    button[firstButtonRow][i].setEnabled(false);
                 }
             }
         }
@@ -170,15 +170,15 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
             if (firstButtonRow > secondButtonRow) {
                 for (int i=secondButtonRow; i<= firstButtonRow; i++) {
                     button[i][firstButtonColumn].setBackground(Color.GRAY);
-                    button[i][firstButtonColumn].setEnabled(false);
                     button[i][firstButtonColumn].setFree(false);
+                    button[i][firstButtonColumn].setEnabled(false);
                 }
             }
             else {
                 for (int i=firstButtonRow; i<= secondButtonRow; i++) {
                     button[i][firstButtonColumn].setBackground(Color.GRAY);
-                    button[i][firstButtonColumn].setEnabled(false);
                     button[i][firstButtonColumn].setFree(false);
+                    button[i][firstButtonColumn].setEnabled(false);
                 }
             }            
         }
@@ -191,7 +191,7 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
         selectedShip.setEnabled(true);
         selectedShip.setBorder(new LineBorder(Color.GREEN));
         selectedShip.setEnabled(false);
-        Ships newShip = new Ships(firstButtonRow, firstButtonColumn, secondButtonRow, secondButtonColumn);
+        Ships newShip = new Ships(firstButtonRow, firstButtonColumn, secondButtonRow, secondButtonColumn, shipSize);
 
         this.enableUserGrid(false);
         return newShip;
@@ -230,8 +230,21 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
             userButton[oppGuess[0]][oppGuess[1]].setEnabled(false);
         } else {
             userButton[oppGuess[0]][oppGuess[1]].setEnabled(true);
-            userButton[oppGuess[0]][oppGuess[1]].setBackground(Color.BLUE);
+            userButton[oppGuess[0]][oppGuess[1]].setBackground(Color.GREEN);
             userButton[oppGuess[0]][oppGuess[1]].setEnabled(false);
+        }
+    }
+
+    public void placeOppShipsOnGrid(boolean[][] oppBoolArray)
+    {
+        GridButton oppButton[][] = computerGrid.button;
+        int gridSize = computerGrid.getGridSize();
+        for (int columns = 0; columns < gridSize; columns++) {
+            for (int rows = 0; rows < gridSize; rows++) {
+                if (oppBoolArray[rows][columns]) {
+                    oppButton[rows][columns].setFree(false);
+                }
+            }
         }
 
     }

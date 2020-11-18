@@ -71,9 +71,18 @@ public class GridPanel extends JPanel {
     }
 
     public void enableGrid(boolean enabled) {
-        for (columns =0; columns < gridSize; columns++){
-            for (rows = 0; rows < gridSize; rows++) {
-                if (button[rows][columns].getFree()) {
+        if (whichGrid.getText() == "User Grid") {
+            for (columns =0; columns < gridSize; columns++){
+                for (rows = 0; rows < gridSize; rows++) {
+                    if (button[rows][columns].getFree()) {
+                        button[rows][columns].setEnabled(enabled);
+                    }
+                }
+            }
+        }
+        else {
+            for (columns =0; columns < gridSize; columns++){
+                for (rows = 0; rows < gridSize; rows++) {
                     button[rows][columns].setEnabled(enabled);
                 }
             }

@@ -15,26 +15,31 @@ public class BattleShipController
     private Opponent opponent;
     private boolean[][] oppBoolArray;
     private GameBoardState gbState;
+    private BattleShipUserInterface userInterface; 
+    private boolean[][] userShipLocations;
 
-    public BattleShipController() {
+    public BattleShipController(BattleShipUserInterface ui) {
         this.firstButton = new GridButton("dummy");
         this.secondSelection = false;
         this.playerShips = new ArrayList<Ships>();
         this.opponentShips = new ArrayList<Ships>();
         this.opponent = new Opponent(10);
         this.gbState = new GameBoardState(10);
+        this.userInterface = ui; 
+        this.userShipLocations = new boolean[10][10];
     }
     
-    public void startNewGame(ArrayList<Ships> ships)
+    public void startNewGame(/*ArrayList<Ships> ships*/)
     {
         oppBoolArray = opponent.setOpponentShips();
-        for (Ships s : ships)
+        userInterface.placeOppShipsOnGrid(oppBoolArray);
+        /*for (Ships s : ships)
         {
             // int location = player.setShipLocation(s);
             // gbState.storeLocations(player, location);
             // location = opponent.setShipLocation(s);
             // gbState.storeLocations(opponent, location);
-        }
+        }*/
 
         gbState.setScore(5, 5);
 
@@ -44,7 +49,7 @@ public class BattleShipController
         }
         else
         {
-            onResult(ships, opponent, gbState);
+            //onResult(ships, opponent, gbState);
         }
     }
 
@@ -65,6 +70,7 @@ public class BattleShipController
                 Ships newShip = gameTable.placeShip(selectedButton);
                 this.playerShips.add(newShip);
                 if (playerShips.size() == 5) {
+                    userShipLocations = gbState.setUserGrid(playerShips);
                     gameTable.enableComputerGrid(true);
                     gameTable.setSelectedShip(null);
                     gameTable.setMessage("Your move! Choose a spot on the attack grid");
@@ -79,13 +85,13 @@ public class BattleShipController
         }
         else {
             boolean moveResult = true;
-            while(moveResult) {
-                moveResult = evaluateMove(selectedButton, gameTable);
+            moveResult = evaluateMove(selectedButton, gameTable);
+            if (moveResult) {
+                return;
             }
             int[] oppGuess = new int[2];
             moveResult = true;
-            boolean[][] userShipLocations = new boolean[10][10];
-            userShipLocations = gbState.setUserGrid(playerShips);
+            
             while(moveResult) {
                 oppGuess = opponent.opponentMove();
                 if(userShipLocations[oppGuess[0]][oppGuess[1]] == true) {
@@ -101,18 +107,20 @@ public class BattleShipController
 
     public boolean evaluateMove(GridButton selectedButton, GameBoard gameTable)
     {
+        boolean moveEval = false;
         selectedButton.setEnabled(true);
         if (selectedButton.getFree()) {
             selectedButton.setBackground(Color.BLUE);
             gameTable.setMessage("Miss!");
-            return false;
+            moveEval = false;
         }
         else {
             selectedButton.setBackground(Color.RED);
             gameTable.setMessage("Hit!");
-            return true;
+            moveEval = true;
         }
         selectedButton.setEnabled(false);
+        return moveEval;
     }
 
 

@@ -12,11 +12,12 @@ public class Ships
 	private int endRow;
 	private int endColumn;
 
-	public Ships(int startRow, int startColumn, int endRow, int endColumn) {
+	public Ships(int startRow, int startColumn, int endRow, int endColumn, int length) {
 		this.startRow = startRow;
 		this.startColumn = startColumn;
 		this.endRow = endRow;
 		this.endColumn = endColumn;
+		this.length = length;
 	}
 
 	public void setStartColumn(int i) {
@@ -79,7 +80,7 @@ public class Ships
 					rows.add(i);
 				}
 			} else {
-				for (int i = startColumn; i >= endRow; i--) {
+				for (int i = startRow; i >= endRow; i--) {
 					rows.add(i);
 				}
 			}

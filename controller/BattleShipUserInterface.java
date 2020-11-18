@@ -13,4 +13,6 @@ public interface BattleShipUserInterface
     public void setSelectedShip(ShipButton ship);
     public ShipPanel getShipPanel();
     public void setMessage(String message);
+    public void updateUserGrid(int[] oppGuess, boolean moveResult);
+    public void placeOppShipsOnGrid(boolean[][] oppBoolArray);
 }

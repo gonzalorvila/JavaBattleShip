@@ -13,12 +13,10 @@ public class Driver
     public static void main(String []args)
     {
         
-        //Opponent opponent = new Opponent();
-        BattleShipController controller = new BattleShipController();
+        GameBoard gameTable = new GameBoard();
+        BattleShipController controller = new BattleShipController(gameTable);
         GameBoardState gbState = new GameBoardState(10);
 
-        
-        GameBoard gameTable = new GameBoard();
         gameTable.createGameBoard(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Object obj = e.getSource();
@@ -41,7 +39,7 @@ public class Driver
 
         
         gbState.setDifficulty(1);
-
+        controller.startNewGame();
         //UseCases useCases = new UseCases();
 
         //useCases.startNewGame(shipArray, player, opponent, gbState);       

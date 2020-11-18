@@ -26,9 +26,17 @@ public class GameBoardState
       for (Ships s : userShipLocations) {
 			  ArrayList<Integer> columns = s.storingColumnsFilled();
 			  ArrayList<Integer> rows = s.storingRowsFilled();
-			  for (int i = 0; i < s.getShipLength(); i++) {
-				  userShipGrid[columns.get(i)][rows.get(i)] = true;
-			  }
+        for (int j = 0; j < s.getShipLength(); j++)
+        {
+          if (columns.size() > 1) { //ship is horizontal
+            userShipGrid[rows.get(0)][columns.get(j)] = true;
+            System.out.println(rows.get(0) + " " + columns.get(j));
+          }
+          else {
+            userShipGrid[rows.get(j)][columns.get(0)] = true;
+            System.out.println(rows.get(j) + " " + columns.get(0));
+          }
+        }
 		  }
       return userShipGrid;  
     }
