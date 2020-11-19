@@ -15,7 +15,7 @@ public class Driver
         
         GameBoard gameTable = new GameBoard();
         BattleShipController controller = new BattleShipController(gameTable);
-        GameBoardState gbState = new GameBoardState(10);
+        GameBoardState gbState = new GameBoardState(true);
 
         mainMenuPanel menu = new mainMenuPanel();
         menu.makeMainMenu(new ActionListener() {
@@ -45,17 +45,16 @@ public class Driver
                                 Object obj = e.getSource();
                                 if (obj instanceof GridButton) {
                                     GridButton selection = (GridButton) obj;
-                                    useCases.onGridSelection(selection, gameTable);
+                                    controller.onGridSelection(selection, gameTable, gbState.getDifficulty());
                                 }
                             }
-                        }, gbstate.getDifficulty);
+                        }, gbState.getDifficulty());
                     }
                 }
             }
         });
         
-        gbState.setDifficulty(1);
-        controller.startNewGame();
+        controller.startNewGame(gbState.getDifficulty());
         //UseCases useCases = new UseCases();
 
         //useCases.startNewGame(shipArray, player, opponent, gbState);       

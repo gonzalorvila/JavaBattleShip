@@ -27,7 +27,7 @@ public class Opponent
 
 	public Opponent(boolean difficulty) 
 	{
-		this.gbs = new GameBoardState(10);
+		this.gbs = new GameBoardState(difficulty);
 		this.moveResults = new boolean[100];
 		this.prevColumnGuess = new int[100];
 		this.prevRowGuess = new int[100];
@@ -42,23 +42,27 @@ public class Opponent
 		} else {
 			this.gridSize = 15;
 		}
-		this.gridSize = gridSize;
 		this.userShipLocations = new ArrayList<Ships>();
 	}
 
-	public int[] opponentMove(ArrayList<Ships> playerShips)
+	public int[] opponentMove(ArrayList<Ships> playerShips, boolean difficulty)
 	{
+		if (difficulty) {
+			gridSize = 10;
+		} else {
+			gridSize = 15;
+		}
 		int[] guess = new int[2];
 		if (numOfMoves == 0) {
 			Random num = new Random();
-			this.rowGuess = num.nextInt(10);
-			this.columnGuess = num.nextInt(10);
+			this.rowGuess = num.nextInt(gridSize);
+			this.columnGuess = num.nextInt(gridSize);
 			boolean[][] checkGuess = this.gbs.getCompGrid();
 			boolean validGuess = true;
 			while (validGuess) {
 				if (checkGuess[rowGuess][columnGuess]) {
-					this.rowGuess = num.nextInt(10);
-					this.columnGuess = num.nextInt(10);
+					this.rowGuess = num.nextInt(gridSize);
+					this.columnGuess = num.nextInt(gridSize);
 				} 
 				else {
 					checkGuess[rowGuess][columnGuess] = true;
@@ -73,7 +77,7 @@ public class Opponent
 			boolean validGuess = true;
 			while (validGuess) {
 				if (numOfMoves > 5) {
-					if (moveResults[numOfMoves -1] == true && prevRowGuess[numOfMoves -1] != 9 && !checkGuess[prevRowGuess[numOfMoves -1] + 1][prevColumnGuess[numOfMoves -1]]) {
+					if (moveResults[numOfMoves -1] == true && prevRowGuess[numOfMoves -1] != (gridSize - 1) && !checkGuess[prevRowGuess[numOfMoves -1] + 1][prevColumnGuess[numOfMoves -1]]) {
 						guess[1] = prevColumnGuess[numOfMoves -1];
 						guess[0] = prevRowGuess[numOfMoves -1] + 1;
 					}
@@ -81,7 +85,7 @@ public class Opponent
 						guess[1] = prevColumnGuess[numOfMoves - 2];
 						guess[0] = prevRowGuess[numOfMoves - 2] - 1;
 					}
-					else if (moveResults[numOfMoves - 3] == true && prevColumnGuess[numOfMoves - 3] != 9 && !checkGuess[prevRowGuess[numOfMoves - 3]][prevColumnGuess[numOfMoves - 3] + 1] ) {
+					else if (moveResults[numOfMoves - 3] == true && prevColumnGuess[numOfMoves - 3] != (gridSize - 1) && !checkGuess[prevRowGuess[numOfMoves - 3]][prevColumnGuess[numOfMoves - 3] + 1] ) {
 						guess[1] = prevColumnGuess[numOfMoves - 3] + 1;
 						guess[0] = prevRowGuess[numOfMoves - 3];
 					}
@@ -90,14 +94,14 @@ public class Opponent
 						guess[0] = prevRowGuess[numOfMoves - 4];
 					} else {
 						Random num = new Random();
-						this.rowGuess = num.nextInt(10);
-						this.columnGuess = num.nextInt(10);
+						this.rowGuess = num.nextInt(gridSize);
+						this.columnGuess = num.nextInt(gridSize);
 						checkGuess = this.gbs.getCompGrid();
 						validGuess = true;
 						while (validGuess) {
 							if (checkGuess[rowGuess][columnGuess]) {
-								this.rowGuess = num.nextInt(10);
-								this.columnGuess = num.nextInt(10);
+								this.rowGuess = num.nextInt(gridSize);
+								this.columnGuess = num.nextInt(gridSize);
 							} 
 							else {
 								checkGuess[rowGuess][columnGuess] = true;
@@ -114,14 +118,14 @@ public class Opponent
 				} 
 				else {
 					Random num = new Random();	
-					this.rowGuess = num.nextInt(10);
-					this.columnGuess = num.nextInt(10);
+					this.rowGuess = num.nextInt(gridSize);
+					this.columnGuess = num.nextInt(gridSize);
 					checkGuess = this.gbs.getCompGrid();
 					validGuess = true;
 					while (validGuess) {
 						if (checkGuess[rowGuess][columnGuess]) {
-							this.rowGuess = num.nextInt(10);
-							this.columnGuess = num.nextInt(10);
+							this.rowGuess = num.nextInt(gridSize);
+							this.columnGuess = num.nextInt(gridSize);
 						} 
 						else {
 							checkGuess[rowGuess][columnGuess] = true;
@@ -139,8 +143,8 @@ public class Opponent
 		}
 
 		boolean[][] userGridForEval;
-		userGridForEval = new boolean[10][10];
-		gbs.setUserGrid(playerShips);
+		userGridForEval = new boolean[gridSize][gridSize];
+		gbs.setUserGrid(playerShips, difficulty);
 		userGridForEval = gbs.getUserGrid();
 		if (userGridForEval[guess[0]][guess[1]] == true) {
 			moveResults[numOfMoves] = true;
@@ -153,7 +157,12 @@ public class Opponent
 		return guess;
 	}
 
-	public void setOpponentShips() {
+	public void setOpponentShips(boolean difficulty) {
+		if (difficulty) {
+			gridSize = 10;
+		} else {
+			gridSize = 15;
+		}
 		int[] shipLengths;
 		shipLengths = new int[5];
 		shipLengths[0] = 5;
@@ -165,19 +174,19 @@ public class Opponent
 			int length = shipLengths[i];
 			if (i == 0) {
 				Random num = new Random();
-				startColumn = num.nextInt(10);
-				startRow = num.nextInt(10);
+				startColumn = num.nextInt(gridSize);
+				startRow = num.nextInt(gridSize);
 				direction = num.nextBoolean();
 				if (direction) {
 					endColumn = startColumn;
-					if((startRow + length - 1) < 10) {
+					if((startRow + length - 1) < gridSize) {
 						endRow = startRow + length -1;
 					} else {
 						endRow = startRow - length + 1;
 					}
 				} else {
 					endRow = startRow;
-					if ((startColumn + length -1 < 10)) {
+					if ((startColumn + length -1 < gridSize)) {
 						endColumn = startColumn + (length -1);
 					} else {
 						endColumn = startColumn - length + 1;
@@ -187,19 +196,19 @@ public class Opponent
 				boolean moveBoolean = true;
 				while (moveBoolean) {
 					Random num = new Random();
-					startColumn = num.nextInt(10);
-					startRow = num.nextInt(10);
+					startColumn = num.nextInt(gridSize);
+					startRow = num.nextInt(gridSize);
 					direction = num.nextBoolean();
 					if (direction) {
 						endColumn = startColumn;
-						if((startRow + length - 1) < 10) {
+						if((startRow + length - 1) < gridSize) {
 							endRow = startRow + length -1;
 						} else {
 							endRow = startRow - length + 1;
 						}
 					} else {
 						endRow = startRow;
-						if ((startColumn + length -1 < 10)) {
+						if ((startColumn + length -1 < gridSize)) {
 							endColumn = startColumn + (length -1);
 						} else {
 							endColumn = startColumn - length + 1;

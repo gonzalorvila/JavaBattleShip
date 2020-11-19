@@ -17,21 +17,22 @@ public class BattleShipController
     private GameBoardState gbState;
     private BattleShipUserInterface userInterface; 
     private boolean[][] userShipLocations;
+    private boolean difficulty;
 
     public BattleShipController(BattleShipUserInterface ui) {
         this.firstButton = new GridButton("dummy");
         this.secondSelection = false;
         this.playerShips = new ArrayList<Ships>();
         this.opponentShips = new ArrayList<Ships>();
-        this.opponent = new Opponent(10);
-        this.gbState = new GameBoardState(10);
+        this.opponent = new Opponent(true);
+        this.gbState = new GameBoardState(true);
         this.userInterface = ui; 
-        this.userShipLocations = new boolean[10][10];
     }
     
-    public void startNewGame(/*ArrayList<Ships> ships*/)
+    public void startNewGame(boolean difficulty)
     {
-        opponent.setOpponentShips();
+        this.difficulty = difficulty;
+        opponent.setOpponentShips(difficulty);
         oppBoolArray = opponent.getOpponentShips();
         userInterface.placeOppShipsOnGrid(oppBoolArray, opponent.getOppShips());
 
@@ -55,7 +56,7 @@ public class BattleShipController
         }
     }
 
-    public void onGridSelection(GridButton selectedButton, GameBoard gameTable) {
+    public void onGridSelection(GridButton selectedButton, GameBoard gameTable, boolean difficulty) {
         ShipButton selectedShip = gameTable.getSelectedShip();
         if (selectedShip != null) {
             if (!secondSelection) {
@@ -69,7 +70,7 @@ public class BattleShipController
                 Ships newShip = gameTable.placeShip(selectedButton);
                 this.playerShips.add(newShip);
                 if (playerShips.size() == 5) {
-                    gbState.setUserGrid(playerShips);
+                    gbState.setUserGrid(playerShips,difficulty);
                     userShipLocations = gbState.getUserGrid();
                     gameTable.enableComputerGrid(true);
                     gameTable.setSelectedShip(null);
@@ -93,7 +94,7 @@ public class BattleShipController
             moveResult = true;
             
             while(moveResult) {
-                oppGuess = opponent.opponentMove(playerShips);
+                oppGuess = opponent.opponentMove(playerShips,difficulty);
                 if(userShipLocations[oppGuess[0]][oppGuess[1]] == true) {
                     moveResult = true;
                 } else {

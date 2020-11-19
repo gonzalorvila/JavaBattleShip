@@ -14,9 +14,14 @@ public class GameBoardState
     private ArrayList<Integer> columnLocation;
     private ArrayList<Ships> userShips;
 
-    public GameBoardState(int gridSize)
+    public GameBoardState(boolean Difficulty)
     {
-      this.gridSize = gridSize;
+      if (Difficulty){
+        this.gridSize = 10;
+      } else {
+        this.gridSize = 15;
+      }
+      this.Difficulty = Difficulty;
       this.userShips = new ArrayList<Ships>();
       this.rowLocation = new ArrayList<Integer>();
       this.columnLocation = new ArrayList<Integer>();
@@ -30,7 +35,12 @@ public class GameBoardState
       }
     }
 
-    public void setUserGrid(ArrayList<Ships> userShipLocations) {
+    public void setUserGrid(ArrayList<Ships> userShipLocations, boolean Difficulty) {
+      if (Difficulty) {
+        this.userShipGrid = new boolean[10][10];
+      } else {
+        this.userShipGrid = new boolean[15][15];
+      }
       userShips = userShipLocations;
       for (Ships s : userShipLocations) {
 			  ArrayList<Integer> columns = s.storingColumnsFilled();
@@ -60,6 +70,11 @@ public class GameBoardState
     public void setDifficulty(boolean Difficulty)
     {
         this.Difficulty = Difficulty;
+        if(Difficulty) {
+          this.gridSize = 10;
+        } else {
+          this.gridSize = 15;
+        }
 	    //we would then use this value of Difficulty to change stuff in the view class and this still needs to be implemented. 
 	    //Right now we have two difficulties: 1 is to make all the ships size 3 so it is harder to find it, 2 is making the board bigger.
     }
