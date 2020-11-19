@@ -8,7 +8,7 @@ public class GameBoardState
     private boolean compGuessGrid[][];
     private int userScore;
     private int opponentScore;
-    private int Difficulty;
+    private boolean Difficulty;
     private int gridSize;
     private ArrayList<Integer> rowLocation;
     private ArrayList<Integer> columnLocation;
@@ -57,14 +57,14 @@ public class GameBoardState
       return compGuessGrid;
     }
 
-    public void setDifficulty(int Difficulty)
+    public void setDifficulty(boolean Difficulty)
     {
         this.Difficulty = Difficulty;
 	    //we would then use this value of Difficulty to change stuff in the view class and this still needs to be implemented. 
 	    //Right now we have two difficulties: 1 is to make all the ships size 3 so it is harder to find it, 2 is making the board bigger.
     }
 
-    public int getDifficulty() {
+    public boolean getDifficulty() {
       return Difficulty;
     }
 
