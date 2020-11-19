@@ -13,9 +13,11 @@ public class GameBoardState
     private ArrayList<Integer> rowLocation;
     private ArrayList<Integer> columnLocation;
     private ArrayList<Ships> userShips;
+    private int score;
 
     public GameBoardState(int gridSize)
     {
+      this.score = 5;
       this.gridSize = gridSize;
       this.userShips = new ArrayList<Ships>();
       this.rowLocation = new ArrayList<Integer>();
@@ -83,8 +85,12 @@ public class GameBoardState
     {
 		return opponentScore; 
     }
+
+    public int getScore() {
+      return score; 
+    }
     
-    public boolean onHit(int row, int column, ArrayList<Ships> ships)
+    public Ships onHit(int row, int column, ArrayList<Ships> ships)
     {
       for (Ships s: ships) {
         ArrayList<Integer> columns = s.storingColumnsFilled();
@@ -97,12 +103,13 @@ public class GameBoardState
             System.out.println(s.getScore());
             if (s.getScore() == 0) {
               isSunk(row, column);
-              return false;
+              score--;
+              return s;
             }
           }
         }
       }
-      return true;
+      return null;
     }
 
     public boolean isSunk(int row, int column) 
