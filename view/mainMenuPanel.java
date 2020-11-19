@@ -17,7 +17,7 @@ public class mainMenuPanel extends JPanel {
     private JButton startGameButton;
     private JButton chooseDifficultyButton;
 
-    public void makeMainMenu(ActionListener chooseDifficultyListener, ActionListener startGameListener) {
+    public void makeMainMenu(ActionListener onButtonListener) {
         mainMenuFrame = new JFrame("Main Menu");
         mainMenuFrame.setPreferredSize(new Dimension(frameSize, frameSize*2/7));
         mainMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   
