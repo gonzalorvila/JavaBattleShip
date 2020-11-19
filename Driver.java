@@ -17,26 +17,42 @@ public class Driver
         BattleShipController controller = new BattleShipController(gameTable);
         GameBoardState gbState = new GameBoardState(10);
 
-        gameTable.createGameBoard(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        mainMenuPanel menu = new mainMenuPanel();
+        menu.makeMainMenu(new ActionListener() {
+             public void actionPerformed(ActionEvent e) {
                 Object obj = e.getSource();
-                if (obj instanceof ShipButton) {
-                    ShipButton ship = (ShipButton) obj;
-                    gameTable.setSelectedShip(ship);
-                    ship.setBorder(new LineBorder(Color.RED));
-                    gameTable.enableUserGrid(true);
+                if (obj instanceof JButton){
+                    JButton j = (JButton) obj;
+                    if (j.getName() == "Regular Mode") {
+                        gbState.setDifficulty(true);
+                    }
+                    else if (j.getName() == "Hard Mode: Bigger Board!") {
+                        gbState.setDifficulty(false);
+                    }
+                    else if (j.getName() == "Start Game") {
+                        gameTable.createGameBoard(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                Object obj = e.getSource();
+                                if (obj instanceof ShipButton) {
+                                    ShipButton ship = (ShipButton) obj;
+                                    gameTable.setSelectedShip(ship);
+                                    ship.setBorder(new LineBorder(Color.RED));
+                                    gameTable.enableUserGrid(true);
+                                }
+                            }
+                        }, new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                Object obj = e.getSource();
+                                if (obj instanceof GridButton) {
+                                    GridButton selection = (GridButton) obj;
+                                    useCases.onGridSelection(selection, gameTable);
+                                }
+                            }
+                        }, gbstate.getDifficulty);
+                    }
                 }
             }
-        }, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Object obj = e.getSource();
-                if (obj instanceof GridButton) {
-                    GridButton selection = (GridButton) obj;
-                    controller.onGridSelection(selection, gameTable);
-                }
-            }
-        }, true);
-
+        });
         
         gbState.setDifficulty(1);
         controller.startNewGame();
