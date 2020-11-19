@@ -25,7 +25,7 @@ public class Opponent
 	private ArrayList<Ships> userShipLocations;
 	private boolean oppShipsBoolArray[][];
 
-	public Opponent(int gridSize) 
+	public Opponent(boolean difficulty) 
 	{
 		this.gbs = new GameBoardState(10);
 		this.moveResults = new boolean[100];
@@ -37,6 +37,11 @@ public class Opponent
 			prevRowGuess[z] = 0;
 		}
 		this.opponentShips = new ArrayList<Ships>();
+		if(difficulty) {
+			this.gridSize = 10;
+		} else {
+			this.gridSize = 15;
+		}
 		this.gridSize = gridSize;
 		this.userShipLocations = new ArrayList<Ships>();
 	}
