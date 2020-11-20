@@ -115,7 +115,7 @@ public class GameBoardState
       ArrayList<Integer> columns = s.storingColumnsFilled();
       ArrayList<Integer> rows = s.storingRowsFilled();
       for (int i = 0; i < rows.size(); i++) {
-        if (row == columns.get(i) && column == rows.get(i)) {
+        if ((userName && (row == columns.get(i) && column == rows.get(i))) || (!userName && (row == rows.get(i) && column == columns.get(i)))) {
           s.setScore(s.getScore()-1);
           if (s.getScore() == 0) {
             if (userName) {

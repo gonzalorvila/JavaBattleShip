@@ -94,7 +94,7 @@ public class BattleShipController
             while(moveResult) {
                 oppGuess = opponent.opponentMove(playerShips);
                 if(userShipLocations[oppGuess[0]][oppGuess[1]] == true) {
-                    Ships s = gbState.onHit(selectedButton.getRow(), selectedButton.getColumn(), playerShips, false);
+                    Ships s = gbState.onHit(oppGuess[0], oppGuess[1], playerShips, false);
                     moveResult = true;
                 } else {
                     moveResult = false;
