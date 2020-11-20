@@ -101,29 +101,22 @@ public class Opponent
 			boolean validGuess = true;
 			while (validGuess) {
 				if (numOfMoves > 5) {
-					//System.out.println(" moveResult: " + moveResults[numOfMoves -1] + ", " + prevRowGuess[numOfMoves -1] + ", " + !checkGuess[prevRowGuess[numOfMoves -1] + 1][prevColumnGuess[numOfMoves -1]]);
-					System.out.println("Number of moves at beginning: " + numOfMoves);
 					if (moveResults[numOfMoves -1] == true && prevRowGuess[numOfMoves -1] != (gridSize - 1) && !checkGuess[prevRowGuess[numOfMoves -1] + 1][prevColumnGuess[numOfMoves -1]]) {
 						guess[1] = prevColumnGuess[numOfMoves -1];
 						guess[0] = prevRowGuess[numOfMoves -1] + 1;
-						System.out.println("FIRST IF!!!");
 					}
 					else if (moveResults[numOfMoves - 2] == true && prevRowGuess[numOfMoves - 2] != 0 && !checkGuess[prevRowGuess[numOfMoves - 2] - 1][prevColumnGuess[numOfMoves - 2]] ) {
 						guess[1] = prevColumnGuess[numOfMoves - 2];
 						guess[0] = prevRowGuess[numOfMoves - 2] - 1;
-						System.out.println("SECOND IF!!!");
 					}
 					else if (moveResults[numOfMoves - 3] == true && prevColumnGuess[numOfMoves - 3] != (gridSize - 1) && !checkGuess[prevRowGuess[numOfMoves - 3]][prevColumnGuess[numOfMoves - 3] + 1] ) {
 						guess[1] = prevColumnGuess[numOfMoves - 3] + 1;
 						guess[0] = prevRowGuess[numOfMoves - 3];
-						System.out.println("THIRD IF!!!");
 					}
 					else if (moveResults[numOfMoves - 4] == true && prevColumnGuess[numOfMoves - 4] != 0 && !checkGuess[prevRowGuess[numOfMoves - 4]][prevColumnGuess[numOfMoves - 4] - 1] ) {
 						guess[1] = prevColumnGuess[numOfMoves - 4] - 1;
 						guess[0] = prevRowGuess[numOfMoves - 4];
-						System.out.println("FOURTH IF!!!");
 					} else {
-						System.out.println("RANDOM!!!");
 						Random num = new Random();
 						this.rowGuess = num.nextInt(gridSize);
 						this.columnGuess = num.nextInt(gridSize);
@@ -175,8 +168,6 @@ public class Opponent
 
 		gbs.setUserGrid(playerShips, difficulty);
 		userGridForEval = gbs.getUserGrid();
-		System.out.println("guess 0, 1: " + guess[0] + ", " + guess[1]);
-		System.out.println("Actual: " + userGridForEval[guess[0]][guess[1]]);
 		if (userGridForEval[guess[0]][guess[1]] == true) {
 			moveResults[numOfMoves] = true;
 		} else {
@@ -185,8 +176,6 @@ public class Opponent
 		prevRowGuess[numOfMoves] = guess[0];
 		prevColumnGuess[numOfMoves] = guess[1];
 		numOfMoves++;
-		System.out.println("Previous move Result: " + moveResults[numOfMoves-1]);
-		System.out.println("Number of moves at end: " + numOfMoves);
 		return guess;
 	}
 

@@ -27,11 +27,9 @@ public class Driver
                     JButton j = (JButton) obj;
                     if (j.getText().equals("Regular Mode")) {
                         gbState.setDifficulty(true);
-                        System.out.println("Regular mode");
                     }
                     else if (j.getText().equals("Hard Mode: Bigger Board!")) {
                         gbState.setDifficulty(false);
-                        System.out.println("Hard mode baby");
                     }
                     else if (j.getText().equals("Start Game")) {
                         gameTable.createGameBoard(new ActionListener() {
@@ -57,22 +55,14 @@ public class Driver
                                     Object obj = e.getSource();
                                     if (obj instanceof JButton) {
                                         JButton selection = (JButton) obj;
-                                        System.out.println("I can restart");
                                         controller.playAgain();
                                     }
                                 }
-                        }, gbState.getDifficulty());
+                        }, gbState.getDifficulty(), controller.getUserMoveCount());
                         controller.startNewGame(gbState.getDifficulty());
                     }
                 }
             }
         });
-        
-        
-        //UseCases useCases = new UseCases();
-
-        //useCases.startNewGame(shipArray, player, opponent, gbState);       
-        //useCases.makeMove(shipArray, player, opponent, gbState);
-        //useCases.onResult(shipArray, player, opponent, gbState);
     }
 }

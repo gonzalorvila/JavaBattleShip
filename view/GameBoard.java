@@ -23,7 +23,7 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
     private GridButton firstButton;
     private boolean difficulty;
 
-    public void createGameBoard(ActionListener shipActionListener, ActionListener gridActionListener, ActionListener backActionListener, boolean difficulty) {
+    public void createGameBoard(ActionListener shipActionListener, ActionListener gridActionListener, ActionListener backActionListener, boolean difficulty, int highScore) {
         this.firstButton = new GridButton("dummy");
         // Top level container for the game
         mainFrame = new JFrame("Battleship");
@@ -45,11 +45,9 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
             this.userGrid = new GridPanel(15, 50, 50, gridActionListener, true);            
         }
 
-        System.out.println("Set grids");
-
         //Panel to show ships
         JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(new GridLayout(4, 1));
+        rightPanel.setLayout(new GridLayout(5, 1));
         rightPanel.setPreferredSize(new Dimension(400, 200));
         
         this.ships = new ShipPanel(100, 100);
@@ -62,9 +60,25 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
 
         JPanel messagePanel = new JPanel();
         messagePanel.setPreferredSize(new Dimension(100, 100));
-        this.message = new JLabel("Welcome to BattleShip! Select a ship to begin placement");
+        this.message = new JLabel("Select a ship to begin placement");
+        message.setFont(new Font("Serif", Font.BOLD, 18));
         messagePanel.add(message);
         rightPanel.add(messagePanel);
+
+        // High score panel
+        JPanel hsPanel = new JPanel();
+        hsPanel.setLayout(new BoxLayout(hsPanel, BoxLayout.Y_AXIS));
+        JLabel score;
+        if (highScore == 0) {
+            score = new JLabel("Win your first game to see your high score!");
+        }
+        else {
+            score = new JLabel("Fastest win: " + highScore + " moves");
+        }
+        score.setFont(new Font("Serif", Font.BOLD, 20));
+        hsPanel.add(score);
+
+        rightPanel.add(hsPanel);
 
         // Legend panel
         JPanel legendPanel = new JPanel();

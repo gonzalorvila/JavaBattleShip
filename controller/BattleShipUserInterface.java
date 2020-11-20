@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public interface BattleShipUserInterface
 {
-    public void createGameBoard(ActionListener shipActionListener, ActionListener gridActionListener, ActionListener backActionListener, boolean difficulty);
+    public void createGameBoard(ActionListener shipActionListener, ActionListener gridActionListener, ActionListener backActionListener, boolean difficulty, int highScore);
     public void showValidShipPlacements(GridButton selectedButton);
     public Ships placeShip(GridButton secondButton);
     public void enableUserGrid(boolean enabled);

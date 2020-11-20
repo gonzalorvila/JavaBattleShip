@@ -29,7 +29,6 @@ public class MainMenuPanel extends JPanel {
         // top level panel
         Path currentRelativePath = Paths.get("");
         String pathToImage = currentRelativePath.toAbsolutePath().toString() + "/view/battleShipMainMenu.jpg";
-        System.out.println(pathToImage);
         BufferedImage backgroundImage = ImageIO.read(new File(pathToImage));
         JPanel panel = new JPanel(new BorderLayout()) {
             @Override public void paintComponent(Graphics g) {

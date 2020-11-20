@@ -5,6 +5,9 @@ import javax.swing.*;
 import view.*;
 import java.awt.*;
 import javax.swing.border.LineBorder;
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class BattleShipController
 {
@@ -18,6 +21,7 @@ public class BattleShipController
     private BattleShipUserInterface userInterface; 
     private boolean[][] userShipLocations;
     private boolean difficulty;
+    private int userMoveCount;
 
     public BattleShipController(BattleShipUserInterface ui) {
         this.firstButton = new GridButton("dummy");
@@ -26,7 +30,17 @@ public class BattleShipController
         this.opponentShips = new ArrayList<Ships>();
         this.opponent = new Opponent();
         this.gbState = new GameBoardState();
-        this.userInterface = ui; 
+        this.userInterface = ui;
+        
+        try {
+            FileInputStream fileIn = new FileInputStream("/tmp/bestGame.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            userMoveCount = (int) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (Exception i) {
+            userMoveCount = 0;
+        }
     }
     
     public void startNewGame(boolean difficulty)
@@ -88,6 +102,7 @@ public class BattleShipController
         else {
             boolean moveResult = true;
             moveResult = evaluateMove(selectedButton, gameTable);
+            onResult();
             if (moveResult) {
                 return;
             }
@@ -102,6 +117,7 @@ public class BattleShipController
                 } else {
                     moveResult = false;
                 }
+                onResult();
                 gameTable.updateUserGrid(oppGuess, moveResult);
             }
 
@@ -110,6 +126,7 @@ public class BattleShipController
 
     public boolean evaluateMove(GridButton selectedButton, GameBoard gameTable)
     {
+        userMoveCount++;
         boolean moveEval = false;
         selectedButton.setEnabled(true);
         if (selectedButton.getFree()) {
@@ -139,10 +156,38 @@ public class BattleShipController
         int compResult = gbState.getScore(false);
 
         if (userResult == 0) {
+            int oldUserMoveCount;
+            try {
+                FileInputStream fileIn = new FileInputStream("/tmp/bestGame.ser");
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                oldUserMoveCount = (int) in.readObject();
+                in.close();
+                fileIn.close(); 
+            } catch(Exception e) {
+                oldUserMoveCount = 0;
+            }
+            if (oldUserMoveCount == 0 || oldUserMoveCount > userMoveCount) {
+                try {
+                    Path currentRelativePath = Paths.get("");
+                    String pathToScore = currentRelativePath.toAbsolutePath().toString() + "/tmp/bestGame.ser";
+                    File oldFile = new File(pathToScore);
+                    oldFile.delete();
+                    FileOutputStream fileOut = new FileOutputStream("/tmp/bestGame.ser");
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(userMoveCount);
+                    out.close();
+                    fileOut.close();
+                } catch (Exception e) {
+                }
+            }
             userInterface.setMessage("You won! :)");
+            userInterface.enableComputerGrid(false);
+            userInterface.enableUserGrid(false);
         }
         else if (compResult == 0) {
             userInterface.setMessage("You lost! :(");
+            userInterface.enableComputerGrid(false);
+            userInterface.enableUserGrid(false);
         }
     }
 
@@ -153,7 +198,20 @@ public class BattleShipController
         this.opponentShips = new ArrayList<Ships>();
         this.opponent = new Opponent();
         this.gbState = new GameBoardState();
+        try {
+            FileInputStream fileIn = new FileInputStream("/tmp/bestGame.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            userMoveCount = (int) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (Exception i) {
+            userMoveCount = 0;
+        }
         
         userInterface.closeFrame();
+    }
+
+    public int getUserMoveCount() {
+        return this.userMoveCount;
     }
 }
