@@ -32,23 +32,7 @@ public class Ships
 		if (length == 5) {
 			this.shipName = "Carrier";
 		}
-		//this.setShipName();
 	}
-
-	/*public void setShipName() {
-		if (length == 2) {
-			this.shipName = "Destroyer";
-		}
-		if (length == 3) {
-			this.shipName = "Cruiser";
-		}
-		if (length == 2) {
-			this.shipName = "BattleShip";
-		}
-		if (length == 2) {
-			this.shipName = "Carrier";
-		}
-	}*/
 
 	public String getShipName() {
 		return this.shipName;

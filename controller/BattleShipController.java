@@ -36,7 +36,6 @@ public class BattleShipController
             FileInputStream fileIn = new FileInputStream("bestGame.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             userMoveCount = (int) in.readObject();
-            System.out.println(userMoveCount);
             in.close();
             fileIn.close();
         } catch (Exception i) {
@@ -140,7 +139,6 @@ public class BattleShipController
 
         if (userResult == 0) {
             int oldUserMoveCount;
-            System.out.println("Moves at end: " + userMoveCount);
             try {
                 FileInputStream fileIn = new FileInputStream("bestGame.ser");
                 ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -188,7 +186,6 @@ public class BattleShipController
             FileInputStream fileIn = new FileInputStream("bestGame.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             userMoveCount = (int) in.readObject();
-            System.out.println(userMoveCount);
             in.close();
             fileIn.close();
         } catch (Exception i) {
