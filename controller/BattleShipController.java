@@ -24,8 +24,8 @@ public class BattleShipController
         this.secondSelection = false;
         this.playerShips = new ArrayList<Ships>();
         this.opponentShips = new ArrayList<Ships>();
-        this.opponent = new Opponent(true);
-        this.gbState = new GameBoardState(true);
+        this.opponent = new Opponent();
+        this.gbState = new GameBoardState();
         this.userInterface = ui; 
     }
     

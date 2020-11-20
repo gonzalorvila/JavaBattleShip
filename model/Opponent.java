@@ -24,24 +24,12 @@ public class Opponent
 	private int gridSize;
 	private ArrayList<Ships> userShipLocations;
 	private boolean oppShipsBoolArray[][];
+	private boolean[][] compGuessGrid;
 
-	public Opponent(boolean difficulty) 
+	public Opponent() 
 	{
-		this.gbs = new GameBoardState(difficulty);
-		this.moveResults = new boolean[100];
-		this.prevColumnGuess = new int[100];
-		this.prevRowGuess = new int[100];
-		for(int z = 0; z < 100; z++) {
-			moveResults[z] = false;
-			prevColumnGuess[z] = 0;
-			prevRowGuess[z] = 0;
-		}
+		this.gbs = new GameBoardState();
 		this.opponentShips = new ArrayList<Ships>();
-		if(difficulty) {
-			this.gridSize = 10;
-		} else {
-			this.gridSize = 15;
-		}
 		this.userShipLocations = new ArrayList<Ships>();
 	}
 
@@ -49,8 +37,38 @@ public class Opponent
 	{
 		if (difficulty) {
 			gridSize = 10;
+			this.moveResults = new boolean[100];
+			this.prevColumnGuess = new int[100];
+			this.prevRowGuess = new int[100];
+			for(int z = 0; z < 100; z++) {
+				moveResults[z] = false;
+				prevColumnGuess[z] = 0;
+				prevRowGuess[z] = 0;
+			}
+			this.compGuessGrid = new boolean[gridSize][gridSize];
+			for (int columns =0; columns < gridSize; columns++){
+				for (int rows = 0; rows < gridSize; rows++) {
+					compGuessGrid[rows][columns] = false;
+				}
+			}
+			this.gbs.setCompGrid(compGuessGrid);
 		} else {
 			gridSize = 15;
+			this.moveResults = new boolean[225];
+			this.prevColumnGuess = new int[225];
+			this.prevRowGuess = new int[225];
+			for(int z = 0; z < 225; z++) {
+				moveResults[z] = false;
+				prevColumnGuess[z] = 0;
+				prevRowGuess[z] = 0;
+			}
+			this.compGuessGrid = new boolean[gridSize][gridSize];
+			for (int columns =0; columns < gridSize; columns++){
+				for (int rows = 0; rows < gridSize; rows++) {
+					compGuessGrid[rows][columns] = false;
+				}
+			}
+			this.gbs.setCompGrid(compGuessGrid);
 		}
 		int[] guess = new int[2];
 		if (numOfMoves == 0) {
@@ -160,8 +178,14 @@ public class Opponent
 	public void setOpponentShips(boolean difficulty) {
 		if (difficulty) {
 			gridSize = 10;
+			this.moveResults = new boolean[100];
+			this.prevColumnGuess = new int[100];
+			this.prevRowGuess = new int[100];
 		} else {
 			gridSize = 15;
+			this.moveResults = new boolean[225];
+			this.prevColumnGuess = new int[225];
+			this.prevRowGuess = new int[225];
 		}
 		int[] shipLengths;
 		shipLengths = new int[5];

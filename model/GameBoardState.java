@@ -14,25 +14,11 @@ public class GameBoardState
     private ArrayList<Integer> columnLocation;
     private ArrayList<Ships> userShips;
 
-    public GameBoardState(boolean Difficulty)
+    public GameBoardState()
     {
-      if (Difficulty){
-        this.gridSize = 10;
-      } else {
-        this.gridSize = 15;
-      }
-      this.Difficulty = Difficulty;
       this.userShips = new ArrayList<Ships>();
       this.rowLocation = new ArrayList<Integer>();
       this.columnLocation = new ArrayList<Integer>();
-      this.userShipGrid = new boolean[gridSize][gridSize];
-      this.compGuessGrid = new boolean[gridSize][gridSize];
-      for (int columns =0; columns < gridSize; columns++){
-        for (int rows = 0; rows < gridSize; rows++) {
-          userShipGrid[rows][columns] = false;
-          compGuessGrid[rows][columns] = false;
-        }
-      }
     }
 
     public void setUserGrid(ArrayList<Ships> userShipLocations, boolean Difficulty) {
@@ -61,9 +47,11 @@ public class GameBoardState
 
     public void setCompGrid(boolean[][] compGrid) {
       this.compGuessGrid = compGrid;
+      System.out.println("SetCompGrid works");
     }
 
     public boolean[][] getCompGrid() {
+      System.out.println("GetCompGrid works");
       return compGuessGrid;
     }
 
@@ -72,8 +60,24 @@ public class GameBoardState
         this.Difficulty = Difficulty;
         if(Difficulty) {
           this.gridSize = 10;
+          this.userShipGrid = new boolean[gridSize][gridSize];
+          this.compGuessGrid = new boolean[gridSize][gridSize];
+          for (int columns =0; columns < gridSize; columns++){
+            for (int rows = 0; rows < gridSize; rows++) {
+              userShipGrid[rows][columns] = false;
+              compGuessGrid[rows][columns] = false;
+            }
+          }
         } else {
           this.gridSize = 15;
+          this.userShipGrid = new boolean[gridSize][gridSize];
+          this.compGuessGrid = new boolean[gridSize][gridSize];
+          for (int columns =0; columns < gridSize; columns++){
+            for (int rows = 0; rows < gridSize; rows++) {
+              userShipGrid[rows][columns] = false;
+              compGuessGrid[rows][columns] = false;
+            }
+          }
         }
 	    //we would then use this value of Difficulty to change stuff in the view class and this still needs to be implemented. 
 	    //Right now we have two difficulties: 1 is to make all the ships size 3 so it is harder to find it, 2 is making the board bigger.
