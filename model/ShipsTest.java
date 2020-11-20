@@ -49,20 +49,4 @@ public class ShipsTest {
         assertEquals(5, result);
     }
 
-    @Test
-    public void checkStoringRowsFilled() {
-        Ships ship = new Ships(4, 7, 6, 7, 3);
-        int[] rowsFilled = ship.StoringRowsFilled();
-        int result = rowsFilled.length;
-        assertEquals(3, result);
-    }
-
-    @Test
-    public void checkStoringColumnsFilled() {
-        Ships ship = new Ships(4, 7, 6, 7, 3);
-        int[] columnsFilled = ship.storingColumnsFilled();
-        int result = columnsFilled.length;
-        assertEquals(3, result);
-    }
-
 }
