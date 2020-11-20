@@ -33,9 +33,10 @@ public class BattleShipController
         this.userInterface = ui;
         
         try {
-            FileInputStream fileIn = new FileInputStream("/tmp/bestGame.ser");
+            FileInputStream fileIn = new FileInputStream("bestGame.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             userMoveCount = (int) in.readObject();
+            System.out.println(userMoveCount);
             in.close();
             fileIn.close();
         } catch (Exception i) {
@@ -50,25 +51,7 @@ public class BattleShipController
         opponent.setOpponentShips();
         oppBoolArray = opponent.getOpponentShips();
         userInterface.placeOppShipsOnGrid(oppBoolArray, opponent.getOppShips());
-
-        /*for (Ships s : ships)
-        {
-            // int location = player.setShipLocation(s);
-            // gbState.storeLocations(player, location);
-            // location = opponent.setShipLocation(s);
-            // gbState.storeLocations(opponent, location);
-        }*/
-
-        gbState.setScore(5, 5);
-
-        if ((gbState.getUserScore() != 0) && (gbState.getOpponentScore() != 0))
-        {
-            //makeMove(ships, opponent, gbState);
-        }
-        else
-        {
-            //onResult(ships, opponent, gbState);
-        }
+        userMoveCount = 0;
     }
 
     public void onGridSelection(GridButton selectedButton, GameBoard gameTable, boolean difficulty) {
@@ -157,8 +140,9 @@ public class BattleShipController
 
         if (userResult == 0) {
             int oldUserMoveCount;
+            System.out.println("Moves at end: " + userMoveCount);
             try {
-                FileInputStream fileIn = new FileInputStream("/tmp/bestGame.ser");
+                FileInputStream fileIn = new FileInputStream("bestGame.ser");
                 ObjectInputStream in = new ObjectInputStream(fileIn);
                 oldUserMoveCount = (int) in.readObject();
                 in.close();
@@ -169,15 +153,17 @@ public class BattleShipController
             if (oldUserMoveCount == 0 || oldUserMoveCount > userMoveCount) {
                 try {
                     Path currentRelativePath = Paths.get("");
-                    String pathToScore = currentRelativePath.toAbsolutePath().toString() + "/tmp/bestGame.ser";
+                    String pathToScore = currentRelativePath.toAbsolutePath().toString() + "bestGame.ser";
                     File oldFile = new File(pathToScore);
                     oldFile.delete();
-                    FileOutputStream fileOut = new FileOutputStream("/tmp/bestGame.ser");
+                    FileOutputStream fileOut = new FileOutputStream("bestGame.ser");
                     ObjectOutputStream out = new ObjectOutputStream(fileOut);
                     out.writeObject(userMoveCount);
                     out.close();
                     fileOut.close();
                 } catch (Exception e) {
+                    e.printStackTrace();
+                    userMoveCount = oldUserMoveCount;
                 }
             }
             userInterface.setMessage("You won! :)");
@@ -199,9 +185,10 @@ public class BattleShipController
         this.opponent = new Opponent();
         this.gbState = new GameBoardState();
         try {
-            FileInputStream fileIn = new FileInputStream("/tmp/bestGame.ser");
+            FileInputStream fileIn = new FileInputStream("bestGame.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             userMoveCount = (int) in.readObject();
+            System.out.println(userMoveCount);
             in.close();
             fileIn.close();
         } catch (Exception i) {
