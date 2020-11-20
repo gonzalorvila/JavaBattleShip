@@ -256,14 +256,11 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
             }
         }
         for (Ships s: ships) {
-            System.out.println("ship start row, column: " + s.getStartRow() + ", " + s.getStartColumn());
             ArrayList<Integer> columns = s.storingColumnsFilled();
 			ArrayList<Integer> rows = s.storingRowsFilled();
             for (int i = 0; i < columns.size(); i++) {
-                System.out.println("Setting start row and column of  " + rows.get(i) + " and " + columns.get(i) + " to: " + s.getStartRow() + " and " + s.getStartColumn());
                 oppButton[rows.get(i)][columns.get(i)].setStartRow(s.getStartRow());
                 oppButton[rows.get(i)][columns.get(i)].setStartColumn(s.getStartColumn());
-                System.out.println("Set row: " + oppButton[rows.get(i)][columns.get(i)].getStartRow() + "Set column:" + oppButton[rows.get(i)][columns.get(i)].getStartColumn());
             }
         }
         computerGrid.setGrid(oppButton);

@@ -20,6 +20,38 @@ public class Ships
 		this.endColumn = endColumn;
 		this.length = length;
 		this.score = length;
+		if (length == 2) {
+			this.shipName = "Destroyer";
+		}
+		if (length == 3) {
+			this.shipName = "Cruiser";
+		}
+		if (length == 4) {
+			this.shipName = "BattleShip";
+		}
+		if (length == 5) {
+			this.shipName = "Carrier";
+		}
+		//this.setShipName();
+	}
+
+	/*public void setShipName() {
+		if (length == 2) {
+			this.shipName = "Destroyer";
+		}
+		if (length == 3) {
+			this.shipName = "Cruiser";
+		}
+		if (length == 2) {
+			this.shipName = "BattleShip";
+		}
+		if (length == 2) {
+			this.shipName = "Carrier";
+		}
+	}*/
+
+	public String getShipName() {
+		return this.shipName;
 	}
 
 	public void setStartColumn(int i) {

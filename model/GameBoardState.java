@@ -13,9 +13,11 @@ public class GameBoardState
     private ArrayList<Integer> rowLocation;
     private ArrayList<Integer> columnLocation;
     private ArrayList<Ships> userShips;
+    private int score;
 
     public GameBoardState()
     {
+      this.score = 5;
       this.userShips = new ArrayList<Ships>();
       this.rowLocation = new ArrayList<Integer>();
       this.columnLocation = new ArrayList<Integer>();
@@ -47,11 +49,9 @@ public class GameBoardState
 
     public void setCompGrid(boolean[][] compGrid) {
       this.compGuessGrid = compGrid;
-      System.out.println("SetCompGrid works");
     }
 
     public boolean[][] getCompGrid() {
-      System.out.println("GetCompGrid works");
       return compGuessGrid;
     }
 
@@ -102,26 +102,28 @@ public class GameBoardState
     {
 		return opponentScore; 
     }
+
+    public int getScore() {
+      return score; 
+    }
     
-    public boolean onHit(int row, int column, ArrayList<Ships> ships)
+    public Ships onHit(int row, int column, ArrayList<Ships> ships)
     {
       for (Ships s: ships) {
         ArrayList<Integer> columns = s.storingColumnsFilled();
         ArrayList<Integer> rows = s.storingRowsFilled();
         for (int i = 0; i < rows.size(); i++) {
-          System.out.println("Guess: " + row + ", " + column);
-          System.out.println("Ship location: " + rows.get(i) + ", " + columns.get(i));
           if (row == columns.get(i) && column == rows.get(i)) {
             s.setScore(s.getScore()-1);
-            System.out.println(s.getScore());
             if (s.getScore() == 0) {
               isSunk(row, column);
-              return false;
+              score--;
+              return s;
             }
           }
         }
       }
-      return true;
+      return null;
     }
 
     public boolean isSunk(int row, int column) 

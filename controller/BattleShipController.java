@@ -32,7 +32,8 @@ public class BattleShipController
     public void startNewGame(boolean difficulty)
     {
         this.difficulty = difficulty;
-        opponent.setOpponentShips(difficulty);
+        opponent.setMoveHistory(difficulty);
+        opponent.setOpponentShips();
         oppBoolArray = opponent.getOpponentShips();
         userInterface.placeOppShipsOnGrid(oppBoolArray, opponent.getOppShips());
 
@@ -94,7 +95,7 @@ public class BattleShipController
             moveResult = true;
             
             while(moveResult) {
-                oppGuess = opponent.opponentMove(playerShips,difficulty);
+                oppGuess = opponent.opponentMove(playerShips);
                 if(userShipLocations[oppGuess[0]][oppGuess[1]] == true) {
                     moveResult = true;
                 } else {
@@ -109,7 +110,6 @@ public class BattleShipController
     public boolean evaluateMove(GridButton selectedButton, GameBoard gameTable)
     {
         boolean moveEval = false;
-        boolean isStanding = true;
         selectedButton.setEnabled(true);
         if (selectedButton.getFree()) {
             selectedButton.setBackground(Color.BLUE);
@@ -120,13 +120,13 @@ public class BattleShipController
             opponentShips = opponent.getOppShips();
             System.out.println("SelectedButton row: " + selectedButton.getRow());
             System.out.println("SelectedButton col: " + selectedButton.getColumn());
-            isStanding = gbState.onHit(selectedButton.getRow(), selectedButton.getColumn(), opponentShips);
+            Ships hitResult = gbState.onHit(selectedButton.getRow(), selectedButton.getColumn(), opponentShips);
             selectedButton.setBackground(Color.RED);
-            if (isStanding) {
+            if (hitResult == null) {
                 gameTable.setMessage("Hit!");
             }
             else {
-                gameTable.setMessage("Sunk!");
+                gameTable.setMessage("You sunk the " + hitResult.getShipName() + "! Ships remaining: " + gbState.getScore());
             }
             moveEval = true;
         }
