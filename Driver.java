@@ -52,6 +52,15 @@ public class Driver
                                     controller.onGridSelection(selection, gameTable, gbState.getDifficulty());
                                 }
                             }
+                        },  new ActionListener() {
+                                public void actionPerformed(ActionEvent e) {
+                                    Object obj = e.getSource();
+                                    if (obj instanceof JButton) {
+                                        JButton selection = (JButton) obj;
+                                        System.out.println("I can restart");
+                                        controller.playAgain();
+                                    }
+                                }
                         }, gbState.getDifficulty());
                         controller.startNewGame(gbState.getDifficulty());
                     }

@@ -97,6 +97,7 @@ public class BattleShipController
             while(moveResult) {
                 oppGuess = opponent.opponentMove(playerShips);
                 if(userShipLocations[oppGuess[0]][oppGuess[1]] == true) {
+                    Ships s = gbState.onHit(selectedButton.getRow(), selectedButton.getColumn(), playerShips, false);
                     moveResult = true;
                 } else {
                     moveResult = false;
@@ -112,21 +113,19 @@ public class BattleShipController
         boolean moveEval = false;
         selectedButton.setEnabled(true);
         if (selectedButton.getFree()) {
-            selectedButton.setBackground(Color.BLUE);
+            selectedButton.setBackground(Color.GREEN);
             gameTable.setMessage("Miss!");
             moveEval = false;
         }
         else {
             opponentShips = opponent.getOppShips();
-            System.out.println("SelectedButton row: " + selectedButton.getRow());
-            System.out.println("SelectedButton col: " + selectedButton.getColumn());
-            Ships hitResult = gbState.onHit(selectedButton.getRow(), selectedButton.getColumn(), opponentShips);
+            Ships hitResult = gbState.onHit(selectedButton.getRow(), selectedButton.getColumn(), opponentShips, true);
             selectedButton.setBackground(Color.RED);
             if (hitResult == null) {
                 gameTable.setMessage("Hit!");
             }
             else {
-                gameTable.setMessage("You sunk the " + hitResult.getShipName() + "! Ships remaining: " + gbState.getScore());
+                gameTable.setMessage("You sunk the " + hitResult.getShipName() + "! Ships remaining: " + gbState.getScore(true));
             }
             moveEval = true;
         }
@@ -134,67 +133,27 @@ public class BattleShipController
         return moveEval;
     }
 
-
-
-    /*public static void makeMove(ArrayList<Ships> ships, Opponent opponent, GameBoardState gbState)
+    public void onResult()
     {
-        boolean moveResult = false; //will be set to true during gameplay
-        System.out.println("BattleShipController:: makeMove");
-    
-        while(moveResult)
-        {
-            // Call teminal input class to get location of attack on opponet board
-            // This will return int location
-            int location = 0;
-            if (valid)
-            {
-                moveResult = gbState.isHit(location);
-                if (moveResult)
-                {
-                    makeMove(ships, opponent, gbState);
-                }
-            }
-        }
+        int userResult = gbState.getScore(true);
+        int compResult = gbState.getScore(false);
 
-        if (gbState.getOpponentScore() == 0)
-        {
-            moveResult = false;
+        if (userResult == 0) {
+            userInterface.setMessage("You won! :)");
         }
-        else
-        {
-            moveResult = false; //will be set to true during gameplay
+        else if (compResult == 0) {
+            userInterface.setMessage("You lost! :(");
         }
-        opponent.opponentMove();
+    }
+
+    public void playAgain() {
+        this.firstButton = new GridButton("dummy");
+        this.secondSelection = false;
+        this.playerShips = new ArrayList<Ships>();
+        this.opponentShips = new ArrayList<Ships>();
+        this.opponent = new Opponent();
+        this.gbState = new GameBoardState();
         
-        while (moveResult)
-        {
-            boolean valid = gbState.checkMove(oppLocation);
-            if (valid)
-            {
-                moveResult = gbState.isHit(oppLocation);
-                if (moveResult)
-                {
-                    opponent.opponentMove();
-                }
-            }
-        }
-
-        if ((gbState.getUserScore() == 0) || gbState.getOpponentScore() == 0)
-        {
-            onResult(ships, opponent, gbState);
-        }
-    }*/
-
-    public void onResult(ArrayList<Ships> ships, Opponent opponent, GameBoardState gbState)
-    {
-        if (gbState.getUserScore() == 0)
-        {
-            System.out.println("Opponent Wins!");
-            // Final product will not print to terminal.
-        }
-        else
-        {
-            System.out.println("User Wins!");
-        }
+        userInterface.closeFrame();
     }
 }
