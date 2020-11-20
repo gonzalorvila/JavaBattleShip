@@ -7,29 +7,33 @@ import java.util.ArrayList;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.*;
+import java.io.*;
 
 public class Driver
 {
-    public static void main(String []args)
+    public static void main(String []args) throws IOException
     {
         
         GameBoard gameTable = new GameBoard();
         BattleShipController controller = new BattleShipController(gameTable);
-        GameBoardState gbState = new GameBoardState(true);
+        GameBoardState gbState = new GameBoardState();
 
-        mainMenuPanel menu = new mainMenuPanel();
+        MainMenuPanel menu = new MainMenuPanel();
+        gbState.setDifficulty(true);
         menu.makeMainMenu(new ActionListener() {
              public void actionPerformed(ActionEvent e) {
                 Object obj = e.getSource();
                 if (obj instanceof JButton){
                     JButton j = (JButton) obj;
-                    if (j.getName() == "Regular Mode") {
+                    if (j.getText().equals("Regular Mode")) {
                         gbState.setDifficulty(true);
+                        System.out.println("Regular mode");
                     }
-                    else if (j.getName() == "Hard Mode: Bigger Board!") {
+                    else if (j.getText().equals("Hard Mode: Bigger Board!")) {
                         gbState.setDifficulty(false);
+                        System.out.println("Hard mode baby");
                     }
-                    else if (j.getName() == "Start Game") {
+                    else if (j.getText().equals("Start Game")) {
                         gameTable.createGameBoard(new ActionListener() {
                             public void actionPerformed(ActionEvent e) {
                                 Object obj = e.getSource();
@@ -48,13 +52,23 @@ public class Driver
                                     controller.onGridSelection(selection, gameTable, gbState.getDifficulty());
                                 }
                             }
+                        },  new ActionListener() {
+                                public void actionPerformed(ActionEvent e) {
+                                    Object obj = e.getSource();
+                                    if (obj instanceof JButton) {
+                                        JButton selection = (JButton) obj;
+                                        System.out.println("I can restart");
+                                        controller.playAgain();
+                                    }
+                                }
                         }, gbState.getDifficulty());
+                        controller.startNewGame(gbState.getDifficulty());
                     }
                 }
             }
         });
         
-        controller.startNewGame(gbState.getDifficulty());
+        
         //UseCases useCases = new UseCases();
 
         //useCases.startNewGame(shipArray, player, opponent, gbState);       

@@ -22,13 +22,8 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
     private JLabel message;
     private GridButton firstButton;
     private boolean difficulty;
-    /*private ShipPanel Carrier;
-    private ShipPanel battleship;
-    private ShipPanel cruiser;
-    private ShipPanel submarine;
-    private ShipPanel destroyer;*/
 
-    public void createGameBoard(ActionListener shipActionListener, ActionListener gridActionListener, boolean difficulty) {
+    public void createGameBoard(ActionListener shipActionListener, ActionListener gridActionListener, ActionListener backActionListener, boolean difficulty) {
         this.firstButton = new GridButton("dummy");
         // Top level container for the game
         mainFrame = new JFrame("Battleship");
@@ -50,9 +45,11 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
             this.userGrid = new GridPanel(15, 50, 50, gridActionListener, true);            
         }
 
+        System.out.println("Set grids");
+
         //Panel to show ships
         JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(new GridLayout(2, 1));
+        rightPanel.setLayout(new GridLayout(4, 1));
         rightPanel.setPreferredSize(new Dimension(400, 200));
         
         this.ships = new ShipPanel(100, 100);
@@ -68,6 +65,31 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
         this.message = new JLabel("Welcome to BattleShip! Select a ship to begin placement");
         messagePanel.add(message);
         rightPanel.add(messagePanel);
+
+        // Legend panel
+        JPanel legendPanel = new JPanel();
+        legendPanel.setLayout(new BoxLayout(legendPanel, BoxLayout.Y_AXIS));
+        JLabel instructions = new JLabel("Instructions");
+        instructions.setFont(new Font("Serif", Font.BOLD, 20));
+        JLabel missDescription = new JLabel("Green: Miss");
+        JLabel hitedDescription = new JLabel("Red: Hit");
+        JLabel unexploredDescription = new JLabel("Blue: Unexplored");
+
+        legendPanel.add(instructions);
+        legendPanel.add(missDescription);
+        legendPanel.add(hitedDescription);
+        legendPanel.add(unexploredDescription);
+
+        rightPanel.add(legendPanel);
+
+        // Restart Panel
+        JPanel restartPanel = new JPanel();
+        restartPanel.setLayout(new BorderLayout());
+        JButton backButton = new JButton("Start new game");
+        backButton.addActionListener(backActionListener);
+        restartPanel.add(backButton, BorderLayout.CENTER);
+        rightPanel.add(restartPanel);
+
 
         // Place both grids on the  battleship table
         battleshipTable.add(this.computerGrid);
@@ -256,16 +278,18 @@ public class GameBoard extends JPanel implements BattleShipUserInterface
             }
         }
         for (Ships s: ships) {
-            System.out.println("ship start row, column: " + s.getStartRow() + ", " + s.getStartColumn());
             ArrayList<Integer> columns = s.storingColumnsFilled();
 			ArrayList<Integer> rows = s.storingRowsFilled();
             for (int i = 0; i < columns.size(); i++) {
-                System.out.println("Setting start row and column of  " + rows.get(i) + " and " + columns.get(i) + " to: " + s.getStartRow() + " and " + s.getStartColumn());
                 oppButton[rows.get(i)][columns.get(i)].setStartRow(s.getStartRow());
                 oppButton[rows.get(i)][columns.get(i)].setStartColumn(s.getStartColumn());
-                System.out.println("Set row: " + oppButton[rows.get(i)][columns.get(i)].getStartRow() + "Set column:" + oppButton[rows.get(i)][columns.get(i)].getStartColumn());
             }
         }
         computerGrid.setGrid(oppButton);
     }
+
+    public void closeFrame() {
+        
+        mainFrame.dispose();
+    } 
 }
