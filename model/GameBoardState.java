@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 public class GameBoardState
 {
-  private Opponent opponent;
   private boolean userShipGrid[][];
   private boolean compGuessGrid[][];
   private int opponentScore;
